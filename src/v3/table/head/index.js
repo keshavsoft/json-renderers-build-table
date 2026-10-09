@@ -1,16 +1,9 @@
+import buildHeadRow from "./row/index.js";
+
 const renderTableHead = ({ inColumns = [] } = {}) => ({
     tagName: "thead",
     children: [
-        {
-            tagName: "tr",
-            children: inColumns.map(column => ({
-                tagName: "th",
-                attributes: {
-                    value: column
-                },
-                textContent: column
-            }))
-        }
+        buildHeadRow({ inColumns })
     ]
 });
 
