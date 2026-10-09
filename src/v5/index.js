@@ -3,16 +3,22 @@ import renderTable, {
     renderTableBody
 } from "./table/index.js";
 
+import applyOptions from "./options/index.js";
+
 const render = ({
     type = "table",
     data = [],
-    columns = []
+    columns = [],
+    options = {}
 } = {}) => {
     if (type === "table") {
-        return renderTable({
+        const spec = renderTable({
             inColumns: columns,
             inData: data
         });
+        console.log("inOptions : ", options);
+
+        return applyOptions(spec, options);
     }
 
     if (type === "tableHead" || type === "head") {
