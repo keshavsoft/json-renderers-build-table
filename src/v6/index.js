@@ -17,7 +17,7 @@ const render = ({
             inColumns: columns,
             inData: data
         });
-        console.log("inOptions : ", options);
+        // console.log("inOptions : ", options);
 
         return applyOptions(spec, options);
     }
