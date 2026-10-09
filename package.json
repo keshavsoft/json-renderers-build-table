@@ -12,6 +12,11 @@
     "README.md"
   ],
   "scripts": {
-    "test": "node test/v1/index.js"
+    "test": "node test/v1/index.js",
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^8.3.4"
   }
 }
