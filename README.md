@@ -16,3 +16,13 @@ const table = render(request);
 ```
 
 The catalog is also available as `render.requests` when importing the default renderer. Clone a catalog entry before changing it so the shared examples remain unchanged.
+
+To add a footer row with one text input per column, enable `showFooter`:
+
+```js
+const request = structuredClone(renderRequests.tableWithFooter);
+request.data = myData;
+const table = render(request);
+```
+
+Use `showFooterSave` to add a separate footer row with the same inputs and a Save button in the last input cell.
