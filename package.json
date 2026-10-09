@@ -1,0 +1,17 @@
+{
+  "name": "json-renderers-build-table",
+  "version": "0.1.0",
+  "description": "Focused table specification builder with configurable rows and cells",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node test/v1/index.js"
+  }
+}
