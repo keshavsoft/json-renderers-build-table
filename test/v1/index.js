@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import render from "../../src/index.js";
+import render from "../../src/v1/index.js";
 
 const button = {
     tagName: "button",
