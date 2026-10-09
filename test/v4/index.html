@@ -25,7 +25,7 @@
   </main>
 
   <script type="module">
-    import render from "../../src/index.js";
+    import render, { renderRequests } from "../../src/index.js";
     import buildSpecElement from "https://keshavsoft.github.io/json-to-tag/dist/v9/min.js";
 
     const container = document.getElementById("dom-render-container");
@@ -73,6 +73,8 @@
         container.innerHTML = `<div class="alert alert-danger font-monospace small mb-0">${err.message}</div>`;
       }
     };
+
+    console.log("k1 : ", renderRequests);
 
     start();
   </script>
