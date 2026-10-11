@@ -1,4 +1,7 @@
-import render from "../../src/index.js";
+import render from "../../docs/dist/v13/min.js";
+
+// import render from "../../src/index.js";
+
 import data from "./batches.json" with { type: "json" };
 
 const start = () => {
@@ -6,8 +9,8 @@ const start = () => {
     const tableElement = render({
       targetHtmlId: "dom-render-container",
       columns: [
-        { key: "itemName", label: "Item Name" },
-        { key: "baseUnit", label: "Base Unit" }
+        { columnName: "itemName", label: "Item Name" },
+        { columnName: "baseUnit", label: "Base Unit" }
       ],
       colGroup: [
         { width: "70%" },

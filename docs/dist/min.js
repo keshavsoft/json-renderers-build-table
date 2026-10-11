@@ -403,23 +403,17 @@ var C = {
 		children: []
 	}]
 }, T = ({ targetHtmlId: e, columns: t = [], data: r = [], colGroup: i = [] } = {}) => {
-	let a = e, o = t, s = r;
-	tableFromData({
-		inData: {
-			columns: o,
-			rows: s
-		},
-		inSpec: C,
-		inTable: w
-	});
-	let c = n(o, C.buildHeader), l = w.children.find((e) => e.tagName === "thead");
-	l.children[0].children = c;
-	let u = S(w);
+	let a = e, o = n(t, C.buildHeader), s = w.children.find((e) => e.tagName === "thead");
+	s.children[0].children = o;
+	let c = S(w);
 	if (a && typeof document < "u") {
 		let e = document.getElementById(a);
-		e && (e.innerHTML = "", e.append(u));
+		e && (e.innerHTML = "", e.append(c));
 	}
-	return u;
+	return c;
+}, E = ({ columns: e = [], data: t = [], colGroup: r = [] } = {}) => {
+	let i = n(e, C.buildHeader), a = w.children.find((e) => e.tagName === "thead");
+	return a.children[0].children = i, w;
 };
 //#endregion
-export { T as default, T as render, T as renderTable };
+export { E as buildSpec, T as default, T as render, T as renderTable };
