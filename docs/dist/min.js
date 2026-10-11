@@ -402,19 +402,19 @@ var w = {
 		tagName: "tbody",
 		children: []
 	}]
-}, E = ({ inTargetHtmlId: e, targetHtmlId: t, inColumns: n = [], inData: i = [], inColGroup: a = [] } = {}) => {
-	let o = e || t, s = r({
+}, E = ({ targetHtmlId: e, columns: t = [], data: n = [], colGroup: i = [] } = {}) => {
+	let a = e, o = t, s = n, c = i, l = r({
 		inData: {
-			columns: n,
-			rows: i
+			columns: o,
+			rows: s
 		},
 		inSpec: w,
 		inTable: T
 	});
-	if (Array.isArray(a) && a.length > 0) {
+	if (Array.isArray(c) && c.length > 0) {
 		let e = {
 			tagName: "colgroup",
-			children: a.map((e) => {
+			children: c.map((e) => {
 				let t = typeof e == "string" ? e : e?.width, n = typeof e == "object" ? e?.style : void 0, r = {};
 				return n ? r.style = n : t && (r.style = `width: ${t};`), typeof e == "object" && e?.class && (r.class = e.class), {
 					tagName: "col",
@@ -422,19 +422,14 @@ var w = {
 				};
 			})
 		};
-		s.children.unshift(e);
+		l.children.unshift(e);
 	}
-	let c = C(s);
-	if (o && typeof document < "u") {
-		let e = document.getElementById(o);
-		e && (e.innerHTML = "", e.append(c));
+	let u = C(l);
+	if (a && typeof document < "u") {
+		let e = document.getElementById(a);
+		e && (e.innerHTML = "", e.append(u));
 	}
-	return c;
-}, D = ({ inTargetHtmlId: e, targetHtmlId: t, inColumns: n, columns: r, inData: i, data: a, inColGroup: o, colGroup: s } = {}) => E({
-	inTargetHtmlId: e || t,
-	inColumns: n || r,
-	inData: i || a,
-	inColGroup: o || s
-});
+	return u;
+};
 //#endregion
-export { D as default, D as render, E as renderTable };
+export { E as default, E as render, E as renderTable };

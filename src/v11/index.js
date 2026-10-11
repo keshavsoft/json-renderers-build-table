@@ -1,31 +1,34 @@
+
 import { tableFromData } from "json-transformer-funcs";
 import jsonToTag from "@keshavsoft/json-to-tag";
 
 import spec from "./spec.json" with { type: "json" };
 import table from "./table.json" with { type: "json" };
 
-const startFunc = ({
-    inTargetHtmlId,
+const render = ({
     targetHtmlId,
-    inColumns = [],
-    inData = [],
-    inColGroup = []
+    columns = [],
+    data = [],
+    colGroup = []
 } = {}) => {
-    const localTargetHtmlId = inTargetHtmlId || targetHtmlId;
+    const localTargetHtmlId = targetHtmlId;
+    const localColumns = columns;
+    const localData = data;
+    const localColGroup = colGroup;
 
     const tableSpec = tableFromData({
         inData: {
-            columns: inColumns,
-            rows: inData
+            columns: localColumns,
+            rows: localData
         },
         inSpec: spec,
         inTable: table
     });
 
-    if (Array.isArray(inColGroup) && inColGroup.length > 0) {
+    if (Array.isArray(localColGroup) && localColGroup.length > 0) {
         const colgroupSpec = {
             tagName: "colgroup",
-            children: inColGroup.map(col => {
+            children: localColGroup.map(col => {
                 const width = typeof col === "string" ? col : col?.width;
                 const style = typeof col === "object" ? col?.style : undefined;
                 const attributes = {};
@@ -63,5 +66,6 @@ const startFunc = ({
     return element;
 };
 
-export { startFunc as renderTable };
-export default startFunc;
+export { render, render as renderTable };
+export default render;
+
