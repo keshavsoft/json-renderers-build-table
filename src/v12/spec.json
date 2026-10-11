@@ -1,18 +1,30 @@
 {
+  "buildColGroup": {
+    "tagName": "col",
+    "attributes": {
+      "width": "${width}"
+    }
+  },
   "buildHeader": {
     "tagName": "th",
-    "textContent": "${label}",
+    "textContent": "${columnName}",
     "attributes": {
-      "scope": "col"
+      "class": "py-3 px-3 fw-semibold text-uppercase small"
     }
   },
   "buildBody": {
     "outerTemplate": {
-      "tagName": "tr"
+      "tagName": "tr",
+      "attributes": {
+        "class": "align-middle"
+      }
     },
     "innerTemplate": {
       "tagName": "td",
-      "textContent": "${rowValue}"
+      "textContent": "${rowValue}",
+      "attributes": {
+        "class": "py-3 px-3 text-secondary"
+      }
     }
   }
 }

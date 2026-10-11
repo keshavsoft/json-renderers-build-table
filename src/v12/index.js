@@ -1,5 +1,4 @@
-
-import { tableFromData } from "json-transformer-funcs";
+import { collectionFromKey } from "json-transformer-funcs";
 import jsonToTag from "@keshavsoft/json-to-tag";
 
 import spec from "./spec.json" with { type: "json" };
@@ -16,44 +15,24 @@ const render = ({
     const localData = data;
     const localColGroup = colGroup;
 
-    const tableSpec = tableFromData({
-        inData: {
-            columns: localColumns,
-            rows: localData
-        },
-        inSpec: spec,
-        inTable: table
-    });
+    // const tableSpec = tableFromData({
+    //     inData: {
+    //         columns: localColumns,
+    //         rows: localData
+    //     },
+    //     inSpec: spec,
+    //     inTable: table
+    // });
 
-    if (Array.isArray(localColGroup) && localColGroup.length > 0) {
-        const colgroupSpec = {
-            tagName: "colgroup",
-            children: localColGroup.map(col => {
-                const width = typeof col === "string" ? col : col?.width;
-                const style = typeof col === "object" ? col?.style : undefined;
-                const attributes = {};
+    const localHead = collectionFromKey(localColumns, spec.buildHeader);
 
-                if (style) {
-                    attributes.style = style;
-                } else if (width) {
-                    attributes.style = `width: ${width};`;
-                }
+    const thead = table.children.find(child => child.tagName === "thead");
+    // const tbody = table.children.find(child => child.tagName === "tbody");
 
-                if (typeof col === "object" && col?.class) {
-                    attributes.class = col.class;
-                }
+    thead.children[0].children = localHead;
+    // tbody.children = localBody;
 
-                return {
-                    tagName: "col",
-                    ...(Object.keys(attributes).length > 0 ? { attributes } : {})
-                };
-            })
-        };
-
-        tableSpec.children.unshift(colgroupSpec);
-    }
-
-    const element = jsonToTag(tableSpec);
+    const element = jsonToTag(table);
 
     if (localTargetHtmlId && typeof document !== "undefined") {
         const container = document.getElementById(localTargetHtmlId);
@@ -66,6 +45,26 @@ const render = ({
     return element;
 };
 
-export { render, render as renderTable };
+const buildSpec = ({
+    columns = [],
+    data = [],
+    colGroup = []
+} = {}) => {
+    const localColumns = columns;
+    const localData = data;
+    const localColGroup = colGroup;
+
+    const localHead = collectionFromKey(localColumns, spec.buildHeader);
+
+    const thead = table.children.find(child => child.tagName === "thead");
+    // const tbody = table.children.find(child => child.tagName === "tbody");
+
+    thead.children[0].children = localHead;
+    // tbody.children = localBody;
+
+    return table;
+};
+
+export { render, render as renderTable, buildSpec };
 export default render;
 

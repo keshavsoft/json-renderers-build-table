@@ -1,4 +1,4 @@
-import render from "../../../docs/dist/v11/min.js";
+import render from "../../../docs/dist/v12/min.js";
 
 const logEl = document.getElementById("dom-log");
 const log = (msg) => {

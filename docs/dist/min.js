@@ -1,50 +1,42 @@
-//#region node_modules/json-transformer-funcs/src/v3/collectionFromKey/index.js
-var e = (e, t) => {
-	let n = e, r = t, i = r?.textContent?.replace("${", "").replace("}", "");
-	return n.map((e) => {
-		let t = structuredClone(r);
-		return t.textContent = e?.[i], t;
-	});
-}, t = (e, t, r) => {
-	let i = e, a = t, o = r;
-	return i.map((e) => {
-		let t = structuredClone(a);
-		return t.children = n({
-			inSource: e,
-			inTemplate: o
-		}), t;
-	});
-}, n = ({ inSource: e, inTemplate: t }) => {
-	let n = e, r = t, i = [];
-	for (let [e, t] of Object.entries(n)) {
-		let e = structuredClone(r);
-		e.textContent = e.textContent.replace("${rowValue}", t).replace("${}", t), i.push(e);
+//#region node_modules/json-transformer-funcs/src/v4/collectionFromKey/getContentKey.js
+var e = (e) => {
+	let t = e;
+	if (t && t.startsWith("$")) return t?.replace("${", "").replace("}", "");
+}, t = (t, n) => {
+	let r = {};
+	for (let [i, a] of Object.entries(t)) {
+		r[i] = a;
+		let t = e(a);
+		t && t in n && (r[i] = n?.[t]);
 	}
-	return i;
-}, r = ({ inData: n, inSpec: r, inTable: i }) => {
-	let a = n, o = r, s = structuredClone(i), c = e(a.columns, o.buildHeader), l = t(a.rows, o.buildBody.outerTemplate, o.buildBody.innerTemplate), u = s.children.find((e) => e.tagName === "thead"), d = s.children.find((e) => e.tagName === "tbody");
-	return u.children[0].children = c, d.children = l, s;
-}, i = {
+	return r;
+}, n = (n, r) => {
+	let i = n, a = r, o = e(a?.textContent);
+	return i.map((e) => {
+		let n = structuredClone(a);
+		return o && (n.textContent = e?.[o]), "attributes" in n && (n.attributes = t(n.attributes, e)), n;
+	});
+}, r = {
 	version: "v9",
 	description: "JSON-to-DOM engine with SVG namespace support, mixed text content, and centralized traversal"
-}, a = ({ inFuncDefinition: e, inReviewSpec: t } = {}) => {
+}, i = ({ inFuncDefinition: e, inReviewSpec: t } = {}) => {
 	if (typeof globalThis > "u" || !e) return;
 	globalThis.ks ??= {};
 	let n = {
-		meta: i,
+		meta: r,
 		buildSpecElement: e,
 		reviewSpec: t
 	};
 	globalThis.ks["json-to-tag"] = n, globalThis.ks.jsonToTag = n;
-}, o = (e) => e == null ? null : typeof Node < "u" && e instanceof Node ? e : typeof e == "string" || typeof e == "number" ? document.createTextNode(String(e)) : typeof e == "object" && (e.nodeType === 3 || e.tagName === "#text" || !e.tagName && (e.textContent !== void 0 || e.text !== void 0)) ? document.createTextNode(e.textContent ?? e.text ?? "") : v(e), s = (e) => Array.isArray(e) ? e.map(o).flat(Infinity).filter(Boolean) : [], c = (e) => e ?? e, l = "http://www.w3.org/2000/svg", u = /* @__PURE__ */ new Set(/* @__PURE__ */ "svg.path.symbol.use.g.circle.ellipse.rect.line.polyline.polygon.text.tspan.defs.clippath.mask.pattern.marker.lineargradient.radialgradient.stop.image.filter.fegaussianblur.femerge.femergenode".split(".")), d = ({ inTagName: e }) => {
+}, a = (e) => e == null ? null : typeof Node < "u" && e instanceof Node ? e : typeof e == "string" || typeof e == "number" ? document.createTextNode(String(e)) : typeof e == "object" && (e.nodeType === 3 || e.tagName === "#text" || !e.tagName && (e.textContent !== void 0 || e.text !== void 0)) ? document.createTextNode(e.textContent ?? e.text ?? "") : _(e), o = (e) => Array.isArray(e) ? e.map(a).flat(Infinity).filter(Boolean) : [], s = (e) => e ?? e, c = "http://www.w3.org/2000/svg", l = /* @__PURE__ */ new Set(/* @__PURE__ */ "svg.path.symbol.use.g.circle.ellipse.rect.line.polyline.polygon.text.tspan.defs.clippath.mask.pattern.marker.lineargradient.radialgradient.stop.image.filter.fegaussianblur.femerge.femergenode".split(".")), u = ({ inTagName: e }) => {
 	let t = e?.toLowerCase();
 	if (!t) return null;
 	if (t === "checkbox") {
 		let e = document.createElement("input");
 		return e.type = "checkbox", e;
 	}
-	return u.has(t) ? document.createElementNS(l, t) : document.createElement(t);
-}, f = ({ inElement: e, inTextContent: t }) => (!e || t == null || (e.textContent = t), e), p = ({ inElement: e, inProperties: t }) => (e && t && typeof t == "object" && Object.assign(e, t), e), m = "http://www.w3.org/1999/xlink", h = ({ inElement: e, inAttributes: t }) => {
+	return l.has(t) ? document.createElementNS(c, t) : document.createElement(t);
+}, d = ({ inElement: e, inTextContent: t }) => (!e || t == null || (e.textContent = t), e), f = ({ inElement: e, inProperties: t }) => (e && t && typeof t == "object" && Object.assign(e, t), e), p = "http://www.w3.org/1999/xlink", m = ({ inElement: e, inAttributes: t }) => {
 	let n = e, r = t;
 	if (!n || !r || typeof r != "object") return n;
 	let i = typeof SVGElement < "u" ? n instanceof SVGElement : n.namespaceURI === "http://www.w3.org/2000/svg";
@@ -54,39 +46,39 @@ var e = (e, t) => {
 			if (t != null) {
 				let e = String(t);
 				if (i) try {
-					n.setAttributeNS(m, "href", e);
+					n.setAttributeNS(p, "href", e);
 				} catch {}
 				n.setAttribute("href", e), n.setAttribute("xlink:href", e);
 			}
 		} else typeof t == "boolean" ? t ? n.setAttribute(e, "") : n.removeAttribute(e) : t != null && n.setAttribute(e, String(t));
 	}), n;
-}, g = ({ inElement: e, inClassList: t }) => {
+}, h = ({ inElement: e, inClassList: t }) => {
 	if (!e || !t) return e;
 	let n = typeof t == "string" ? t.split(/\s+/).filter(Boolean) : Array.isArray(t) ? t.filter((e) => typeof e == "string" && e.trim()) : [];
 	return n.length && e.classList.add(...n), e;
-}, _ = (e) => {
+}, g = (e) => {
 	if (!e || typeof e != "object" || Array.isArray(e) || !e.tagName) return null;
-	let t = d({ inTagName: e.tagName });
+	let t = u({ inTagName: e.tagName });
 	if (!t) return null;
-	if (f({
+	if (d({
 		inElement: t,
-		inTextContent: c(e.textContent),
+		inTextContent: s(e.textContent),
 		inTagName: e.tagName
-	}), p({
+	}), f({
 		inElement: t,
 		inProperties: e.properties
-	}), h({
+	}), m({
 		inElement: t,
 		inAttributes: e.attributes
-	}), g({
+	}), h({
 		inElement: t,
 		inClassList: e.classList
 	}), Array.isArray(e.children)) {
-		let n = s(e.children);
+		let n = o(e.children);
 		n.length && t.append(...n);
 	}
 	return t;
-}, v = (e) => e == null ? null : typeof Node < "u" && e instanceof Node ? e : Array.isArray(e) ? s(e) : typeof e == "object" ? _(e) : typeof e == "string" || typeof e == "number" ? document.createTextNode(String(e)) : null, y = {
+}, _ = (e) => e == null ? null : typeof Node < "u" && e instanceof Node ? e : Array.isArray(e) ? o(e) : typeof e == "object" ? g(e) : typeof e == "string" || typeof e == "number" ? document.createTextNode(String(e)) : null, v = {
 	$schema: "./tags.schema.json",
 	div: {
 		allowsTextContent: !1,
@@ -333,17 +325,17 @@ var e = (e, t) => {
 		allowsChildren: !1,
 		allowedAttributes: []
 	}
-}, b = ({ inSpec: e }) => {
+}, y = ({ inSpec: e }) => {
 	let t = e;
 	if (!t) return [];
-	if (Array.isArray(t)) return t.flatMap((e) => b({ inSpec: e }));
+	if (Array.isArray(t)) return t.flatMap((e) => y({ inSpec: e }));
 	if (typeof t != "object") return [];
 	let n = [];
 	return typeof t.tagName == "string" && t.tagName.trim().length > 0 && n.push(t.tagName.toLowerCase()), Array.isArray(t.children) && t.children.length > 0 && t.children.forEach((e) => {
-		let t = b({ inSpec: e });
+		let t = y({ inSpec: e });
 		n.push(...t);
 	}), n;
-}, x = ({ inTagsFound: e, inAllowedTags: t }) => {
+}, b = ({ inTagsFound: e, inAllowedTags: t }) => {
 	let n = e ?? [], r = new Set(Object.keys(t ?? {}).filter((e) => e !== "$schema").map((e) => e.toLowerCase())), i = {}, a = [], o = [];
 	n.forEach((e) => {
 		i[e] = (i[e] || 0) + 1, r.has(e) ? a.includes(e) || a.push(e) : o.includes(e) || o.push(e);
@@ -357,9 +349,9 @@ var e = (e, t) => {
 		unrecognizedTags: o,
 		areAllTagsPresent: c
 	};
-}, S = ({ inSpec: e, inTags: t = y } = {}) => {
-	let n = e, r = t, i = x({
-		inTagsFound: b({ inSpec: n }),
+}, x = ({ inSpec: e, inTags: t = v } = {}) => {
+	let n = e, r = t, i = b({
+		inTagsFound: y({ inSpec: n }),
 		inAllowedTags: r
 	});
 	return {
@@ -370,25 +362,33 @@ var e = (e, t) => {
 		recognizedTags: i.recognizedTags,
 		unrecognizedTags: i.unrecognizedTags
 	};
-}, C = (e = {}) => v(e?.spec ?? e?.inSpec ?? e);
-a({
-	inFuncDefinition: C,
-	inReviewSpec: S
+}, S = (e = {}) => _(e?.spec ?? e?.inSpec ?? e);
+i({
+	inFuncDefinition: S,
+	inReviewSpec: x
 });
-var w = {
+var C = {
+	buildColGroup: {
+		tagName: "col",
+		attributes: { width: "${width}" }
+	},
 	buildHeader: {
 		tagName: "th",
-		textContent: "${label}",
-		attributes: { scope: "col" }
+		textContent: "${columnName}",
+		attributes: { class: "py-3 px-3 fw-semibold text-uppercase small" }
 	},
 	buildBody: {
-		outerTemplate: { tagName: "tr" },
+		outerTemplate: {
+			tagName: "tr",
+			attributes: { class: "align-middle" }
+		},
 		innerTemplate: {
 			tagName: "td",
-			textContent: "${rowValue}"
+			textContent: "${rowValue}",
+			attributes: { class: "py-3 px-3 text-secondary" }
 		}
 	}
-}, T = {
+}, w = {
 	tagName: "table",
 	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
 	children: [{
@@ -402,29 +402,19 @@ var w = {
 		tagName: "tbody",
 		children: []
 	}]
-}, E = ({ targetHtmlId: e, columns: t = [], data: n = [], colGroup: i = [] } = {}) => {
-	let a = e, o = t, s = n, c = i, l = r({
+}, T = ({ targetHtmlId: e, columns: t = [], data: r = [], colGroup: i = [] } = {}) => {
+	let a = e, o = t, s = r;
+	tableFromData({
 		inData: {
 			columns: o,
 			rows: s
 		},
-		inSpec: w,
-		inTable: T
+		inSpec: C,
+		inTable: w
 	});
-	if (Array.isArray(c) && c.length > 0) {
-		let e = {
-			tagName: "colgroup",
-			children: c.map((e) => {
-				let t = typeof e == "string" ? e : e?.width, n = typeof e == "object" ? e?.style : void 0, r = {};
-				return n ? r.style = n : t && (r.style = `width: ${t};`), typeof e == "object" && e?.class && (r.class = e.class), {
-					tagName: "col",
-					...Object.keys(r).length > 0 ? { attributes: r } : {}
-				};
-			})
-		};
-		l.children.unshift(e);
-	}
-	let u = C(l);
+	let c = n(o, C.buildHeader), l = w.children.find((e) => e.tagName === "thead");
+	l.children[0].children = c;
+	let u = S(w);
 	if (a && typeof document < "u") {
 		let e = document.getElementById(a);
 		e && (e.innerHTML = "", e.append(u));
@@ -432,4 +422,4 @@ var w = {
 	return u;
 };
 //#endregion
-export { E as default, E as render, E as renderTable };
+export { T as default, T as render, T as renderTable };

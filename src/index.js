@@ -1,1 +1,1 @@
-export { default } from "./v12/index.js";
+export { default, buildSpec } from "./v12/index.js";
