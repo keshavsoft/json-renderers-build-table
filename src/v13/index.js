@@ -1,38 +1,13 @@
-import { collectionFromKey } from "json-transformer-funcs";
+import buildSpec from "./buildSpec/index.js";
 import jsonToTag from "@keshavsoft/json-to-tag";
-
-import spec from "./spec.json" with { type: "json" };
-import table from "./table.json" with { type: "json" };
 
 const render = ({
     targetHtmlId,
-    columns = [],
-    data = [],
-    colGroup = []
+    inSpec
 } = {}) => {
     const localTargetHtmlId = targetHtmlId;
-    const localColumns = columns;
-    const localData = data;
-    const localColGroup = colGroup;
 
-    // const tableSpec = tableFromData({
-    //     inData: {
-    //         columns: localColumns,
-    //         rows: localData
-    //     },
-    //     inSpec: spec,
-    //     inTable: table
-    // });
-
-    const localHead = collectionFromKey(localColumns, spec.buildHeader);
-
-    const thead = table.children.find(child => child.tagName === "thead");
-    // const tbody = table.children.find(child => child.tagName === "tbody");
-
-    thead.children[0].children = localHead;
-    // tbody.children = localBody;
-
-    const element = jsonToTag(table);
+    const element = jsonToTag(inSpec);
 
     if (localTargetHtmlId && typeof document !== "undefined") {
         const container = document.getElementById(localTargetHtmlId);
@@ -45,26 +20,18 @@ const render = ({
     return element;
 };
 
-const buildSpec = ({
+const startFunc = ({
     columns = [],
     data = [],
-    colGroup = []
+    colGroup = [],
+    targetHtmlId
 } = {}) => {
-    const localColumns = columns;
-    const localData = data;
-    const localColGroup = colGroup;
+    const localSpec = buildSpec({ colGroup, columns, rows: data });
 
-    const localHead = collectionFromKey(localColumns, spec.buildHeader);
-
-    const thead = table.children.find(child => child.tagName === "thead");
-    // const tbody = table.children.find(child => child.tagName === "tbody");
-
-    thead.children[0].children = localHead;
-    // tbody.children = localBody;
-
-    return table;
+    render({
+        targetHtmlId,
+        inSpec: localSpec
+    });
 };
 
-export { render, render as renderTable, buildSpec };
-export default render;
-
+export default startFunc;

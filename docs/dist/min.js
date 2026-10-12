@@ -16,27 +16,163 @@ var e = (e) => {
 		let n = structuredClone(a);
 		return o && (n.textContent = e?.[o]), "attributes" in n && (n.attributes = t(n.attributes, e)), n;
 	});
-}, r = {
+}, r = (e, t, n) => {
+	let r = e, a = t, o = n;
+	return r.map((e) => {
+		let t = structuredClone(a);
+		return t.children = i({
+			inSource: e,
+			inTemplate: o
+		}), t;
+	});
+}, i = ({ inSource: e, inTemplate: t }) => {
+	let n = e, r = t, i = [];
+	for (let [e, t] of Object.entries(n)) {
+		let e = structuredClone(r);
+		e.textContent = e.textContent.replace("${rowValue}", t).replace("${}", t), i.push(e);
+	}
+	return i;
+}, a = {
+	buildColGroup: {
+		tagName: "col",
+		attributes: { width: "${width}" }
+	},
+	buildHeader: {
+		tagName: "th",
+		textContent: "${columnName}",
+		attributes: { class: "py-3 px-3 fw-semibold text-uppercase small" }
+	},
+	buildBody: {
+		outerTemplate: {
+			tagName: "tr",
+			attributes: { class: "align-middle" }
+		},
+		innerTemplate: {
+			tagName: "td",
+			textContent: "${rowValue}",
+			attributes: { class: "py-3 px-3 text-secondary" }
+		}
+	},
+	buildFooter: {
+		tagName: "td",
+		children: [{
+			tagName: "input",
+			attributes: {
+				type: "text",
+				placeholder: "${columnName}",
+				class: "form-control"
+			}
+		}]
+	}
+}, o = {
+	tagName: "table",
+	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
+	children: [
+		{
+			tagName: "colgroup",
+			children: []
+		},
+		{
+			tagName: "thead",
+			attributes: { class: "table-dark" },
+			children: [{
+				tagName: "tr",
+				children: []
+			}]
+		},
+		{
+			tagName: "tbody",
+			children: []
+		},
+		{
+			tagName: "tfoot",
+			children: [{
+				tagName: "tr",
+				children: []
+			}]
+		}
+	]
+}, s = [
+	{
+		destinationPath: [
+			"children",
+			0,
+			"children"
+		],
+		sourceKey: "colGroup",
+		templateKey: "buildColGroup",
+		func: "collectionFromKey"
+	},
+	{
+		destinationPath: [
+			"children",
+			1,
+			"children",
+			0,
+			"children"
+		],
+		sourceKey: "columns",
+		templateKey: "buildHeader",
+		func: "collectionFromKey"
+	},
+	{
+		destinationPath: [
+			"children",
+			2,
+			"children"
+		],
+		sourceKey: "rows",
+		templateKey: "buildBody",
+		func: "collectionFromInternal"
+	},
+	{
+		destinationPath: [
+			"children",
+			3,
+			"children",
+			0,
+			"children"
+		],
+		sourceKey: "columns",
+		templateKey: "buildFooter",
+		func: "collectionFromKey"
+	}
+], c = (e, t, n) => {
+	let r = [...t], i = r.pop(), a = r.reduce((e, t) => e[t], e);
+	a[i] = n;
+}, l = {
+	collectionFromKey: ({ source: e, template: t }) => n(e, t),
+	collectionFromInternal: ({ source: e, template: t }) => r(e, t.outerTemplate, t.innerTemplate)
+}, u = (e) => {
+	let t = structuredClone(o);
+	return s.forEach((n) => {
+		let r = {
+			source: e[n.sourceKey],
+			template: a[n.templateKey]
+		}, i = l[n.func](r);
+		c(t, n.destinationPath, i);
+	}), t;
+}, d = {
 	version: "v9",
 	description: "JSON-to-DOM engine with SVG namespace support, mixed text content, and centralized traversal"
-}, i = ({ inFuncDefinition: e, inReviewSpec: t } = {}) => {
+}, f = ({ inFuncDefinition: e, inReviewSpec: t } = {}) => {
 	if (typeof globalThis > "u" || !e) return;
 	globalThis.ks ??= {};
 	let n = {
-		meta: r,
+		meta: d,
 		buildSpecElement: e,
 		reviewSpec: t
 	};
 	globalThis.ks["json-to-tag"] = n, globalThis.ks.jsonToTag = n;
-}, a = (e) => e == null ? null : typeof Node < "u" && e instanceof Node ? e : typeof e == "string" || typeof e == "number" ? document.createTextNode(String(e)) : typeof e == "object" && (e.nodeType === 3 || e.tagName === "#text" || !e.tagName && (e.textContent !== void 0 || e.text !== void 0)) ? document.createTextNode(e.textContent ?? e.text ?? "") : _(e), o = (e) => Array.isArray(e) ? e.map(a).flat(Infinity).filter(Boolean) : [], s = (e) => e ?? e, c = "http://www.w3.org/2000/svg", l = /* @__PURE__ */ new Set(/* @__PURE__ */ "svg.path.symbol.use.g.circle.ellipse.rect.line.polyline.polygon.text.tspan.defs.clippath.mask.pattern.marker.lineargradient.radialgradient.stop.image.filter.fegaussianblur.femerge.femergenode".split(".")), u = ({ inTagName: e }) => {
+}, p = (e) => e == null ? null : typeof Node < "u" && e instanceof Node ? e : typeof e == "string" || typeof e == "number" ? document.createTextNode(String(e)) : typeof e == "object" && (e.nodeType === 3 || e.tagName === "#text" || !e.tagName && (e.textContent !== void 0 || e.text !== void 0)) ? document.createTextNode(e.textContent ?? e.text ?? "") : T(e), m = (e) => Array.isArray(e) ? e.map(p).flat(Infinity).filter(Boolean) : [], h = (e) => e ?? e, g = "http://www.w3.org/2000/svg", _ = /* @__PURE__ */ new Set(/* @__PURE__ */ "svg.path.symbol.use.g.circle.ellipse.rect.line.polyline.polygon.text.tspan.defs.clippath.mask.pattern.marker.lineargradient.radialgradient.stop.image.filter.fegaussianblur.femerge.femergenode".split(".")), v = ({ inTagName: e }) => {
 	let t = e?.toLowerCase();
 	if (!t) return null;
 	if (t === "checkbox") {
 		let e = document.createElement("input");
 		return e.type = "checkbox", e;
 	}
-	return l.has(t) ? document.createElementNS(c, t) : document.createElement(t);
-}, d = ({ inElement: e, inTextContent: t }) => (!e || t == null || (e.textContent = t), e), f = ({ inElement: e, inProperties: t }) => (e && t && typeof t == "object" && Object.assign(e, t), e), p = "http://www.w3.org/1999/xlink", m = ({ inElement: e, inAttributes: t }) => {
+	return _.has(t) ? document.createElementNS(g, t) : document.createElement(t);
+}, y = ({ inElement: e, inTextContent: t }) => (!e || t == null || (e.textContent = t), e), b = ({ inElement: e, inProperties: t }) => (e && t && typeof t == "object" && Object.assign(e, t), e), x = "http://www.w3.org/1999/xlink", S = ({ inElement: e, inAttributes: t }) => {
 	let n = e, r = t;
 	if (!n || !r || typeof r != "object") return n;
 	let i = typeof SVGElement < "u" ? n instanceof SVGElement : n.namespaceURI === "http://www.w3.org/2000/svg";
@@ -46,39 +182,39 @@ var e = (e) => {
 			if (t != null) {
 				let e = String(t);
 				if (i) try {
-					n.setAttributeNS(p, "href", e);
+					n.setAttributeNS(x, "href", e);
 				} catch {}
 				n.setAttribute("href", e), n.setAttribute("xlink:href", e);
 			}
 		} else typeof t == "boolean" ? t ? n.setAttribute(e, "") : n.removeAttribute(e) : t != null && n.setAttribute(e, String(t));
 	}), n;
-}, h = ({ inElement: e, inClassList: t }) => {
+}, C = ({ inElement: e, inClassList: t }) => {
 	if (!e || !t) return e;
 	let n = typeof t == "string" ? t.split(/\s+/).filter(Boolean) : Array.isArray(t) ? t.filter((e) => typeof e == "string" && e.trim()) : [];
 	return n.length && e.classList.add(...n), e;
-}, g = (e) => {
+}, w = (e) => {
 	if (!e || typeof e != "object" || Array.isArray(e) || !e.tagName) return null;
-	let t = u({ inTagName: e.tagName });
+	let t = v({ inTagName: e.tagName });
 	if (!t) return null;
-	if (d({
+	if (y({
 		inElement: t,
-		inTextContent: s(e.textContent),
+		inTextContent: h(e.textContent),
 		inTagName: e.tagName
-	}), f({
+	}), b({
 		inElement: t,
 		inProperties: e.properties
-	}), m({
+	}), S({
 		inElement: t,
 		inAttributes: e.attributes
-	}), h({
+	}), C({
 		inElement: t,
 		inClassList: e.classList
 	}), Array.isArray(e.children)) {
-		let n = o(e.children);
+		let n = m(e.children);
 		n.length && t.append(...n);
 	}
 	return t;
-}, _ = (e) => e == null ? null : typeof Node < "u" && e instanceof Node ? e : Array.isArray(e) ? o(e) : typeof e == "object" ? g(e) : typeof e == "string" || typeof e == "number" ? document.createTextNode(String(e)) : null, v = {
+}, T = (e) => e == null ? null : typeof Node < "u" && e instanceof Node ? e : Array.isArray(e) ? m(e) : typeof e == "object" ? w(e) : typeof e == "string" || typeof e == "number" ? document.createTextNode(String(e)) : null, E = {
 	$schema: "./tags.schema.json",
 	div: {
 		allowsTextContent: !1,
@@ -325,17 +461,17 @@ var e = (e) => {
 		allowsChildren: !1,
 		allowedAttributes: []
 	}
-}, y = ({ inSpec: e }) => {
+}, D = ({ inSpec: e }) => {
 	let t = e;
 	if (!t) return [];
-	if (Array.isArray(t)) return t.flatMap((e) => y({ inSpec: e }));
+	if (Array.isArray(t)) return t.flatMap((e) => D({ inSpec: e }));
 	if (typeof t != "object") return [];
 	let n = [];
 	return typeof t.tagName == "string" && t.tagName.trim().length > 0 && n.push(t.tagName.toLowerCase()), Array.isArray(t.children) && t.children.length > 0 && t.children.forEach((e) => {
-		let t = y({ inSpec: e });
+		let t = D({ inSpec: e });
 		n.push(...t);
 	}), n;
-}, b = ({ inTagsFound: e, inAllowedTags: t }) => {
+}, O = ({ inTagsFound: e, inAllowedTags: t }) => {
 	let n = e ?? [], r = new Set(Object.keys(t ?? {}).filter((e) => e !== "$schema").map((e) => e.toLowerCase())), i = {}, a = [], o = [];
 	n.forEach((e) => {
 		i[e] = (i[e] || 0) + 1, r.has(e) ? a.includes(e) || a.push(e) : o.includes(e) || o.push(e);
@@ -349,9 +485,9 @@ var e = (e) => {
 		unrecognizedTags: o,
 		areAllTagsPresent: c
 	};
-}, x = ({ inSpec: e, inTags: t = v } = {}) => {
-	let n = e, r = t, i = b({
-		inTagsFound: y({ inSpec: n }),
+}, k = ({ inSpec: e, inTags: t = E } = {}) => {
+	let n = e, r = t, i = O({
+		inTagsFound: D({ inSpec: n }),
 		inAllowedTags: r
 	});
 	return {
@@ -362,58 +498,29 @@ var e = (e) => {
 		recognizedTags: i.recognizedTags,
 		unrecognizedTags: i.unrecognizedTags
 	};
-}, S = (e = {}) => _(e?.spec ?? e?.inSpec ?? e);
-i({
-	inFuncDefinition: S,
-	inReviewSpec: x
+}, A = (e = {}) => T(e?.spec ?? e?.inSpec ?? e);
+f({
+	inFuncDefinition: A,
+	inReviewSpec: k
 });
-var C = {
-	buildColGroup: {
-		tagName: "col",
-		attributes: { width: "${width}" }
-	},
-	buildHeader: {
-		tagName: "th",
-		textContent: "${columnName}",
-		attributes: { class: "py-3 px-3 fw-semibold text-uppercase small" }
-	},
-	buildBody: {
-		outerTemplate: {
-			tagName: "tr",
-			attributes: { class: "align-middle" }
-		},
-		innerTemplate: {
-			tagName: "td",
-			textContent: "${rowValue}",
-			attributes: { class: "py-3 px-3 text-secondary" }
-		}
+//#endregion
+//#region src/v13/index.js
+var j = ({ targetHtmlId: e, inSpec: t } = {}) => {
+	let n = e, r = A(t);
+	if (n && typeof document < "u") {
+		let e = document.getElementById(n);
+		e && (e.innerHTML = "", e.append(r));
 	}
-}, w = {
-	tagName: "table",
-	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
-	children: [{
-		tagName: "thead",
-		attributes: { class: "table-dark" },
-		children: [{
-			tagName: "tr",
-			children: []
-		}]
-	}, {
-		tagName: "tbody",
-		children: []
-	}]
-}, T = ({ targetHtmlId: e, columns: t = [], data: r = [], colGroup: i = [] } = {}) => {
-	let a = e, o = n(t, C.buildHeader), s = w.children.find((e) => e.tagName === "thead");
-	s.children[0].children = o;
-	let c = S(w);
-	if (a && typeof document < "u") {
-		let e = document.getElementById(a);
-		e && (e.innerHTML = "", e.append(c));
-	}
-	return c;
-}, E = ({ columns: e = [], data: t = [], colGroup: r = [] } = {}) => {
-	let i = n(e, C.buildHeader), a = w.children.find((e) => e.tagName === "thead");
-	return a.children[0].children = i, w;
+	return r;
+}, M = ({ columns: e = [], data: t = [], colGroup: n = [], targetHtmlId: r } = {}) => {
+	j({
+		targetHtmlId: r,
+		inSpec: u({
+			colGroup: n,
+			columns: e,
+			rows: t
+		})
+	});
 };
 //#endregion
-export { E as buildSpec, T as default, T as render, T as renderTable };
+export { M as default };
