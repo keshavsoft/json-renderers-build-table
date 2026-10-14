@@ -2,6 +2,15 @@ import buildSpec from "./buildSpec/index.js";
 import registerGlobal from "./register/index.js";
 import spec from "./spec.json" with { type: "json" };
 
+import simpleTable from "./simpleTable/index.js";
+import tableWithWidths from "./tableWithWidths/index.js";
+import tableWithFooter from "./tableWithFooter/index.js";
+import tableWithSerial from "./tableWithSerial/index.js";
+import tableWithOptions from "./tableWithOptions/index.js";
+import tableWithButtonCell from "./tableWithButtonCell/index.js";
+import tableFullGrid from "./tableFullGrid/index.js";
+import tableHeadless from "./tableHeadless/index.js";
+
 const render = (input = {}) => {
     const localInput = (input && typeof input === "object" && "inConfig" in input)
         ? input.inConfig
@@ -37,12 +46,24 @@ const render = (input = {}) => {
     return tableSpec;
 };
 
+const scenarios = {
+    simpleTable,
+    tableWithWidths,
+    tableWithFooter,
+    tableWithSerial,
+    tableWithOptions,
+    tableWithButtonCell,
+    tableFullGrid,
+    tableHeadless
+};
+
 registerGlobal({
     inDefinition: {
         render,
         renderToDom: render,
         buildSpec,
-        spec
+        spec,
+        ...scenarios
     }
 });
 
@@ -50,7 +71,15 @@ export {
     render,
     render as renderToDom,
     buildSpec,
-    spec
+    spec,
+    simpleTable,
+    tableWithWidths,
+    tableWithFooter,
+    tableWithSerial,
+    tableWithOptions,
+    tableWithButtonCell,
+    tableFullGrid,
+    tableHeadless
 };
 
 export default render;

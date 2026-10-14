@@ -1,0 +1,116 @@
+[
+    {
+        "narration": "Build the column widths for the table using the configured columns.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-colgroup",
+            "filePath": [
+                "children"
+            ]
+        },
+        "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+                "columns"
+            ]
+        },
+        "templateKey": "buildColGroup",
+        "func": "fromCollection"
+    },
+    {
+        "narration": "Build the table header row from the column metadata.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-header-row",
+            "filePath": [
+                "children"
+            ]
+        },
+        "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+                "columns"
+            ]
+        },
+        "templateKey": "buildHeader",
+        "func": "fromCollection"
+    },
+    {
+        "narration": "Create one table row for each record and place it into the table body container.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-body",
+            "filePath": [
+                "children"
+            ]
+        },
+        "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+                "data"
+            ]
+        },
+        "templateKey": "buildBodyTr",
+        "func": "fromCollection"
+    },
+    {
+        "narration": "Append the options column width to the table colgroup.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-colgroup",
+            "filePath": [
+                "children"
+            ],
+            "action": "push"
+        },
+        "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+                "options",
+                "col"
+            ]
+        },
+        "templateKey": "buildColGroup",
+        "func": "applyTemplate"
+    },
+    {
+        "narration": "Append the options header cell to the table header row.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-header-row",
+            "filePath": [
+                "children"
+            ],
+            "action": "push"
+        },
+        "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+                "options",
+                "header"
+            ]
+        },
+        "templateKey": "buildHeader",
+        "func": "applyTemplate"
+    },
+    {
+        "narration": "Append the options button cell into each table body row.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-body",
+            "filePath": [
+                "children"
+            ],
+            "action": "pushToRows"
+        },
+        "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+                "options",
+                "body"
+            ]
+        },
+        "templateKey": "buttonCell",
+        "func": "applyTemplate"
+    }
+]
