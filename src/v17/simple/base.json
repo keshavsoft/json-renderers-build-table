@@ -5,6 +5,13 @@
     },
     "children": [
         {
+            "tagName": "colgroup",
+            "attributes": {
+                "data-role": "table-colgroup"
+            },
+            "children": []
+        },
+        {
             "tagName": "thead",
             "attributes": {
                 "class": "table-dark",
@@ -26,6 +33,21 @@
                 "data-role": "table-body"
             },
             "children": []
+        },
+        {
+            "tagName": "tfoot",
+            "attributes": {
+                "data-role": "table-footer"
+            },
+            "children": [
+                {
+                    "tagName": "tr",
+                    "attributes": {
+                        "data-role": "table-footer-row"
+                    },
+                    "children": []
+                }
+            ]
         }
     ]
 }

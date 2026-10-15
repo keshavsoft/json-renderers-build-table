@@ -61,5 +61,26 @@
                 }
             }
         ]
+    },
+    "buildOption": {
+        "tagName": "option",
+        "textContent": "${rowValue}",
+        "attributes": {
+            "value": "${rowValue}"
+        }
+    },
+    "buildSelect": {
+        "tagName": "select",
+        "attributes": {
+            "id": "LedgerName"
+        },
+        "children": []
+    },
+    "buildDataList": {
+        "tagName": "datalist",
+        "attributes": {
+            "data-name": "${columnName}"
+        },
+        "children": []
     }
 }

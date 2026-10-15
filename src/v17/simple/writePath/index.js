@@ -31,25 +31,17 @@ const actions = {
     }
 };
 
-const writePath = ({ inRegistry, inPath, inValue }) => {
-    const localRegistry = inRegistry;
-    const localPath = inPath;
-    const localValue = inValue;
+const writePath = (registry, path, value) => {
+    const root = path.dataRole
+        ? findByRole(registry[path.fileName], path.dataRole)
+        : registry[path.fileName];
 
-    const root = localPath.dataRole
-        ? findByRole(localRegistry[localPath.fileName], localPath.dataRole)
-        : localRegistry[localPath.fileName];
-
-    if (!root) return;
-
-    const keys = [...(localPath.filePath ?? [])];
+    const keys = [...(path.filePath ?? [])];
     const lastKey = keys.pop();
-    const parent = keys.reduce((current, key) => current?.[key], root);
+    const parent = keys.reduce((current, key) => current[key], root);
 
-    if (!parent) return;
-
-    const actionHandler = actions[localPath.action] || actions.set;
-    actionHandler(parent, lastKey, localValue);
+    const actionHandler = actions[path.action] || actions.set;
+    actionHandler(parent, lastKey, value);
 };
 
 export default writePath;
