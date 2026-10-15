@@ -1,4 +1,4 @@
-//#region node_modules/json-transformer-funcs-primitive/src/v6/forAttributes/index.js
+//#region node_modules/json-transformer-funcs-primitive/src/v7/forAttributes/index.js
 var e = (e) => typeof e == "object" && !!e && !Array.isArray(e), t = (t, n) => {
 	if (!e(t)) return;
 	let r = {};
@@ -6,8 +6,8 @@ var e = (e) => typeof e == "object" && !!e && !Array.isArray(e), t = (t, n) => {
 	return r;
 }, n = (e, t) => {
 	let n = structuredClone(e);
-	if (Array.isArray(n)) return n.map((e) => o(e, t));
-}, r = (e, t) => {
+	if (Array.isArray(n)) return n.map((e) => o(t, e));
+}, r = (e, t, n) => {
 	if (e === "${agg:count}" && "rowData" in t) {
 		if (Array.isArray(t?.rowData)) return t?.rowData.length;
 	} else if (e === "${rowValue}" && "rowData" in t) return t?.rowData;
