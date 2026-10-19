@@ -1,4 +1,4 @@
-import { simple } from "../../../docs/dist/v17/min.js";
+import { simple } from "../../../docs/dist/v18/min.js";
 import "https://keshavsoft.github.io/json-to-tag/dist/v9/min.js";
 
 import data from "./batches.json" with { type: "json" };
