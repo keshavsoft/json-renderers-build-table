@@ -4,7 +4,7 @@ import "https://keshavsoft.github.io/json-to-tag/dist/v9/min.js";
 import data from "./data.json" with { type: "json" };
 import columns from "./columns.json" with { type: "json" };
 
-const container = document.getElementById("dom-render-container");
+const container = document.getElementById("tableFooterId");
 
 const showLog = false;
 const returnLog = [];
