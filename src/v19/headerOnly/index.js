@@ -7,7 +7,7 @@ import base from "./base.json" with { type: "json" };
 
 import singleInstructions from "./instructions/single.json" with { type: "json" };
 
-import writePath from "./writePath/index.js";
+import writePath from "../writePath/index.js";
 
 // 1. Keep the input, table structure, and templates together as the build context.
 const registry = { data: {}, base, spec };

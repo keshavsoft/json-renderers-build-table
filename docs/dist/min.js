@@ -333,48 +333,19 @@ var l = (e, t) => {
 	},
 	templateKey: "buildHeader",
 	func: "fromCollection"
-}], j = (e) => Array.isArray(e) ? e : [e], M = {
-	set: (e, t, n) => {
-		e[t] = n;
-	},
-	push: (e, t, n) => {
-		e[t].push(...j(n));
-	},
-	unshift: (e, t, n) => {
-		e[t].unshift(...j(n));
-	},
-	pushToRows: (e, t, n) => {
-		e[t].forEach((e) => {
-			e.children.push(...structuredClone(j(n)));
-		});
-	},
-	unshiftToRows: (e, t, n) => {
-		e[t].forEach((e) => {
-			e.children.unshift(...structuredClone(j(n)));
-		});
-	},
-	unshiftSerialToRows: (e, t, n) => {
-		e[t].forEach((e, t) => {
-			let r = structuredClone(n);
-			r.textContent = t + 1, e.children.unshift(r);
-		});
-	}
-}, N = (e, t, n) => {
-	let r = t.dataRole ? h(e[t.fileName], t.dataRole) : e[t.fileName], i = [...t.filePath ?? []], a = i.pop(), o = i.reduce((e, t) => e[t], r);
-	(M[t.action] || M.set)(o, a, n);
-}, P = {
+}], j = {
 	data: {},
 	base: k,
 	spec: _
-}, F = { fromCollection: u }, I = (e) => {
+}, M = { fromCollection: u }, N = (e) => {
 	e.forEach((e) => {
-		let t = g(P, e.sourcePath);
+		let t = g(j, e.sourcePath);
 		if (t) {
-			let n = F[e.func](t, _[e.templateKey]);
-			N(P, e.destinationPath, n);
+			let n = M[e.func](t, _[e.templateKey]);
+			C(j, e.destinationPath, n);
 		} else console.log("   !instruction : ", e), console.log("   !source : ", t);
 	});
-}, L = (e) => (P.data = e, I(A), k), R = [], z = [{
+}, P = (e) => (j.data = e, N(A), k), F = [], I = [{
 	narration: "Build the table body rows for the table using the configured columns and data.",
 	destinationPath: {
 		fileName: "base",
@@ -385,44 +356,15 @@ var l = (e, t) => {
 		filePath: ["columns"]
 	},
 	func: "twoDimensional"
-}], B = (e) => Array.isArray(e) ? e : [e], V = {
-	set: (e, t, n) => {
-		e[t] = n;
-	},
-	push: (e, t, n) => {
-		e[t].push(...B(n));
-	},
-	unshift: (e, t, n) => {
-		e[t].unshift(...B(n));
-	},
-	pushToRows: (e, t, n) => {
-		e[t].forEach((e) => {
-			e.children.push(...structuredClone(B(n)));
-		});
-	},
-	unshiftToRows: (e, t, n) => {
-		e[t].forEach((e) => {
-			e.children.unshift(...structuredClone(B(n)));
-		});
-	},
-	unshiftSerialToRows: (e, t, n) => {
-		e[t].forEach((e, t) => {
-			let r = structuredClone(n);
-			r.textContent = t + 1, e.children.unshift(r);
-		});
-	}
-}, H = (e, t, n) => {
-	let r = t.dataRole ? h(e[t.fileName], t.dataRole) : e[t.fileName], i = [...t.filePath ?? []], a = i.pop(), o = i.reduce((e, t) => e[t], r);
-	(V[t.action] || V.set)(o, a, n);
-}, U = {
+}], L = {
 	data: {},
-	base: R,
+	base: F,
 	spec: _
-}, W = { twoDimensional: m }, G = (e) => {
+}, R = { twoDimensional: m }, z = (e) => {
 	e.forEach((e) => {
-		let t = W[e.func](U.data.columns, U.data.data, _);
-		H(U, e.destinationPath, t);
+		let t = R[e.func](L.data.columns, L.data.data, _);
+		C(L, e.destinationPath, t);
 	});
-}, K = (e) => (U.data = e, G(z), R.children);
+}, B = (e) => (L.data = e, z(I), F.children);
 //#endregion
-export { K as bodyOnly, L as headerOnly, O as simple };
+export { B as bodyOnly, P as headerOnly, O as simple };
