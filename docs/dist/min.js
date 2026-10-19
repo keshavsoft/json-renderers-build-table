@@ -77,17 +77,7 @@ var l = (e, t) => {
 		let t = c(e, o);
 		return t.children = p(d(r, e), a), t;
 	});
-}, h = (e, t) => {
-	if (e?.attributes?.["data-role"] === t) return e;
-	for (let n of e?.children ?? []) {
-		let e = h(n, t);
-		if (e) return e;
-	}
-	return null;
-}, g = (e, t) => {
-	let n = e[t.fileName], r = t.dataRole ? h(n, t.dataRole) : n;
-	return (t.filePath ?? []).reduce((e, t) => e[t], r);
-}, _ = {
+}, h = {
 	buildBodyTr: {
 		tagName: "tr",
 		attributes: { class: "align-middle" },
@@ -148,7 +138,7 @@ var l = (e, t) => {
 		attributes: { "data-name": "${columnName}" },
 		children: []
 	}
-}, v = {
+}, g = {
 	tagName: "table",
 	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
 	children: [
@@ -184,7 +174,7 @@ var l = (e, t) => {
 			}]
 		}
 	]
-}, y = [{
+}, _ = [{
 	narration: "Build the column widths for the table using the configured columns.",
 	destinationPath: {
 		fileName: "base",
@@ -210,7 +200,7 @@ var l = (e, t) => {
 	},
 	templateKey: "buildHeader",
 	func: "fromCollection"
-}], b = [{
+}], v = [{
 	narration: "Build the table body rows for the table using the configured columns and data.",
 	destinationPath: {
 		fileName: "base",
@@ -222,10 +212,20 @@ var l = (e, t) => {
 		filePath: ["columns"]
 	},
 	func: "twoDimensional"
-}], x = (e) => Array.isArray(e) ? e : [e], S = {
-	set: (e, t, n) => {
-		e[t] = n;
-	},
+}], y = (e, t) => {
+	if (e?.attributes?.["data-role"] === t) return e;
+	for (let n of e?.children ?? []) {
+		let e = y(n, t);
+		if (e) return e;
+	}
+	return null;
+}, b = (e, t) => {
+	let n = e[t.fileName], r = t.dataRole ? y(n, t.dataRole) : n;
+	return (t.filePath ?? []).reduce((e, t) => e[t], r);
+}, x = (e) => Array.isArray(e) ? e : [e], S = (e, t, n) => {
+	e[t] = n;
+}, C = {
+	set: S,
 	push: (e, t, n) => {
 		e[t].push(...x(n));
 	},
@@ -248,30 +248,37 @@ var l = (e, t) => {
 			r.textContent = t + 1, e.children.unshift(r);
 		});
 	}
-}, C = (e, t, n) => {
-	let r = t.dataRole ? h(e[t.fileName], t.dataRole) : e[t.fileName], i = [...t.filePath ?? []], a = i.pop(), o = i.reduce((e, t) => e[t], r);
-	(S[t.action] || S.set)(o, a, n);
-}, w = {
+}, w = (e, t) => {
+	let n = t.dataRole ? y(e[t.fileName], t.dataRole) : e[t.fileName], r = [...t.filePath ?? []], i = r.pop();
+	return {
+		parent: r.reduce((e, t) => e[t], n),
+		key: i
+	};
+}, T = (e, t, n) => {
+	let { parent: r, key: i } = w(e, t);
+	(C[t.action] || S)(r, i, n);
+}, E = (e, t, n, r) => {
+	let i = b(t, e.sourcePath), a = n[e.func](i, r[e.templateKey]);
+	T(t, e.destinationPath, a);
+}, D = (e, t, n, r) => {
+	e.forEach((e) => {
+		E(e, t, n, r);
+	});
+}, O = (e, t, n, r) => {
+	let i = n[e.func](t.data.columns, t.data.data, r);
+	T(t, e.destinationPath, i);
+}, k = (e, t, n, r) => {
+	e.forEach((e) => {
+		O(e, t, n, r);
+	});
+}, A = {
 	data: {},
-	base: v,
-	spec: _
-}, T = {
+	base: g,
+	spec: h
+}, j = {
 	fromCollection: u,
 	twoDimensional: m
-}, E = (e) => {
-	e.forEach((e) => {
-		let t = g(w, e.sourcePath);
-		if (t) {
-			let n = T[e.func](t, _[e.templateKey]);
-			C(w, e.destinationPath, n);
-		} else console.log("   !instruction : ", e), console.log("   !source : ", t);
-	});
-}, D = (e) => {
-	e.forEach((e) => {
-		let t = T[e.func](w.data.columns, w.data.data, _);
-		C(w, e.destinationPath, t);
-	});
-}, O = (e) => (w.data = e, console.log("registry : ", w), E(y), D(b), v), k = {
+}, M = (e) => (A.data = e, D(_, A, j, h), k(v, A, j, h), g), N = {
 	tagName: "table",
 	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
 	children: [
@@ -307,7 +314,7 @@ var l = (e, t) => {
 			}]
 		}
 	]
-}, A = [{
+}, P = [{
 	narration: "Build the column widths for the table using the configured columns.",
 	destinationPath: {
 		fileName: "base",
@@ -333,19 +340,11 @@ var l = (e, t) => {
 	},
 	templateKey: "buildHeader",
 	func: "fromCollection"
-}], j = {
+}], F = {
 	data: {},
-	base: k,
-	spec: _
-}, M = { fromCollection: u }, N = (e) => {
-	e.forEach((e) => {
-		let t = g(j, e.sourcePath);
-		if (t) {
-			let n = M[e.func](t, _[e.templateKey]);
-			C(j, e.destinationPath, n);
-		} else console.log("   !instruction : ", e), console.log("   !source : ", t);
-	});
-}, P = (e) => (j.data = e, N(A), k), F = { children: [] }, I = [{
+	base: N,
+	spec: h
+}, I = { fromCollection: u }, L = (e) => (F.data = e, D(P, F, I, h), N), R = { children: [] }, z = [{
 	narration: "Build the table body rows for the table using the configured columns and data.",
 	destinationPath: {
 		fileName: "base",
@@ -356,15 +355,10 @@ var l = (e, t) => {
 		filePath: ["columns"]
 	},
 	func: "twoDimensional"
-}], L = {
+}], B = {
 	data: {},
-	base: F,
-	spec: _
-}, R = { twoDimensional: m }, z = (e) => {
-	e.forEach((e) => {
-		let t = R[e.func](L.data.columns, L.data.data, _);
-		C(L, e.destinationPath, t);
-	});
-}, B = (e) => (L.data = e, z(I), F.children);
+	base: R,
+	spec: h
+}, V = { twoDimensional: m }, H = (e) => (B.data = e, k(z, B, V, h), R.children);
 //#endregion
-export { B as bodyOnly, P as headerOnly, O as simple };
+export { H as bodyOnly, L as headerOnly, M as simple };
