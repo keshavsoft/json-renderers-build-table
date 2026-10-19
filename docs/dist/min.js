@@ -257,28 +257,56 @@ var l = (e, t) => {
 }, T = (e, t, n) => {
 	let { parent: r, key: i } = w(e, t);
 	(C[t.action] || S)(r, i, n);
-}, E = (e, t, n, r) => {
-	let i = b(t, e.sourcePath), a = n[e.func](i, r[e.templateKey]);
-	T(t, e.destinationPath, a);
-}, D = (e, t, n, r) => {
+}, E = (e, t, n) => {
+	let r = !!(e.sourcePath?.fileName && Array.isArray(e.sourcePath?.filePath)), i = `structure/sourcePath: ${r ? "passed" : "failed"}`;
+	return n.push(i), t && console.log(i), r;
+}, D = (e, t, n) => {
+	let r = !!(e.destinationPath?.fileName && Array.isArray(e.destinationPath?.filePath)), i = `structure/destinationPath: ${r ? "passed" : "failed"}`;
+	return n.push(i), t && console.log(i), r;
+}, O = (e, t, n) => {
+	let r = e.templateKey === void 0 || typeof e.templateKey == "string" && e.templateKey.length > 0, i = `structure/templateKey: ${r ? "passed" : "failed"}`;
+	return n.push(i), t && console.log(i), r;
+}, k = (e, t, n) => {
+	let r = typeof e.func == "string" && e.func.length > 0, i = `structure/func: ${r ? "passed" : "failed"}`;
+	return n.push(i), t && console.log(i), r;
+}, A = (e, t, n) => [
+	E(e, t, n),
+	D(e, t, n),
+	O(e, t, n),
+	k(e, t, n)
+].every(Boolean), j = (e, t, n, r) => {
+	let i = typeof t[e.func] == "function", a = `references/func (${e.func}): ${i ? "passed" : "failed"}`;
+	return r.push(a), n && console.log(a), i;
+}, M = (e, t, n, r) => {
+	let i = e.templateKey === void 0 || Object.hasOwn(t, e.templateKey), a = `references/templateKey${e.templateKey === void 0 ? " (not used)" : ` (${e.templateKey})`}: ${i ? "passed" : "failed"}`;
+	return r.push(a), n && console.log(a), i;
+}, N = (e, t, n, r, i) => {
+	let a = j(e, t, r, i), o = M(e, n, r, i);
+	return a && o;
+}, P = (e, t, n, r, i) => A(e, r, i) ? N(e, t, n, r, i) : !1, F = (e, t, n, r, i, a) => {
+	if (!P(e, n, r, i, a)) return;
+	let o = b(t, e.sourcePath), s = n[e.func](o, r[e.templateKey]);
+	T(t, e.destinationPath, s);
+}, I = (e, t, n, r, i, a) => {
 	e.forEach((e) => {
-		E(e, t, n, r);
+		F(e, t, n, r, i, a);
 	});
-}, O = (e, t, n, r) => {
-	let i = n[e.func](t.data.columns, t.data.data, r);
-	T(t, e.destinationPath, i);
-}, k = (e, t, n, r) => {
+}, L = (e, t, n, r, i, a) => {
+	if (!P(e, n, r, i, a)) return;
+	let o = n[e.func](t.data.columns, t.data.data, r);
+	T(t, e.destinationPath, o);
+}, R = (e, t, n, r, i, a) => {
 	e.forEach((e) => {
-		O(e, t, n, r);
+		L(e, t, n, r, i, a);
 	});
-}, A = {
+}, z = {
 	data: {},
 	base: g,
 	spec: h
-}, j = {
+}, B = {
 	fromCollection: u,
 	twoDimensional: m
-}, M = (e) => (A.data = e, D(_, A, j, h), k(v, A, j, h), g), N = {
+}, V = (e, t = !1, n = []) => (z.data = e, I(_, z, B, h, t, n), R(v, z, B, h, t, n), g), H = {
 	tagName: "table",
 	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
 	children: [
@@ -314,7 +342,7 @@ var l = (e, t) => {
 			}]
 		}
 	]
-}, P = [{
+}, U = [{
 	narration: "Build the column widths for the table using the configured columns.",
 	destinationPath: {
 		fileName: "base",
@@ -340,11 +368,11 @@ var l = (e, t) => {
 	},
 	templateKey: "buildHeader",
 	func: "fromCollection"
-}], F = {
+}], W = {
 	data: {},
-	base: N,
+	base: H,
 	spec: h
-}, I = { fromCollection: u }, L = (e) => (F.data = e, D(P, F, I, h), N), R = { children: [] }, z = [{
+}, G = { fromCollection: u }, K = (e, t = !1, n = []) => (W.data = e, I(U, W, G, h, t, n), H), q = { children: [] }, J = [{
 	narration: "Build the table body rows for the table using the configured columns and data.",
 	destinationPath: {
 		fileName: "base",
@@ -355,10 +383,10 @@ var l = (e, t) => {
 		filePath: ["columns"]
 	},
 	func: "twoDimensional"
-}], B = {
+}], Y = {
 	data: {},
-	base: R,
+	base: q,
 	spec: h
-}, V = { twoDimensional: m }, H = (e) => (B.data = e, k(z, B, V, h), R.children);
+}, X = { twoDimensional: m }, Z = (e, t = !1, n = []) => (Y.data = e, R(J, Y, X, h, t, n), q.children);
 //#endregion
-export { H as bodyOnly, L as headerOnly, M as simple };
+export { Z as bodyOnly, K as headerOnly, V as simple };
