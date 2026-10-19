@@ -345,7 +345,7 @@ var l = (e, t) => {
 			C(j, e.destinationPath, n);
 		} else console.log("   !instruction : ", e), console.log("   !source : ", t);
 	});
-}, P = (e) => (j.data = e, N(A), k), F = [], I = [{
+}, P = (e) => (j.data = e, N(A), k), F = { children: [] }, I = [{
 	narration: "Build the table body rows for the table using the configured columns and data.",
 	destinationPath: {
 		fileName: "base",
