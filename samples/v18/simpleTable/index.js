@@ -1,7 +1,7 @@
 import { simple } from "../../../docs/dist/v18/min.js";
 import "https://keshavsoft.github.io/json-to-tag/dist/v9/min.js";
 
-import data from "./batches.json" with { type: "json" };
+import data from "./data.json" with { type: "json" };
 import columns from "./columns.json" with { type: "json" };
 
 const container = document.getElementById("dom-render-container");
@@ -11,7 +11,7 @@ const start = () => {
         // const renderer = window.ks.jsonRenderersBuildTable;
         const spec = simple({
             columns,
-            data: data.slice(0, 500)
+            data
         });
         console.log("spec : ", spec);
 

@@ -46,6 +46,7 @@ const runInstructions2 = instructions => {
 // 3. Complete the table and return its JSON specification.
 const startFunc = data => {
     registry.data = data;
+    console.log("registry : ", registry);
 
     runInstructions(singleInstructions);
     runInstructions2(twoDimensionalInstructions);

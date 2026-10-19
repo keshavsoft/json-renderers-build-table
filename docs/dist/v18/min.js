@@ -271,6 +271,158 @@ var l = (e, t) => {
 		let t = T[e.func](w.data.columns, w.data.data, _);
 		C(w, e.destinationPath, t);
 	});
-}, O = (e) => (w.data = e, E(y), D(b), v);
+}, O = (e) => (w.data = e, console.log("registry : ", w), E(y), D(b), v), k = {
+	tagName: "table",
+	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
+	children: [
+		{
+			tagName: "colgroup",
+			attributes: { "data-role": "table-colgroup" },
+			children: []
+		},
+		{
+			tagName: "thead",
+			attributes: {
+				class: "table-dark",
+				"data-role": "table-header"
+			},
+			children: [{
+				tagName: "tr",
+				attributes: { "data-role": "table-header-row" },
+				children: []
+			}]
+		},
+		{
+			tagName: "tbody",
+			attributes: { "data-role": "table-body" },
+			children: []
+		},
+		{
+			tagName: "tfoot",
+			attributes: { "data-role": "table-footer" },
+			children: [{
+				tagName: "tr",
+				attributes: { "data-role": "table-footer-row" },
+				children: []
+			}]
+		}
+	]
+}, A = [{
+	narration: "Build the column widths for the table using the configured columns.",
+	destinationPath: {
+		fileName: "base",
+		dataRole: "table-colgroup",
+		filePath: ["children"]
+	},
+	sourcePath: {
+		fileName: "data",
+		filePath: ["columns"]
+	},
+	templateKey: "buildColGroup",
+	func: "fromCollection"
+}, {
+	narration: "Build the header row for the table using the configured columns.",
+	destinationPath: {
+		fileName: "base",
+		dataRole: "table-header-row",
+		filePath: ["children"]
+	},
+	sourcePath: {
+		fileName: "data",
+		filePath: ["columns"]
+	},
+	templateKey: "buildHeader",
+	func: "fromCollection"
+}], j = (e) => Array.isArray(e) ? e : [e], M = {
+	set: (e, t, n) => {
+		e[t] = n;
+	},
+	push: (e, t, n) => {
+		e[t].push(...j(n));
+	},
+	unshift: (e, t, n) => {
+		e[t].unshift(...j(n));
+	},
+	pushToRows: (e, t, n) => {
+		e[t].forEach((e) => {
+			e.children.push(...structuredClone(j(n)));
+		});
+	},
+	unshiftToRows: (e, t, n) => {
+		e[t].forEach((e) => {
+			e.children.unshift(...structuredClone(j(n)));
+		});
+	},
+	unshiftSerialToRows: (e, t, n) => {
+		e[t].forEach((e, t) => {
+			let r = structuredClone(n);
+			r.textContent = t + 1, e.children.unshift(r);
+		});
+	}
+}, N = (e, t, n) => {
+	let r = t.dataRole ? h(e[t.fileName], t.dataRole) : e[t.fileName], i = [...t.filePath ?? []], a = i.pop(), o = i.reduce((e, t) => e[t], r);
+	(M[t.action] || M.set)(o, a, n);
+}, P = {
+	data: {},
+	base: k,
+	spec: _
+}, F = { fromCollection: u }, I = (e) => {
+	e.forEach((e) => {
+		let t = g(P, e.sourcePath);
+		if (t) {
+			let n = F[e.func](t, _[e.templateKey]);
+			N(P, e.destinationPath, n);
+		} else console.log("   !instruction : ", e), console.log("   !source : ", t);
+	});
+}, L = (e) => (P.data = e, I(A), k), R = [], z = [{
+	narration: "Build the table body rows for the table using the configured columns and data.",
+	destinationPath: {
+		fileName: "base",
+		filePath: ["children"]
+	},
+	sourcePath: {
+		fileName: "data",
+		filePath: ["columns"]
+	},
+	func: "twoDimensional"
+}], B = (e) => Array.isArray(e) ? e : [e], V = {
+	set: (e, t, n) => {
+		e[t] = n;
+	},
+	push: (e, t, n) => {
+		e[t].push(...B(n));
+	},
+	unshift: (e, t, n) => {
+		e[t].unshift(...B(n));
+	},
+	pushToRows: (e, t, n) => {
+		e[t].forEach((e) => {
+			e.children.push(...structuredClone(B(n)));
+		});
+	},
+	unshiftToRows: (e, t, n) => {
+		e[t].forEach((e) => {
+			e.children.unshift(...structuredClone(B(n)));
+		});
+	},
+	unshiftSerialToRows: (e, t, n) => {
+		e[t].forEach((e, t) => {
+			let r = structuredClone(n);
+			r.textContent = t + 1, e.children.unshift(r);
+		});
+	}
+}, H = (e, t, n) => {
+	let r = t.dataRole ? h(e[t.fileName], t.dataRole) : e[t.fileName], i = [...t.filePath ?? []], a = i.pop(), o = i.reduce((e, t) => e[t], r);
+	(V[t.action] || V.set)(o, a, n);
+}, U = {
+	data: {},
+	base: R,
+	spec: _
+}, W = { twoDimensional: m }, G = (e) => {
+	e.forEach((e) => {
+		let t = W[e.func](U.data.columns, U.data.data, _);
+		H(U, e.destinationPath, t);
+	});
+}, K = (e) => (U.data = e, G(z), R.children);
 //#endregion
-export { O as simple };
+export { K as bodyOnly, L as headerOnly, O as simple };
