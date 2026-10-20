@@ -1,0 +1,22 @@
+[
+    {
+        "columnName": "itemName",
+        "width": "60%",
+        "template": {
+            "body": {
+                "tr": "buildBodyTr",
+                "cell": "buildBodyCell"
+            }
+        }
+    },
+    {
+        "columnName": "category",
+        "width": "40%",
+        "template": {
+            "body": {
+                "tr": "buildBodyTr",
+                "cell": "buildBodyCell"
+            }
+        }
+    }
+]
