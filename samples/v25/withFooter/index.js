@@ -1,4 +1,4 @@
-import { withFooter } from "../../../docs/dist/v24/min.js";
+import { withFooter } from "../../../docs/dist/v25/min.js";
 import "https://keshavsoft.github.io/json-to-tag/dist/v9/min.js";
 
 import data from "./data.json" with { type: "json" };
@@ -16,7 +16,7 @@ const start = () => {
             data,
             options: {
                 showSerial: false,
-                showOptions: false
+                showOptions: true
             }
         }, showLog, returnLog);
         console.log("spec : ", spec);

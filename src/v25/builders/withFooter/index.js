@@ -8,15 +8,12 @@ import doubleInstructions from "./instructions/double.json" with { type: "json" 
 
 import runSingleInstructions from "../../singleInstruction/index.js";
 import runDoubleInstructions from "../../doubleInstruction/index.js";
-import insertSerial from "../../actions/insertSerial/index.js";
-import insertOptions from "../../actions/insertOptions/index.js";
+import actions from "../../actions/index.js";
 
 const functions = { fromCollection, twoDimensional };
 
 const startFunc = (inConfig = {}, showLog = false, returnLog = []) => {
-    const localConfig = (inConfig && typeof inConfig === "object" && "inConfig" in inConfig)
-        ? inConfig.inConfig
-        : inConfig;
+    const localConfig = inConfig
 
     const localColumns = localConfig.inColumns || localConfig.columns || [];
     const localData = localConfig.inData || localConfig.data || [];
@@ -35,13 +32,7 @@ const startFunc = (inConfig = {}, showLog = false, returnLog = []) => {
     runSingleInstructions(singleInstructions, registry, functions, spec, showLog, returnLog);
     runDoubleInstructions(doubleInstructions, registry, functions, spec, showLog, returnLog);
 
-    if (localOptions.showSerial || localOptions.serial) {
-        insertSerial(localBase, localOptions.serial || {}, showLog, returnLog);
-    }
-
-    if (localOptions.showOptions || localOptions.options) {
-        insertOptions(localBase, localOptions.options || {}, showLog, returnLog);
-    }
+    actions({ inOptions: localOptions, inBase: localBase });
 
     return localBase;
 };
