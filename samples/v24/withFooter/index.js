@@ -1,4 +1,4 @@
-import { withFooter } from "../../../docs/dist/v23/min.js";
+import { withFooter } from "../../../docs/dist/v24/min.js";
 import "https://keshavsoft.github.io/json-to-tag/dist/v9/min.js";
 
 import data from "./data.json" with { type: "json" };
@@ -11,10 +11,13 @@ const returnLog = [];
 
 const start = () => {
     try {
-        // const renderer = window.ks.jsonRenderersBuildTable;
         const spec = withFooter({
             columns,
-            data
+            data,
+            options: {
+                showSerial: false,
+                showOptions: false
+            }
         }, showLog, returnLog);
         console.log("spec : ", spec);
         console.log("guard log : ", returnLog);
