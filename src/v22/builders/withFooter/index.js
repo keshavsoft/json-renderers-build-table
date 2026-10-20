@@ -14,8 +14,10 @@ const functions = { fromCollection, twoDimensional };
 
 const startFunc = (data, showLog = false, returnLog = []) => {
     registry.data = data;
+
     runSingleInstructions(singleInstructions, registry, functions, spec, showLog, returnLog);
     runDoubleInstructions(doubleInstructions, registry, functions, spec, showLog, returnLog);
+
     return base;
 };
 

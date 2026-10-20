@@ -5,3 +5,11 @@ import withFooter from "./builders/withFooter/index.js";
 import footerOnly from "./builders/footerOnly/index.js";
 
 export { simple, headerOnly, bodyOnly, withFooter, footerOnly };
+
+export default {
+    simple,
+    headerOnly,
+    bodyOnly,
+    withFooter,
+    footerOnly
+};

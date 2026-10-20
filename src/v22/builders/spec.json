@@ -28,6 +28,8 @@
                     "type": "text",
                     "placeholder": "enter ${columnName}",
                     "name": "${columnName}",
+                    "id": "${columnName}",
+                    "list": "${columnName}",
                     "class": "form-control"
                 }
             }
