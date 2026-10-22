@@ -1,4 +1,9 @@
-// import render from "../../src/index.js";
+import { withFooter } from "../../../docs/dist/v27/min.js";
+// import "https://keshavsoft.github.io/json-renderers/dist/v19/min.js";
+
+import "https://keshavsoft.github.io/json-to-tag/dist/v10/min.js";
+
+
 import "https://keshavsoft.github.io/json-renderers/dist/v19/min.js";
 // import { readRow, readFooter } from "https://keshavsoft.github.io/dom-primitive-engine/dist/v12/min.js";
 
@@ -10,7 +15,7 @@ import data from "./data.json" with { type: "json" };
 const container = document.getElementById("table-container");
 const output = document.getElementById("event-result");
 
-window.ks.jsonRenderers.render({
+const spec = withFooter({
   targetHtmlId: "table-container",
   type: "table.withFooter",
   columns,
@@ -23,6 +28,10 @@ window.ks.jsonRenderers.render({
     showFooterSave: true
   }
 });
+console.log("spec : ", spec);
+
+let jVarLocaltable = document.getElementById('table-container');
+jVarLocaltable.append(spec);
 
 container.addEventListener("click", event => {
   const button = event.target.closest("button");
