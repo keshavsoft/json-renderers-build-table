@@ -4,98 +4,411 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JSON Specification</title>
+  <title>Monaco JSON Visualizer</title>
   <style>
     :root {
-      --bg: #f3f4f6;
-      --panel-bg: #ffffff;
-      --panel-border: #dfe3e8;
-      --header-bg: #f8f9fb;
-      --title: #1d4ed8;
-      --text: #1f2937;
-      --muted: #6b7280;
+      --bg: #0f172a;
+      --surface: #111827;
+      --panel: #1f2937;
+      --panel-alt: #0b1220;
+      --border: rgba(148, 163, 184, 0.22);
+      --text: #e5eefb;
+      --muted: #94a3b8;
+      --primary: #60a5fa;
+      --success: #22c55e;
+      --danger: #f87171;
+      --warning: #fbbf24;
+      --shadow: rgba(15, 23, 42, 0.25);
     }
 
     * { box-sizing: border-box; }
 
-    body {
+    html, body {
       margin: 0;
-      min-height: 100vh;
+      height: 100%;
       background: var(--bg);
-      font-family: Arial, sans-serif;
       color: var(--text);
+      font-family: Arial, sans-serif;
     }
 
-    .workspace {
-      width: 100%;
-      min-height: 100vh;
+    body {
       padding: 18px;
     }
 
-    .panel {
-      width: 100%;
+    .app {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+      gap: 18px;
       height: calc(100vh - 36px);
-      background: var(--panel-bg);
-      border: 1px solid var(--panel-border);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      min-height: 620px;
     }
 
-    .panel-header {
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .toolbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       padding: 10px 14px;
-      background: var(--header-bg);
-      border-bottom: 1px solid var(--panel-border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(148, 163, 184, 0.04);
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    select, button {
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--panel-alt);
+      color: var(--text);
+      padding: 8px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    button {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border: none;
+      font-weight: 700;
+    }
+
+    button.secondary {
+      background: rgba(96, 165, 250, 0.12);
+      border: 1px solid rgba(96, 165, 250, 0.32);
+      color: var(--text);
+    }
+
+    .status {
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(148, 163, 184, 0.04);
+    }
+
+    .status.ok {
+      color: #bbf7d0;
+      border-color: rgba(34, 197, 94, 0.5);
+      background: rgba(34, 197, 94, 0.08);
+    }
+
+    .status.error {
+      color: #fecaca;
+      border-color: rgba(248, 113, 113, 0.5);
+      background: rgba(248, 113, 113, 0.08);
+    }
+
+    .editor-shell {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      background: #0b1220;
+    }
+
+    #editor {
+      width: 100%;
+      height: 100%;
+    }
+
+    .preview {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(148, 163, 184, 0.04);
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--title);
+      color: var(--primary);
     }
 
-    .meta {
-      font-size: 11px;
-      color: var(--muted);
-      border: 1px solid var(--panel-border);
-      background: #fff;
-      padding: 3px 8px;
-      border-radius: 999px;
-      text-transform: lowercase;
-      letter-spacing: 0;
+    .preview-body {
+      padding: 16px;
+      overflow: auto;
+      flex: 1;
+      background: rgba(15, 23, 42, 0.8);
     }
 
-    textarea {
-      width: 100%;
-      height: calc(100% - 48px);
-      border: 0;
-      resize: none;
-      padding: 14px 16px;
+    .json-tree {
       font-family: "Consolas", "Monaco", monospace;
       font-size: 13px;
-      line-height: 1.5;
-      color: #111827;
-      background: #ffffff;
-      outline: none;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .json-tree ul {
+      margin: 0;
+      padding-left: 18px;
+      list-style: none;
+    }
+
+    .json-tree li {
+      position: relative;
+    }
+
+    .json-tree .key {
+      color: #93c5fd;
+    }
+
+    .json-tree .string { color: #86efac; }
+    .json-tree .number { color: #fcd34d; }
+    .json-tree .boolean { color: #f9a8d4; }
+    .json-tree .null { color: #c4b5fd; }
+
+    .empty {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    @media (max-width: 900px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="workspace">
+  <main class="app">
     <section class="panel">
-      <div class="panel-header">
-        <span>JSON Specification</span>
-        <span class="meta">0 lines</span>
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="title">Monaco editor</div>
+        </div>
+        <div class="toolbar-right">
+          <select id="languageMode">
+            <option value="json">JSON</option>
+            <option value="html">HTML</option>
+            <option value="javascript">JavaScript</option>
+          </select>
+          <button id="formatBtn" type="button">Format</button>
+          <button id="sampleBtn" class="secondary" type="button">Sample</button>
+        </div>
       </div>
-      <textarea aria-label="JSON specification" spellcheck="false" placeholder='{
-  "tagName": "div"
-}'></textarea>
+      <div class="editor-shell">
+        <div id="editor"></div>
+      </div>
     </section>
+
+    <aside class="panel preview">
+      <div class="preview-header">
+        <span>Preview</span>
+        <span id="statusBadge" class="status">Ready</span>
+      </div>
+      <div id="previewBody" class="preview-body">
+        <div class="empty">Type or paste JSON/HTML/JS to preview.</div>
+      </div>
+    </aside>
   </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
+  <script>
+    const SAMPLE_JSON = `{
+  "tagName": "div",
+  "classList": "card shadow-sm",
+  "children": [
+    {
+      "tagName": "h3",
+      "textContent": "Monaco JSON preview"
+    },
+    {
+      "tagName": "button",
+      "textContent": "Submit",
+      "attributes": {
+        "type": "button"
+      }
+    }
+  ]
+}`;
+
+    const SAMPLE_HTML = `<!DOCTYPE html>
+<html>
+  <body>
+    <main class="workspace">
+      <h2>Monaco editor</h2>
+      <button>Preview button</button>
+    </main>
+  </body>
+</html>`;
+
+    const SAMPLE_JS = `const data = {
+  title: "Monaco",
+  enabled: true,
+  count: 3
+};
+
+console.log(data.title);
+`;
+
+    const state = {
+      editor: null,
+      language: "json"
+    };
+
+    const previewBody = document.getElementById("previewBody");
+    const statusBadge = document.getElementById("statusBadge");
+    const languageMode = document.getElementById("languageMode");
+
+    function setStatus(text, ok = true) {
+      statusBadge.textContent = text;
+      statusBadge.className = `status ${ok ? "ok" : "error"}`;
+    }
+
+    function renderJsonTree(value, depth = 0) {
+      if (value === null) return '<span class="null">null</span>';
+      if (typeof value === "string") return `<span class="string">"${value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}"</span>`;
+      if (typeof value === "number") return `<span class="number">${value}</span>`;
+      if (typeof value === "boolean") return `<span class="boolean">${value}</span>`;
+
+      if (Array.isArray(value)) {
+        if (!value.length) return "[]";
+        return `<ul>${value.map((item) => `<li><span>[${value.indexOf(item)}]</span> ${renderJsonTree(item, depth + 1)}</li>`).join("")}</ul>`;
+      }
+
+      const entries = Object.entries(value || {});
+      if (!entries.length) return "{}";
+
+      return `<ul>${entries.map(([key, item]) => `<li><span class="key">"${key}"</span>: ${renderJsonTree(item, depth + 1)}</li>`).join("")}</ul>`;
+    }
+
+    function renderJsonPreview(text) {
+      try {
+        const parsed = JSON.parse(text);
+        previewBody.innerHTML = `<div class="json-tree">${renderJsonTree(parsed)}</div>`;
+        setStatus("Valid JSON", true);
+      } catch (error) {
+        previewBody.innerHTML = `<pre class="json-tree">${String(error.message).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`;
+        setStatus("Syntax error", false);
+      }
+    }
+
+    function renderHtmlPreview(text) {
+      previewBody.innerHTML = text.trim() ? text : '<div class="empty">HTML preview is empty.</div>';
+      setStatus("HTML ready", true);
+    }
+
+    function renderJsPreview(text) {
+      try {
+        new Function(text);
+        previewBody.innerHTML = '<div class="json-tree"><span class="key">JavaScript</span>: parsed successfully</div>';
+        setStatus("Valid JS", true);
+      } catch (error) {
+        previewBody.innerHTML = `<pre class="json-tree">${String(error.message).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`;
+        setStatus("JS syntax error", false);
+      }
+    }
+
+    function updatePreview() {
+      const value = state.editor.getValue();
+
+      if (state.language === "json") {
+        renderJsonPreview(value);
+      } else if (state.language === "html") {
+        renderHtmlPreview(value);
+      } else {
+        renderJsPreview(value);
+      }
+    }
+
+    function getSampleByLanguage(lang) {
+      if (lang === "json") return SAMPLE_JSON;
+      if (lang === "html") return SAMPLE_HTML;
+      return SAMPLE_JS;
+    }
+
+    function setLanguage(lang) {
+      state.language = lang;
+      const model = state.editor.getModel();
+      monaco.editor.setModelLanguage(model, lang);
+      state.editor.setValue(getSampleByLanguage(lang));
+      updatePreview();
+    }
+
+    function formatCurrentContent() {
+      const value = state.editor.getValue();
+      const lang = state.language;
+
+      if (lang === "json") {
+        try {
+          const parsed = JSON.parse(value);
+          state.editor.setValue(JSON.stringify(parsed, null, 2));
+          setStatus("Formatted JSON", true);
+        } catch (error) {
+          setStatus("Invalid JSON format request", false);
+        }
+        return;
+      }
+
+      state.editor.getAction("editor.action.formatDocument").run();
+    }
+
+    require.config({ paths: { vs: "https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs" } });
+
+    require(["vs/editor/editor.main"], function () {
+      state.editor = monaco.editor.create(document.getElementById("editor"), {
+        value: SAMPLE_JSON,
+        language: "json",
+        theme: "vs-dark",
+        automaticLayout: true,
+        minimap: { enabled: false },
+        scrollBeyondLastLine: false,
+        fontSize: 14,
+        tabSize: 2,
+        wordWrap: "on",
+        folding: true,
+        formatOnPaste: true,
+        formatOnType: true,
+        padding: { top: 16, bottom: 16 }
+      });
+
+      state.editor.onDidChangeModelContent(updatePreview);
+      updatePreview();
+
+      languageMode.addEventListener("change", (event) => {
+        setLanguage(event.target.value);
+      });
+
+      document.getElementById("formatBtn").addEventListener("click", formatCurrentContent);
+      document.getElementById("sampleBtn").addEventListener("click", () => {
+        state.editor.setValue(getSampleByLanguage(state.language));
+        updatePreview();
+      });
+    });
+  </script>
 </body>
 
 </html>
