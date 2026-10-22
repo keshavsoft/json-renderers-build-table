@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import * as v23 from "../../src/v26/index.js";
+import * as v23 from "../../src/v27/index.js";
 import * as distV23 from "../../docs/dist/v23/min.js";
 
 const sampleColumns = [

@@ -33,7 +33,7 @@ var e = (e) => typeof e == "object" && !!e && !Array.isArray(e), t = (t, n) => {
 };
 s(c);
 //#endregion
-//#region node_modules/json-transformer-funcs-one-dimension/src/v5/guard/index.js
+//#region node_modules/json-transformer-funcs-one-dimension/src/v6/guard/index.js
 var l = (e, t) => {
 	if (!Array.isArray(e)) throw TypeError("inSource must be an Array");
 	if (e.length === 0) throw Error("inSource cannot be empty");
@@ -472,7 +472,7 @@ var l = (e, t) => {
 	return s && Array.isArray(s.children) && s.children.length > 0 && D(P, o, F, m, n, r), i;
 }, L = ({ inOptions: e = {}, inBase: t, showLog: n = !1, returnLog: r = [] }) => {
 	let i = e, a = t;
-	return (i.showSerial || i.serial) && M(a, i.serial || {}, n, r), (i.showOptions || i.options) && I(a, i.options || {}, n, r), a;
+	return (i.showSerial || i.serial) && M(a, i.serial || {}, n, r), (i.showOptions || i.options) && I(a, i.options || {}, n, r), i.showSearch, a;
 }, R = {
 	fromCollection: u,
 	twoDimensional: p
