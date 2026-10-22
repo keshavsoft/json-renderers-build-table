@@ -1,0 +1,14 @@
+[
+    {
+        "itemName": "Shading Net",
+        "baseUnit": "kgs"
+    },
+    {
+        "itemName": "Nylon Rope",
+        "baseUnit": "meters"
+    },
+    {
+        "itemName": "Water Proof Tape",
+        "baseUnit": "rolls"
+    }
+]
