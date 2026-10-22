@@ -21,38 +21,19 @@ const checkSessionSpec = () => {
 };
 
 const onEditorChange = () => {
-  if (!ui.autoRenderToggle || !ui.autoRenderToggle.checked) {
-    if (ui.syncDot) {
-      ui.syncDot.className = "sync-indicator syncing";
-    }
-
-    if (ui.syntaxStatusText) {
-      ui.syntaxStatusText.textContent = "Unrendered Changes";
-    }
-
-    if (ui.syntaxStatusBadge) {
-      ui.syntaxStatusBadge.className = "badge bg-warning-subtle text-warning-emphasis border border-warning-subtle small px-2 py-1";
-    }
-
-    return;
-  }
-
   if (ui.syncDot) {
     ui.syncDot.className = "sync-indicator syncing";
   }
 
   if (ui.syntaxStatusText) {
-    ui.syntaxStatusText.textContent = "Syncing...";
+    ui.syntaxStatusText.textContent = "Waiting for render";
   }
 
   if (ui.syntaxStatusBadge) {
-    ui.syntaxStatusBadge.className = "badge bg-warning-subtle text-warning-emphasis border border-warning-subtle small px-2 py-1";
+    ui.syntaxStatusBadge.className = "badge bg-light text-secondary border small px-2 py-1";
   }
 
-  clearTimeout(state.liveRenderDebounceTimer);
-  state.liveRenderDebounceTimer = setTimeout(() => {
-    parseAndRenderEditorContent({ buildSpecElement: state.buildSpecElement });
-  }, 250);
+  return;
 };
 
 const setupEvents = () => {

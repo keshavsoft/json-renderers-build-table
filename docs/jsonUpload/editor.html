@@ -244,65 +244,7 @@
 
 <body>
 
-  <!-- Top Sticky Navigation -->
-  <header class="top-navbar px-3 py-2">
-    <div class="container-fluid d-flex justify-content-between align-items-center flex-wrap flex-md-nowrap gap-2">
-      <div class="d-flex align-items-center gap-2 flex-shrink-0">
-        <h1 class="h5 fw-bold mb-0 text-dark d-flex align-items-center gap-2">
-          <i class="bi bi-layout-split text-primary fs-4"></i> Visual Renderer
-          <span class="badge bg-primary-subtle text-primary border border-primary-subtle fs-6 fw-normal">Live Editor
-            Mode</span>
-        </h1>
-      </div>
-      <div class="d-flex align-items-center gap-2 ms-auto flex-nowrap">
-        <a href="./index.html" class="btn btn-outline-secondary btn-sm" title="Back to JSON Upload Menu">
-          <i class="bi bi-grid me-1"></i> Menu
-        </a>
-        <a href="./editor.html" class="btn btn-outline-primary btn-sm active" title="Current view: Live Editor">
-          <i class="bi bi-layout-split me-1"></i> Live Editor
-        </a>
-        <a href="./show.html" class="btn btn-outline-success btn-sm" title="Open single-column full-width renderer">
-          <i class="bi bi-display me-1"></i> Visual Renderer
-        </a>
-        <a href="./summery.html" class="btn btn-outline-info btn-sm" title="Tag Analysis view">
-          <i class="bi bi-journal-check me-1"></i> Tag Analysis
-        </a>
-        <a href="../samples/index.html" class="btn btn-outline-warning btn-sm" title="Download & View Samples">
-          <i class="bi bi-collection me-1"></i> Samples
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Container -->
   <main class="container-fluid px-3 py-3 workspace-container">
-
-    <!-- Controls Toolbar -->
-    <div class="controls-bar p-2 mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
-      <!-- Left Controls: File Upload & Presets -->
-      <div class="d-flex align-items-center gap-2 flex-wrap">
-        <label for="jsonFileInput" class="form-label mb-0 fw-semibold small text-secondary d-flex align-items-center">
-          <i class="bi bi-file-earmark-code text-primary me-1"></i>Select JSON:
-        </label>
-        <input type="file" id="jsonFileInput" class="form-control form-control-sm" accept=".json,application/json"
-          style="max-width: 250px;" />
-      </div>
-
-      <!-- Right Controls: Status & Editor Actions -->
-      <div class="d-flex align-items-center gap-2 flex-wrap ms-auto">
-        <div class="form-check form-switch mb-0 d-flex align-items-center gap-1"
-          title="Automatically re-render DOM as you type in editor">
-          <input class="form-check-input" type="checkbox" id="autoRenderToggle" checked style="cursor: pointer;">
-          <label class="form-check-label small fw-semibold text-secondary" for="autoRenderToggle"
-            style="cursor: pointer;">Live Sync</label>
-        </div>
-
-        <button class="btn btn-primary btn-sm" type="button" id="btnManualRender"
-          title="Re-render output from editor JSON">
-          <i class="bi bi-play-fill me-1"></i> Render
-        </button>
-      </div>
-    </div>
 
     <!-- Side-by-Side Split Workspace -->
     <div class="split-grid">
@@ -315,22 +257,6 @@
             <span>JSON Specification</span>
             <span class="badge bg-light text-muted border fw-normal text-lowercase" id="editorLineCountBadge">0
               lines</span>
-          </div>
-          <div class="d-flex align-items-center gap-1">
-            <button class="btn btn-outline-secondary btn-sm py-0 px-2" id="btnFormatJson"
-              title="Prettify / Format JSON (Alt+Shift+F)">
-              <i class="bi bi-magic me-1"></i> Format
-            </button>
-            <button class="btn btn-outline-secondary btn-sm py-0 px-2" id="btnCopyJson" title="Copy JSON to clipboard">
-              <i class="bi bi-clipboard me-1"></i> Copy
-            </button>
-            <button class="btn btn-outline-secondary btn-sm py-0 px-2" id="btnToggleTheme"
-              title="Toggle Editor Theme (Light / Dark)">
-              <i class="bi bi-moon-stars" id="themeIcon"></i>
-            </button>
-            <button class="btn btn-outline-danger btn-sm py-0 px-2" id="btnClearEditor" title="Clear Editor">
-              <i class="bi bi-trash"></i>
-            </button>
           </div>
         </div>
 
@@ -352,15 +278,10 @@
             <span>Rendered Output</span>
             <span class="badge bg-light text-secondary border fw-normal" id="nodesCountBadge">0 DOM Nodes</span>
           </div>
-          <div class="d-flex align-items-center gap-1">
-            <button class="btn btn-outline-secondary btn-sm py-0 px-2" id="btnViewHtml"
-              title="View generated HTML markup">
-              <i class="bi bi-code-square me-1"></i> HTML
-            </button>
-            <button class="btn btn-outline-secondary btn-sm py-0 px-2" id="btnClearOutput" title="Clear rendered view">
-              <i class="bi bi-eraser me-1"></i> Reset
-            </button>
-          </div>
+          <button class="btn btn-primary btn-sm" type="button" id="btnManualRender"
+            title="Re-render output from editor JSON">
+            <i class="bi bi-play-fill me-1"></i> Render
+          </button>
         </div>
 
         <div class="preview-wrapper">
@@ -388,30 +309,6 @@
     </div>
 
   </main>
-
-  <!-- HTML Inspector Modal -->
-  <div class="modal fade" id="htmlModal" tabindex="-1" aria-labelledby="htmlModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header py-2">
-          <h1 class="modal-title fs-6 fw-bold" id="htmlModalLabel">
-            <i class="bi bi-code-square text-primary me-1"></i> Generated HTML Markup
-          </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body p-0">
-          <pre class="m-0 p-3 bg-dark text-light font-monospace small" style="max-height: 480px; overflow: auto;"
-            id="htmlModalCode"></pre>
-        </div>
-        <div class="modal-footer py-1">
-          <button type="button" class="btn btn-outline-secondary btn-sm" id="btnCopyHtml">
-            <i class="bi bi-clipboard me-1"></i> Copy HTML
-          </button>
-          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
