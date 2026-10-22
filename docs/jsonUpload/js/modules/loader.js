@@ -1,26 +1,28 @@
 export async function loadBuildSpecElement() {
-  let buildSpecElement = null;
+  const localUrl = new URL("../../../../node_modules/@keshavsoft/json-to-tag/src/index.js", import.meta.url);
+  const loaders = [
+    () => import(localUrl.href),
+    () => import("https://cdn.jsdelivr.net/npm/@keshavsoft/json-to-tag@1.9.3/src/index.js"),
+    () => import("https://keshavsoft.github.io/json-to-tag/src/index.js"),
+    () => import("https://keshavsoft.github.io/json-to-tag/dist/min.js"),
+  ];
 
-  try {
-    const localMod = await import("../../../dist/min.js");
-    buildSpecElement = localMod.buildSpecElement || localMod.default;
-  } catch (error) {
+  for (const loadModule of loaders) {
     try {
-      const cdnMod = await import("https://keshavsoft.github.io/json-to-tag/dist/min.js");
-      buildSpecElement = cdnMod.buildSpecElement || cdnMod.default;
-    } catch (cdnError) {
-      try {
-        const v9Mod = await import("../../../dist/v9/min.js");
-        buildSpecElement = v9Mod.buildSpecElement || v9Mod.default;
-      } catch (fallbackError) {
-        console.error("Failed to load buildSpecElement:", fallbackError);
+      const mod = await loadModule();
+      const fn = mod.buildSpecElement || mod.default || mod.specToDom;
+
+      if (typeof fn === "function") {
+        return fn;
       }
+    } catch (error) {
+      console.warn("buildSpecElement loader attempt failed:", error.message || error);
     }
   }
 
-  if (!buildSpecElement && window.ks?.jsonToTag?.buildSpecElement) {
-    buildSpecElement = window.ks.jsonToTag.buildSpecElement;
+  if (window.ks?.jsonToTag?.buildSpecElement) {
+    return window.ks.jsonToTag.buildSpecElement;
   }
 
-  return buildSpecElement;
+  return null;
 }

@@ -50,6 +50,10 @@ export function toggleTheme() {
 }
 
 export function initMonaco(onEditorChange) {
+  if (state.isMonacoLoaded) {
+    return;
+  }
+
   if (typeof window.require !== "undefined") {
     window.MonacoEnvironment = {
       getWorkerUrl() {
