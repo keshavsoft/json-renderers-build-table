@@ -488,6 +488,18 @@ var l = (e, t) => {
 		sourcePath: null,
 		templateKey: "buildBodyCell",
 		func: null
+	},
+	{
+		narration: "Prepend the serial footer cell to the table footer row.",
+		destinationPath: {
+			fileName: "base",
+			dataRole: "table-footer-row",
+			filePath: ["children"],
+			action: "unshift"
+		},
+		sourcePath: null,
+		templateKey: "headerSerialCell",
+		func: null
 	}
 ], R = [
 	{
@@ -525,10 +537,22 @@ var l = (e, t) => {
 		sourcePath: null,
 		templateKey: "optionsButtonCell",
 		func: null
+	},
+	{
+		narration: "Append the options footer cell to the table footer row.",
+		destinationPath: {
+			fileName: "base",
+			dataRole: "table-footer-row",
+			filePath: ["children"],
+			action: "push"
+		},
+		sourcePath: null,
+		templateKey: "optionsButtonCell",
+		func: null
 	}
 ], z = ({ inOptions: e = {}, inBase: t, showLog: n = !1, returnLog: r = [] }) => {
 	let i = e, a = t;
-	return console.log("inBase : ", a), (i.showSerial || i.serial) && (I(L, { base: a }, n, r), console.log("serial : ", a)), (i.showOptions || i.options) && I(R, { base: a }, n, r), i.showSearch, a;
+	return (i.showSerial || i.serial) && I(L, { base: a }, n, r), (i.showOptions || i.options) && I(R, { base: a }, n, r), i.showSearch, a;
 }, B = {
 	fromCollection: u,
 	twoDimensional: p

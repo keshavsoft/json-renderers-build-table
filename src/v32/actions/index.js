@@ -1,7 +1,5 @@
 import { runSingleInstructions } from "json-instructions";
 
-import insertSerial from "./insertSerial/index.js";
-import insertOptions from "./insertOptions/index.js";
 import insertSearch from "./insertSearch/index.js";
 
 import serialInstructions from "./instructionsForSerial.json" with { type: "json" };

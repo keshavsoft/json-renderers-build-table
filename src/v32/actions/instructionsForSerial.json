@@ -40,5 +40,19 @@
         "sourcePath": null,
         "templateKey": "buildBodyCell",
         "func": null
+    },
+    {
+        "narration": "Prepend the serial footer cell to the table footer row.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-footer-row",
+            "filePath": [
+                "children"
+            ],
+            "action": "unshift"
+        },
+        "sourcePath": null,
+        "templateKey": "headerSerialCell",
+        "func": null
     }
 ]

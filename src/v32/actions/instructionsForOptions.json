@@ -40,5 +40,19 @@
         "sourcePath": null,
         "templateKey": "optionsButtonCell",
         "func": null
+    },
+    {
+        "narration": "Append the options footer cell to the table footer row.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-footer-row",
+            "filePath": [
+                "children"
+            ],
+            "action": "push"
+        },
+        "sourcePath": null,
+        "templateKey": "optionsButtonCell",
+        "func": null
     }
 ]
