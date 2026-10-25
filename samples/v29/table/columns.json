@@ -1,0 +1,10 @@
+[
+    {
+        "columnName": "itemName",
+        "width": "30%"
+    },
+    {
+        "columnName": "category",
+        "width": "70%"
+    }
+]
