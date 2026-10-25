@@ -17,8 +17,8 @@ const start = () => {
             columns,
             showLog: false,
             options: {
-                showSerial: false,
-                showOptions: false
+                showSerial: true,
+                showOptions: true
             }
         });
         console.log("spec : ", spec);
