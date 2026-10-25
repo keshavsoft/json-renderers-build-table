@@ -67,291 +67,98 @@ var l = (e, t) => {
 		if (!(i in n)) throw Error(`Cell template "${i}" for column "${r.columnName}" not found in inSpec`);
 	}
 	return !0;
-}, f = (e, t) => e.map((e) => {
+}, te = (e, t) => e.map((e) => {
 	let n = t[e.template?.body?.cell || e.template?.bodyCell || "buildBodyCell"];
 	return c(e, n);
-}), p = (e, t, n) => {
+}), f = (e, t, n) => {
 	ee(e, t, n);
 	let r = e, i = t, a = n, o = a[r[0]?.template?.body?.tr || "buildBodyTr"];
 	return i.map((e) => {
 		let t = c(e, o);
-		return t.children = f(d(r, e), a), t;
+		return t.children = te(d(r, e), a), t;
 	});
-}, m = {
-	buildBodyTr: {
-		tagName: "tr",
-		attributes: { class: "align-middle" },
-		children: []
+}, p = (e) => Array.isArray(e) ? e : [e], m = (e, t, n) => {
+	e[t] = n;
+}, h = {
+	set: m,
+	push: (e, t, n) => {
+		e[t].push(...p(n));
 	},
-	buildColGroup: {
-		tagName: "col",
-		attributes: { width: "${width}" }
+	unshift: (e, t, n) => {
+		e[t].unshift(...p(n));
 	},
-	buildHeader: {
-		tagName: "th",
-		textContent: "${columnName}",
-		attributes: { class: "py-3 px-3 fw-semibold text-uppercase small" }
+	pushToRows: (e, t, n) => {
+		e[t].forEach((e) => {
+			e.children.push(...structuredClone(p(n)));
+		});
 	},
-	buildFooter: {
-		tagName: "td",
-		children: [{
-			tagName: "input",
-			attributes: {
-				type: "text",
-				placeholder: "enter ${columnName}",
-				name: "${columnName}",
-				id: "${columnName}",
-				list: "${columnName}",
-				class: "form-control"
-			}
-		}]
+	unshiftToRows: (e, t, n) => {
+		e[t].forEach((e) => {
+			e.children.unshift(...structuredClone(p(n)));
+		});
 	},
-	buildBodyCell: {
-		tagName: "td",
-		textContent: "${rowValue}",
-		attributes: { class: "py-3 px-3 text-secondary" }
-	},
-	button: {
-		tagName: "button",
-		textContent: "${columnName}",
-		attributes: { class: "btn btn-primary btn-sm" }
-	},
-	buttonCell: {
-		tagName: "td",
-		attributes: { class: "py-2 px-3 text-center" },
-		children: [{
-			tagName: "button",
-			textContent: "${agg:count}",
-			attributes: { class: "btn btn-primary btn-sm" }
-		}]
-	},
-	optionsButtonCell: {
-		tagName: "td",
-		attributes: { class: "py-2 px-3 text-center" },
-		children: [{
-			tagName: "button",
-			textContent: "${columnName}",
-			attributes: { class: "btn btn-primary btn-sm" }
-		}]
-	},
-	buildOption: {
-		tagName: "option",
-		textContent: "${rowValue}",
-		attributes: { value: "${rowValue}" }
-	},
-	buildSelect: {
-		tagName: "select",
-		attributes: { id: "LedgerName" },
-		children: []
-	},
-	buildDataList: {
-		tagName: "datalist",
-		attributes: { "data-name": "${columnName}" },
-		children: []
-	},
-	emptyCell: {
-		tagName: "td",
-		children: []
+	unshiftSerialToRows: (e, t, n) => {
+		e[t].forEach((e, t) => {
+			let r = structuredClone(n);
+			r.textContent = t + 1, e.children.unshift(r);
+		});
 	}
-}, te = {
-	tagName: "table",
-	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
-	children: [
-		{
-			tagName: "colgroup",
-			attributes: { "data-role": "table-colgroup" },
-			children: []
-		},
-		{
-			tagName: "thead",
-			attributes: {
-				class: "table-dark",
-				"data-role": "table-header"
-			},
-			children: [{
-				tagName: "tr",
-				attributes: { "data-role": "table-header-row" },
-				children: []
-			}]
-		},
-		{
-			tagName: "tbody",
-			attributes: { "data-role": "table-body" },
-			children: []
-		},
-		{
-			tagName: "tfoot",
-			attributes: { "data-role": "table-footer" },
-			children: [{
-				tagName: "tr",
-				attributes: { "data-role": "table-footer-row" },
-				children: []
-			}]
-		}
-	]
-}, ne = [{
-	narration: "Build the column widths for the table using the configured columns.",
-	destinationPath: {
-		fileName: "base",
-		dataRole: "table-colgroup",
-		filePath: ["children"]
-	},
-	sourcePath: {
-		fileName: "data",
-		filePath: ["columns"]
-	},
-	templateKey: "buildColGroup",
-	func: "fromCollection"
-}, {
-	narration: "Build the header row for the table using the configured columns.",
-	destinationPath: {
-		fileName: "base",
-		dataRole: "table-header-row",
-		filePath: ["children"]
-	},
-	sourcePath: {
-		fileName: "data",
-		filePath: ["columns"]
-	},
-	templateKey: "buildHeader",
-	func: "fromCollection"
-}], re = [{
-	narration: "Build the table body rows for the table using the configured columns and data.",
-	destinationPath: {
-		fileName: "base",
-		dataRole: "table-body",
-		filePath: ["children"]
-	},
-	sourcePath: {
-		fileName: "data",
-		filePath: ["columns"]
-	},
-	func: "twoDimensional"
-}], h = (e, t) => {
+}, g = (e, t) => {
 	if (e?.attributes?.["data-role"] === t) return e;
 	for (let n of e?.children ?? []) {
-		let e = h(n, t);
+		let e = g(n, t);
 		if (e) return e;
 	}
 	return null;
-}, ie = (e, t) => {
-	let n = e[t.fileName], r = t.dataRole ? h(n, t.dataRole) : n;
+}, ne = (e, t) => {
+	let n = e[t.fileName], r = t.dataRole ? g(n, t.dataRole) : n;
 	return (t.filePath ?? []).reduce((e, t) => e[t], r);
-}, g = (e) => Array.isArray(e) ? e : [e], _ = (e, t, n) => {
-	e[t] = n;
-}, v = {
-	set: _,
-	push: (e, t, n) => {
-		e[t].push(...g(n));
-	},
-	unshift: (e, t, n) => {
-		e[t].unshift(...g(n));
-	},
-	pushToRows: (e, t, n) => {
-		e[t].forEach((e) => {
-			e.children.push(...structuredClone(g(n)));
-		});
-	},
-	unshiftToRows: (e, t, n) => {
-		e[t].forEach((e) => {
-			e.children.unshift(...structuredClone(g(n)));
-		});
-	},
-	unshiftSerialToRows: (e, t, n) => {
-		e[t].forEach((e, t) => {
-			let r = structuredClone(n);
-			r.textContent = t + 1, e.children.unshift(r);
-		});
-	}
-}, ae = (e, t) => {
-	let n = t.dataRole ? h(e[t.fileName], t.dataRole) : e[t.fileName], r = [...t.filePath ?? []], i = r.pop();
+}, re = (e, t) => {
+	let n = t.dataRole ? g(e[t.fileName], t.dataRole) : e[t.fileName], r = [...t.filePath ?? []], i = r.pop();
 	return {
 		parent: r.reduce((e, t) => e[t], n),
 		key: i
 	};
-}, y = (e, t, n) => {
-	let { parent: r, key: i } = ae(e, t);
-	(v[t.action] || _)(r, i, n);
-}, b = (e, t, n) => {
+}, _ = (e, t, n) => {
+	let { parent: r, key: i } = re(e, t);
+	(h[t.action] || m)(r, i, n);
+}, v = (e, t) => {
+	if (e?.attributes?.["data-role"] === t) return e;
+	for (let n of e?.children ?? []) {
+		let e = v(n, t);
+		if (e) return e;
+	}
+	return null;
+}, y = (e, t) => {
+	let n = e[t.fileName], r = t.dataRole ? v(n, t.dataRole) : n;
+	return (t.filePath ?? []).reduce((e, t) => e[t], r);
+}, ie = (e, t, n) => {
 	let r = !!(e.sourcePath?.fileName && Array.isArray(e.sourcePath?.filePath)), i = `structure/sourcePath: ${r ? "passed" : "failed"}`;
 	return n.push(i), t && console.log(i), r;
-}, oe = (e, t, n) => {
+}, ae = (e, t, n) => {
 	let r = !!(e.destinationPath?.fileName && Array.isArray(e.destinationPath?.filePath)), i = `structure/destinationPath: ${r ? "passed" : "failed"}`;
 	return n.push(i), t && console.log(i), r;
-}, se = (e, t, n) => {
+}, oe = (e, t, n) => {
 	let r = e.templateKey === void 0 || typeof e.templateKey == "string" && e.templateKey.length > 0, i = `structure/templateKey: ${r ? "passed" : "failed"}`;
 	return n.push(i), t && console.log(i), r;
-}, ce = (e, t, n) => {
+}, se = (e, t, n) => {
 	let r = typeof e.func == "string" && e.func.length > 0, i = `structure/func: ${r ? "passed" : "failed"}`;
 	return n.push(i), t && console.log(i), r;
-}, le = (e, t, n) => [
-	b(e, t, n),
+}, ce = (e, t, n) => [
+	ie(e, t, n),
+	ae(e, t, n),
 	oe(e, t, n),
-	se(e, t, n),
-	ce(e, t, n)
-].every(Boolean), ue = (e, t, n, r) => {
+	se(e, t, n)
+].every(Boolean), le = (e, t, n, r) => {
 	let i = typeof t[e.func] == "function", a = `references/func (${e.func}): ${i ? "passed" : "failed"}`;
 	return r.push(a), n && console.log(a), i;
-}, de = (e, t, n, r) => {
+}, ue = (e, t, n, r) => {
 	let i = e.templateKey === void 0 || Object.hasOwn(t, e.templateKey), a = `references/templateKey${e.templateKey === void 0 ? " (not used)" : ` (${e.templateKey})`}: ${i ? "passed" : "failed"}`;
 	return r.push(a), n && console.log(a), i;
-}, fe = (e, t, n, r, i) => {
-	let a = ue(e, t, r, i), o = de(e, n, r, i);
+}, de = (e, t, n, r, i) => {
+	let a = le(e, t, r, i), o = ue(e, n, r, i);
 	return a && o;
-}, x = (e, t, n, r, i) => le(e, r, i) ? fe(e, t, n, r, i) : !1, pe = (e, t, n, r, i, a) => {
-	if (!x(e, n, r, i, a)) return;
-	let o = i, s = r, c = e.templateKey, l = s[c];
-	o && console.log("singleInstruction ; ", c, l);
-	let u = ie(t, e.sourcePath), d = n[e.func](u, l);
-	y(t, e.destinationPath, d);
-}, S = (e, t, n, r, i, a) => {
-	e.forEach((e) => {
-		pe(e, t, n, r, i, a);
-	});
-}, me = (e, t, n, r, i, a) => {
-	if (!x(e, n, r, i, a)) return;
-	let o = n[e.func](t.data.columns, t.data.data, r);
-	y(t, e.destinationPath, o);
-}, C = (e, t, n, r, i, a) => {
-	e.forEach((e) => {
-		me(e, t, n, r, i, a);
-	});
-}, w = (e) => Array.isArray(e) ? e : [e], T = (e, t, n) => {
-	e[t] = n;
-}, E = {
-	set: T,
-	push: (e, t, n) => {
-		e[t].push(...w(n));
-	},
-	unshift: (e, t, n) => {
-		e[t].unshift(...w(n));
-	},
-	pushToRows: (e, t, n) => {
-		e[t].forEach((e) => {
-			e.children.push(...structuredClone(w(n)));
-		});
-	},
-	unshiftToRows: (e, t, n) => {
-		e[t].forEach((e) => {
-			e.children.unshift(...structuredClone(w(n)));
-		});
-	},
-	unshiftSerialToRows: (e, t, n) => {
-		e[t].forEach((e, t) => {
-			let r = structuredClone(n);
-			r.textContent = t + 1, e.children.unshift(r);
-		});
-	}
-}, D = (e, t) => {
-	let n = t.dataRole ? h(e[t.fileName], t.dataRole) : e[t.fileName], r = [...t.filePath ?? []], i = r.pop();
-	return {
-		parent: r.reduce((e, t) => e[t], n),
-		key: i
-	};
-}, O = (e, t, n) => {
-	let { parent: r, key: i } = D(e, t);
-	(E[t.action] || T)(r, i, n);
-}, k = {
+}, fe = (e, t, n, r, i) => ce(e, r, i) ? de(e, t, n, r, i) : !1, b = {
 	buildBodyTr: {
 		tagName: "tr",
 		attributes: { class: "align-middle" },
@@ -454,31 +261,196 @@ var l = (e, t) => {
 			attributes: { class: "btn btn-warning btn-sm ks-btn-save" }
 		}]
 	}
-}, A = (e, t, n, r) => {
-	let i = n, a = k, o = e.templateKey, s = a[o];
-	i && console.log("singleInstruction ; ", o, s), O(t, e.destinationPath, s);
-}, j = (e, t, n, r) => {
+}, pe = {
+	applyTemplate: c,
+	fromCollection: u
+}, me = (e, t) => e?.sourcePath === null ? null : y(t, e.sourcePath), he = (e, t, n, r) => {
+	let i = b[e.templateKey], a = me(e, t), o = pe[e.func](a, i);
+	a === null && (o = i), _(t, e.destinationPath, o);
+}, x = (e, t, n, r) => {
 	e.forEach((e) => {
-		A(e, t, n, r);
+		he(e, t, n, r);
 	});
-}, M = (e, t, n) => {
+}, S = {
+	applyTemplate: c,
+	fromCollection: u,
+	twoDimensional: f
+}, ge = (e, t, n, r) => {
+	if (!fe(e, S, b, n, r)) return;
+	let i = S[e.func](t.data.columns, t.data.data, b);
+	_(t, e.destinationPath, i);
+}, _e = (e, t, n, r) => {
+	e.forEach((e) => {
+		ge(e, t, n, r);
+	});
+}, C = {
+	buildBodyTr: {
+		tagName: "tr",
+		attributes: { class: "align-middle" },
+		children: []
+	},
+	buildColGroup: {
+		tagName: "col",
+		attributes: { width: "${width}" }
+	},
+	buildHeader: {
+		tagName: "th",
+		textContent: "${columnName}",
+		attributes: { class: "py-3 px-3 fw-semibold text-uppercase small" }
+	},
+	buildFooter: {
+		tagName: "td",
+		children: [{
+			tagName: "input",
+			attributes: {
+				type: "text",
+				placeholder: "enter ${columnName}",
+				name: "${columnName}",
+				id: "${columnName}",
+				list: "${columnName}",
+				class: "form-control"
+			}
+		}]
+	},
+	buildBodyCell: {
+		tagName: "td",
+		textContent: "${rowValue}",
+		attributes: { class: "py-3 px-3 text-secondary" }
+	},
+	button: {
+		tagName: "button",
+		textContent: "${columnName}",
+		attributes: { class: "btn btn-primary btn-sm" }
+	},
+	buttonCell: {
+		tagName: "td",
+		attributes: { class: "py-2 px-3 text-center" },
+		children: [{
+			tagName: "button",
+			textContent: "${agg:count}",
+			attributes: { class: "btn btn-primary btn-sm" }
+		}]
+	},
+	optionsButtonCell: {
+		tagName: "td",
+		attributes: { class: "py-2 px-3 text-center" },
+		children: [{
+			tagName: "button",
+			textContent: "${columnName}",
+			attributes: { class: "btn btn-primary btn-sm" }
+		}]
+	},
+	buildOption: {
+		tagName: "option",
+		textContent: "${rowValue}",
+		attributes: { value: "${rowValue}" }
+	},
+	buildSelect: {
+		tagName: "select",
+		attributes: { id: "LedgerName" },
+		children: []
+	},
+	buildDataList: {
+		tagName: "datalist",
+		attributes: { "data-name": "${columnName}" },
+		children: []
+	},
+	emptyCell: {
+		tagName: "td",
+		children: []
+	}
+}, ve = {
+	tagName: "table",
+	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
+	children: [
+		{
+			tagName: "colgroup",
+			attributes: { "data-role": "table-colgroup" },
+			children: []
+		},
+		{
+			tagName: "thead",
+			attributes: {
+				class: "table-dark",
+				"data-role": "table-header"
+			},
+			children: [{
+				tagName: "tr",
+				attributes: { "data-role": "table-header-row" },
+				children: []
+			}]
+		},
+		{
+			tagName: "tbody",
+			attributes: { "data-role": "table-body" },
+			children: []
+		},
+		{
+			tagName: "tfoot",
+			attributes: { "data-role": "table-footer" },
+			children: [{
+				tagName: "tr",
+				attributes: { "data-role": "table-footer-row" },
+				children: []
+			}]
+		}
+	]
+}, w = [{
+	narration: "Build the column widths for the table using the configured columns.",
+	destinationPath: {
+		fileName: "base",
+		dataRole: "table-colgroup",
+		filePath: ["children"]
+	},
+	sourcePath: {
+		fileName: "data",
+		filePath: ["columns"]
+	},
+	templateKey: "buildColGroup",
+	func: "fromCollection"
+}, {
+	narration: "Build the header row for the table using the configured columns.",
+	destinationPath: {
+		fileName: "base",
+		dataRole: "table-header-row",
+		filePath: ["children"]
+	},
+	sourcePath: {
+		fileName: "data",
+		filePath: ["columns"]
+	},
+	templateKey: "buildHeader",
+	func: "fromCollection"
+}], T = [{
+	narration: "Build the table body rows for the table using the configured columns and data.",
+	destinationPath: {
+		fileName: "base",
+		dataRole: "table-body",
+		filePath: ["children"]
+	},
+	sourcePath: {
+		fileName: "data",
+		filePath: ["columns"]
+	},
+	func: "twoDimensional"
+}], E = (e, t, n) => {
 	let r = !(!e || typeof e != "object" || Array.isArray(e)), i = `guards/base: ${r ? "passed" : "failed"}`;
 	return Array.isArray(n) && n.push(i), t && console.log(i), r;
-}, N = (e, t, n) => {
+}, D = (e, t, n) => {
 	let r = !(!e || typeof e != "object" || Array.isArray(e)), i = `guards/options: ${r ? "passed" : "failed"}`;
 	return Array.isArray(n) && n.push(i), t && console.log(i), r;
-}, P = (e, t, n) => {
+}, O = (e, t, n) => {
 	let r = typeof e == "boolean", i = `guards/showLog: ${r ? "passed" : "failed"}`;
 	return Array.isArray(n) && n.push(i), t && console.log(i), r;
-}, F = (e, t, n) => {
+}, k = (e, t, n) => {
 	let r = Array.isArray(e), i = `guards/returnLog: ${r ? "passed" : "failed"}`;
 	return r ? e.push(i) : Array.isArray(n) && n.push(i), t && console.log(i), r;
-}, I = ({ options: e, base: t, showLog: n, returnLog: r }) => ({
-	base: M(t, n, r),
-	options: N(e, n, r),
-	showLog: P(n, n, r),
-	returnLog: F(r, n, r)
-}), L = [
+}, A = ({ options: e, base: t, showLog: n, returnLog: r }) => ({
+	base: E(t, n, r),
+	options: D(e, n, r),
+	showLog: O(n, n, r),
+	returnLog: k(r, n, r)
+}), j = [
 	{
 		narration: "Prepend the serial column width to the table colgroup.",
 		destinationPath: {
@@ -527,7 +499,7 @@ var l = (e, t) => {
 		templateKey: "headerSerialCell",
 		func: null
 	}
-], R = [
+], M = [
 	{
 		narration: "Append the options column width to the table colgroup.",
 		destinationPath: {
@@ -576,8 +548,8 @@ var l = (e, t) => {
 		templateKey: "tdWithButtonSaveWarning",
 		func: null
 	}
-], z = ({ options: e = {}, base: t, showLog: n = !1, returnLog: r = [] } = {}) => {
-	let i = I({
+], N = ({ options: e = {}, base: t, showLog: n = !1, returnLog: r = [] } = {}) => {
+	let i = A({
 		options: e,
 		base: t,
 		showLog: n,
@@ -585,30 +557,27 @@ var l = (e, t) => {
 	});
 	if (!Object.values(i).every(Boolean)) return t;
 	let a = e, o = t, s = n, c = r;
-	return (a.showSerial || a.serial) && j(L, { base: o }, s, c), (a.showOptions || a.options) && j(R, { base: o }, s, c), a.showSearch, o;
-}, B = ({ inOptions: e = {}, inBase: t, showLog: n = !1, returnLog: r = [] }) => z({
+	return (a.showSerial || a.serial) && x(j, { base: o }, s, c), (a.showOptions || a.options) && x(M, { base: o }, s, c), a.showSearch, o;
+}, P = ({ inOptions: e = {}, inBase: t, showLog: n = !1, returnLog: r = [] }) => N({
 	options: e,
 	base: t,
 	showLog: n,
 	returnLog: r
-}), V = {
-	fromCollection: u,
-	twoDimensional: p
-}, H = (e = {}, t = !1, n = []) => {
-	let r = e, i = r.columns || [], a = r.data || [], o = r.options || {}, s = structuredClone(te), c = {
+}), F = (e = {}, t = !1, n = []) => {
+	let r = e, i = r.columns || [], a = r.data || [], o = r.options || {}, s = r?.showLog, c = structuredClone(ve), l = {
 		data: {
 			columns: i,
 			data: a
 		},
-		base: s,
-		spec: m,
+		base: c,
+		spec: C,
 		...o
 	};
-	return S(ne, c, V, m, t, n), C(re, c, V, m, t, n), B({
+	return console.log("registry : ", s, l), x(w, l, s, n), _e(T, l, t, n), P({
 		inOptions: o,
-		inBase: s
-	}), s;
-}, U = {
+		inBase: c
+	}), c;
+}, I = {
 	tagName: "table",
 	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
 	children: [
@@ -644,7 +613,7 @@ var l = (e, t) => {
 			}]
 		}
 	]
-}, he = [{
+}, ye = [{
 	narration: "Build the column widths for the table using the configured columns.",
 	destinationPath: {
 		fileName: "base",
@@ -670,11 +639,82 @@ var l = (e, t) => {
 	},
 	templateKey: "buildHeader",
 	func: "fromCollection"
-}], W = {
+}], L = (e) => Array.isArray(e) ? e : [e], R = (e, t, n) => {
+	e[t] = n;
+}, be = {
+	set: R,
+	push: (e, t, n) => {
+		e[t].push(...L(n));
+	},
+	unshift: (e, t, n) => {
+		e[t].unshift(...L(n));
+	},
+	pushToRows: (e, t, n) => {
+		e[t].forEach((e) => {
+			e.children.push(...structuredClone(L(n)));
+		});
+	},
+	unshiftToRows: (e, t, n) => {
+		e[t].forEach((e) => {
+			e.children.unshift(...structuredClone(L(n)));
+		});
+	},
+	unshiftSerialToRows: (e, t, n) => {
+		e[t].forEach((e, t) => {
+			let r = structuredClone(n);
+			r.textContent = t + 1, e.children.unshift(r);
+		});
+	}
+}, xe = (e, t) => {
+	let n = t.dataRole ? g(e[t.fileName], t.dataRole) : e[t.fileName], r = [...t.filePath ?? []], i = r.pop();
+	return {
+		parent: r.reduce((e, t) => e[t], n),
+		key: i
+	};
+}, z = (e, t, n) => {
+	let { parent: r, key: i } = xe(e, t);
+	(be[t.action] || R)(r, i, n);
+}, Se = (e, t, n) => {
+	let r = !!(e.sourcePath?.fileName && Array.isArray(e.sourcePath?.filePath)), i = `structure/sourcePath: ${r ? "passed" : "failed"}`;
+	return n.push(i), t && console.log(i), r;
+}, Ce = (e, t, n) => {
+	let r = !!(e.destinationPath?.fileName && Array.isArray(e.destinationPath?.filePath)), i = `structure/destinationPath: ${r ? "passed" : "failed"}`;
+	return n.push(i), t && console.log(i), r;
+}, we = (e, t, n) => {
+	let r = e.templateKey === void 0 || typeof e.templateKey == "string" && e.templateKey.length > 0, i = `structure/templateKey: ${r ? "passed" : "failed"}`;
+	return n.push(i), t && console.log(i), r;
+}, Te = (e, t, n) => {
+	let r = typeof e.func == "string" && e.func.length > 0, i = `structure/func: ${r ? "passed" : "failed"}`;
+	return n.push(i), t && console.log(i), r;
+}, Ee = (e, t, n) => [
+	Se(e, t, n),
+	Ce(e, t, n),
+	we(e, t, n),
+	Te(e, t, n)
+].every(Boolean), De = (e, t, n, r) => {
+	let i = typeof t[e.func] == "function", a = `references/func (${e.func}): ${i ? "passed" : "failed"}`;
+	return r.push(a), n && console.log(a), i;
+}, Oe = (e, t, n, r) => {
+	let i = e.templateKey === void 0 || Object.hasOwn(t, e.templateKey), a = `references/templateKey${e.templateKey === void 0 ? " (not used)" : ` (${e.templateKey})`}: ${i ? "passed" : "failed"}`;
+	return r.push(a), n && console.log(a), i;
+}, ke = (e, t, n, r, i) => {
+	let a = De(e, t, r, i), o = Oe(e, n, r, i);
+	return a && o;
+}, B = (e, t, n, r, i) => Ee(e, r, i) ? ke(e, t, n, r, i) : !1, Ae = (e, t, n, r, i, a) => {
+	if (!B(e, n, r, i, a)) return;
+	let o = i, s = r, c = e.templateKey, l = s[c];
+	o && console.log("singleInstruction ; ", c, l);
+	let u = ne(t, e.sourcePath), d = n[e.func](u, l);
+	z(t, e.destinationPath, d);
+}, V = (e, t, n, r, i, a) => {
+	e.forEach((e) => {
+		Ae(e, t, n, r, i, a);
+	});
+}, H = {
 	data: {},
-	base: U,
-	spec: m
-}, ge = { fromCollection: u }, G = (e, t = !1, n = []) => (W.data = e, S(he, W, ge, m, t, n), U), K = { children: [] }, _e = [{
+	base: I,
+	spec: C
+}, je = { fromCollection: u }, U = (e, t = !1, n = []) => (H.data = e, V(ye, H, je, C, t, n), I), W = { children: [] }, Me = [{
 	narration: "Build the table body rows for the table using the configured columns and data.",
 	destinationPath: {
 		fileName: "base",
@@ -685,11 +725,19 @@ var l = (e, t) => {
 		filePath: ["columns"]
 	},
 	func: "twoDimensional"
-}], q = {
+}], Ne = (e, t, n, r, i, a) => {
+	if (!B(e, n, r, i, a)) return;
+	let o = n[e.func](t.data.columns, t.data.data, r);
+	z(t, e.destinationPath, o);
+}, G = (e, t, n, r, i, a) => {
+	e.forEach((e) => {
+		Ne(e, t, n, r, i, a);
+	});
+}, K = {
 	data: {},
-	base: K,
-	spec: m
-}, ve = { twoDimensional: p }, J = (e, t = !1, n = []) => (q.data = e, C(_e, q, ve, m, t, n), K.children), ye = {
+	base: W,
+	spec: C
+}, q = { twoDimensional: f }, J = (e, t = !1, n = []) => (K.data = e, G(Me, K, q, C, t, n), W.children), Pe = {
 	tagName: "table",
 	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
 	children: [
@@ -725,7 +773,7 @@ var l = (e, t) => {
 			}]
 		}
 	]
-}, be = [
+}, Fe = [
 	{
 		narration: "Build the column widths for the table using the configured columns.",
 		destinationPath: {
@@ -768,7 +816,7 @@ var l = (e, t) => {
 		templateKey: "buildFooter",
 		func: "fromCollection"
 	}
-], xe = [{
+], Ie = [{
 	narration: "Build the table body rows for the table using the configured columns and data.",
 	destinationPath: {
 		fileName: "base",
@@ -782,21 +830,21 @@ var l = (e, t) => {
 	func: "twoDimensional"
 }], Y = {
 	fromCollection: u,
-	twoDimensional: p
+	twoDimensional: f
 }, X = (e = {}, t = !1, n = []) => {
-	let r = e, i = r.inColumns || r.columns || [], a = r.inData || r.data || [], o = r.inOptions || r.options || {}, s = structuredClone(ye), c = {
+	let r = e, i = r.inColumns || r.columns || [], a = r.inData || r.data || [], o = r.inOptions || r.options || {}, s = structuredClone(Pe), c = {
 		data: {
 			columns: i,
 			data: a
 		},
 		base: s,
-		spec: m
+		spec: C
 	};
-	return S(be, c, Y, m, t, n), C(xe, c, Y, m, t, n), B({
+	return V(Fe, c, Y, C, t, n), G(Ie, c, Y, C, t, n), P({
 		inOptions: o,
 		inBase: s
 	}), s;
-}, Z = { children: [] }, Se = [{
+}, Z = { children: [] }, Le = [{
 	narration: "Build the footer row for the table using the configured columns.",
 	destinationPath: {
 		fileName: "base",
@@ -811,16 +859,16 @@ var l = (e, t) => {
 }], Q = {
 	data: {},
 	base: Z,
-	spec: m
-}, Ce = {
+	spec: C
+}, Re = {
 	fromCollection: u,
-	twoDimensional: p
-}, $ = (e, t = !1, n = []) => (Q.data = e, S(Se, Q, Ce, m, t, n), Z?.children), we = {
-	simple: H,
-	headerOnly: G,
+	twoDimensional: f
+}, $ = (e, t = !1, n = []) => (Q.data = e, V(Le, Q, Re, C, t, n), Z?.children), ze = {
+	simple: F,
+	headerOnly: U,
 	bodyOnly: J,
 	withFooter: X,
 	footerOnly: $
 };
 //#endregion
-export { J as bodyOnly, we as default, $ as footerOnly, G as headerOnly, H as simple, X as withFooter };
+export { J as bodyOnly, ze as default, $ as footerOnly, U as headerOnly, F as simple, X as withFooter };
