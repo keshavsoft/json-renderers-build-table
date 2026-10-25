@@ -1,4 +1,4 @@
-import { simple } from "../../../docs/dist/v29/min.js";
+import { simple } from "../../../docs/dist/v31/min.js";
 import "https://keshavsoft.github.io/json-to-dom/dist/v42/min.js";
 
 import data from "./data.json" with { type: "json" };
