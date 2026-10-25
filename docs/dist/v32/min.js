@@ -444,6 +444,15 @@ var l = (e, t) => {
 		tagName: "th",
 		textContent: "options",
 		attributes: { class: "py-3 px-3 fw-semibold text-uppercase small" }
+	},
+	tdWithButtonSaveWarning: {
+		tagName: "td",
+		attributes: { class: "py-2 px-3 text-center" },
+		children: [{
+			tagName: "button",
+			textContent: "save",
+			attributes: { class: "btn btn-warning btn-sm" }
+		}]
 	}
 }, F = (e, t, n, r) => {
 	let i = n, a = P, o = e.templateKey, s = a[o];
@@ -547,7 +556,7 @@ var l = (e, t) => {
 			action: "push"
 		},
 		sourcePath: null,
-		templateKey: "optionsButtonCell",
+		templateKey: "tdWithButtonSaveWarning",
 		func: null
 	}
 ], z = ({ inOptions: e = {}, inBase: t, showLog: n = !1, returnLog: r = [] }) => {

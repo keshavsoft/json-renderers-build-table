@@ -52,7 +52,7 @@
             "action": "push"
         },
         "sourcePath": null,
-        "templateKey": "optionsButtonCell",
+        "templateKey": "tdWithButtonSaveWarning",
         "func": null
     }
 ]
