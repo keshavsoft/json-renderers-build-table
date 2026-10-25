@@ -1,0 +1,19 @@
+[
+    {
+        "narration": "Build the footer row for the table using the configured columns.",
+        "destinationPath": {
+            "fileName": "base",
+            "filePath": [
+                "children"
+            ]
+        },
+        "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+                "columns"
+            ]
+        },
+        "templateKey": "buildFooter",
+        "func": "fromCollection"
+    }
+]

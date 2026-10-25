@@ -9,15 +9,9 @@
             ],
             "action": "push"
         },
-        "sourcePath": {
-            "fileName": "data",
-            "filePath": [
-                "options",
-                "col"
-            ]
-        },
-        "templateKey": "buildColGroup",
-        "func": "applyTemplate"
+        "sourcePath": null,
+        "templateKey": "colGroupForOption",
+        "func": null
     },
     {
         "narration": "Append the options header cell to the table header row.",
@@ -29,15 +23,9 @@
             ],
             "action": "push"
         },
-        "sourcePath": {
-            "fileName": "data",
-            "filePath": [
-                "options",
-                "header"
-            ]
-        },
-        "templateKey": "buildHeader",
-        "func": "applyTemplate"
+        "sourcePath": null,
+        "templateKey": "headerForOption",
+        "func": null
     },
     {
         "narration": "Append the options button cell into each table body row.",
@@ -49,14 +37,8 @@
             ],
             "action": "pushToRows"
         },
-        "sourcePath": {
-            "fileName": "data",
-            "filePath": [
-                "options",
-                "body"
-            ]
-        },
+        "sourcePath": null,
         "templateKey": "optionsButtonCell",
-        "func": "applyTemplate"
+        "func": null
     }
 ]

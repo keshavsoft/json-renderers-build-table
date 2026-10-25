@@ -1,62 +1,56 @@
 [
     {
-        "narration": "Prepend the serial column width to the table colgroup.",
+        "narration": "Build the column widths for the table using the configured columns.",
         "destinationPath": {
             "fileName": "base",
             "dataRole": "table-colgroup",
             "filePath": [
                 "children"
-            ],
-            "action": "unshift"
+            ]
         },
         "sourcePath": {
             "fileName": "data",
             "filePath": [
-                "serial",
-                "col"
+                "columns"
             ]
         },
         "templateKey": "buildColGroup",
-        "func": "applyTemplate"
+        "func": "fromCollection"
     },
     {
-        "narration": "Prepend the serial header cell to the table header row.",
+        "narration": "Build the header row for the table using the configured columns.",
         "destinationPath": {
             "fileName": "base",
             "dataRole": "table-header-row",
             "filePath": [
                 "children"
-            ],
-            "action": "unshift"
+            ]
         },
         "sourcePath": {
             "fileName": "data",
             "filePath": [
-                "serial",
-                "header"
+                "columns"
             ]
         },
         "templateKey": "buildHeader",
-        "func": "applyTemplate"
+        "func": "fromCollection"
     },
     {
-        "narration": "Prepend the serial number cell into each table body row.",
+        "narration": "Build the footer row for the table using the configured columns.",
         "destinationPath": {
             "fileName": "base",
-            "dataRole": "table-body",
+            "dataRole": "table-footer-row",
             "filePath": [
                 "children"
-            ],
-            "action": "unshiftSerialToRows"
+            ]
         },
         "sourcePath": {
             "fileName": "data",
             "filePath": [
-                "serial",
-                "body"
+                "columns"
             ]
         },
-        "templateKey": "buildBodyCell",
-        "func": "applyTemplate"
+        "templateKey": "buildFooter",
+        "func": "fromCollection"
     }
 ]

@@ -12,18 +12,12 @@ const startFunc = ({ inOptions = {}, inBase, showLog = false, returnLog = [] }) 
 
     const localBase = inBase;
 
-    console.log("inBase : ", inBase)
     if (localOptions.showSerial || localOptions.serial) {
-
-        runSingleInstructions(serialInstructions, localBase, showLog, returnLog);
-
-        // insertSerial(localBase, localOptions.serial || {}, showLog, returnLog);
+        runSingleInstructions(serialInstructions, { base: localBase }, showLog, returnLog);
     };
 
     if (localOptions.showOptions || localOptions.options) {
-        // runSingleInstructions(optionInstructions, localBase, false, []);
-
-        // insertOptions(localBase, localOptions.options || {}, showLog, returnLog);
+        runSingleInstructions(optionInstructions, { base: localBase }, showLog, returnLog);
     };
 
     if (localOptions.showSearch) {
