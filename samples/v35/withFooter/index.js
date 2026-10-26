@@ -1,4 +1,4 @@
-import { withFooter } from "../../../docs/dist/v35/min.js";
+import { withFooter } from "../../../docs/dist/v36/min.js";
 import "https://keshavsoft.github.io/json-to-dom/dist/v42/min.js";
 
 import data from "./data.json" with { type: "json" };
@@ -16,8 +16,8 @@ const start = () => {
             columns,
             showLog: false,
             options: {
-                showSerial: false,
-                showOptions: false
+                showSerial: true,
+                showOptions: true
             }
         });
         console.log("--------spec ------: ", spec);

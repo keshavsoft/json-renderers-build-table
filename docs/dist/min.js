@@ -39,34 +39,34 @@ var l = (e) => typeof e == "object" && !!e && !Array.isArray(e), u = (e, t) => {
 	let n = {};
 	for (let [r, i] of Object.entries(e)) n[r] = h(t, i);
 	return n;
-}, ee = (e, t) => {
+}, d = (e, t) => {
 	let n = structuredClone(e);
 	if (Array.isArray(n)) return n.map((e) => h(t, e));
-}, d = (e, t, n) => {
+}, f = (e, t, n) => {
 	if (e === "${agg:count}" && "rowData" in t) {
 		if (Array.isArray(t?.rowData)) return t?.rowData.length;
 	} else if (e === "${rowValue}" && "rowData" in t) return t?.rowData;
 	else return e.replace(/\$\{(\w+)\}/g, (e, n) => t[n] === void 0 ? e : t[n]);
-}, f = (e, t) => d(e, t), te = (e, t, n) => {
+}, p = (e, t) => f(e, t), m = (e, t, n) => {
 	if (n && console.log("inElement : ", e), n && console.log("inTemplate : ", t), t == null) throw TypeError("inTemplate is required");
 	if (typeof t != "object" && typeof t != "string") throw TypeError("inTemplate must be an object or string");
 	if (!e || typeof e != "object" || Array.isArray(e)) throw TypeError("inElement must be an object");
 	return !0;
-}, p = {
+}, ee = {
 	name: "json-transformer-funcs-primitive",
 	version: "1.9.0"
-}, m = (e) => {
+}, te = (e) => {
 	typeof globalThis < "u" && e && (globalThis.ks ??= {}, globalThis.ks.applyTemplate ??= e, globalThis.ks.transformerFuncs ??= {}, globalThis.ks.transformerFuncs.primitive = {
-		meta: p,
+		meta: ee,
 		applyTemplate: e
 	});
 }, h = (e, t, n) => {
 	let r = e, i = t;
-	te(r, i, n);
+	m(r, i, n);
 	let a = structuredClone(i);
-	return typeof a == "string" ? d(a, r) : (typeof a != "object" || !a || ("textContent" in a && (a.textContent = f(a?.textContent, r)), "attributes" in a && (a.attributes = u(a?.attributes, r)), "children" in a && (a.children = ee(a?.children, r))), a);
+	return typeof a == "string" ? f(a, r) : (typeof a != "object" || !a || ("textContent" in a && (a.textContent = p(a?.textContent, r)), "attributes" in a && (a.attributes = u(a?.attributes, r)), "children" in a && (a.children = d(a?.children, r))), a);
 };
-m(h);
+te(h);
 //#endregion
 //#region ../json-instruction-single/node_modules/json-transformer-funcs-one-dimension/src/v6/guard/index.js
 var g = (e, t) => {
@@ -111,26 +111,26 @@ var g = (e, t) => {
 		if (e) return e;
 	}
 	return null;
-}, S = (e, t) => {
+}, ne = (e, t) => {
 	let n = t.dataRole ? x(e[t.fileName], t.dataRole) : e[t.fileName], r = [...t.filePath ?? []], i = r.pop();
 	return {
 		parent: r.reduce((e, t) => e[t], n),
 		key: i
 	};
-}, ne = (e, t, n) => {
-	let { parent: r, key: i } = S(e, t);
+}, re = (e, t, n) => {
+	let { parent: r, key: i } = ne(e, t);
 	(b[t.action] || y)(r, i, n);
-}, C = (e, t) => {
+}, S = (e, t) => {
 	if (e?.attributes?.["data-role"] === t) return e;
 	for (let n of e?.children ?? []) {
-		let e = C(n, t);
+		let e = S(n, t);
 		if (e) return e;
 	}
 	return null;
-}, re = (e, t) => {
-	let n = e[t.fileName], r = t.dataRole ? C(n, t.dataRole) : n;
+}, ie = (e, t) => {
+	let n = e[t.fileName], r = t.dataRole ? S(n, t.dataRole) : n;
 	return (t.filePath ?? []).reduce((e, t) => e[t], r);
-}, ie = {
+}, C = {
 	buildBodyTr: {
 		tagName: "tr",
 		attributes: { class: "align-middle" },
@@ -236,9 +236,9 @@ var g = (e, t) => {
 }, w = {
 	applyTemplate: h,
 	fromCollection: _
-}, T = (e, t) => e?.sourcePath === null ? null : re(t, e.sourcePath), E = (e, t, n, r) => {
-	let i = ie[e.templateKey], a, o = T(e, t);
-	a = o === null ? i : w[e.func](o, i), ne(t, e.destinationPath, a);
+}, T = (e, t) => e?.sourcePath === null ? null : ie(t, e.sourcePath), E = (e, t, n, r) => {
+	let i = C[e.templateKey], a, o = T(e, t);
+	a = o === null ? i : w[e.func](o, i), re(t, e.destinationPath, a);
 }, D = (e, t, n, r) => {
 	e.forEach((e) => {
 		E(e, t, n, r);
@@ -354,16 +354,16 @@ var L = (e, t) => {
 		if (e) return e;
 	}
 	return null;
-}, q = (e, t) => {
+}, ae = (e, t) => {
 	let n = t.dataRole ? K(e[t.fileName], t.dataRole) : e[t.fileName], r = [...t.filePath ?? []], i = r.pop();
 	return {
 		parent: r.reduce((e, t) => e[t], n),
 		key: i
 	};
-}, J = (e, t, n) => {
-	let { parent: r, key: i } = q(e, t);
+}, q = (e, t, n) => {
+	let { parent: r, key: i } = ae(e, t);
 	(G[t.action] || W)(r, i, n);
-}, Y = {
+}, J = {
 	buildBodyTr: {
 		tagName: "tr",
 		attributes: { class: "align-middle" },
@@ -466,18 +466,18 @@ var L = (e, t) => {
 			attributes: { class: "btn btn-warning btn-sm ks-btn-save" }
 		}]
 	}
-}, ae = {
+}, oe = {
 	applyTemplate: I,
 	fromCollection: R,
 	twoDimensional: H
-}, oe = (e, t, n, r) => {
-	let i = ae[e.func](t.data.columns, t.data.data, Y);
-	J(t, e.destinationPath, i);
-}, X = (e, t, n, r) => {
+}, se = (e, t, n, r) => {
+	let i = oe[e.func](t.data.columns, t.data.data, J);
+	q(t, e.destinationPath, i);
+}, Y = (e, t, n, r) => {
 	e.forEach((e) => {
-		oe(e, t, n, r);
+		se(e, t, n, r);
 	});
-}, Z = {
+}, X = {
 	buildBodyTr: {
 		tagName: "tr",
 		attributes: { class: "align-middle" },
@@ -553,7 +553,7 @@ var L = (e, t) => {
 		tagName: "td",
 		children: []
 	}
-}, se = {
+}, ce = {
 	tagName: "table",
 	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
 	children: [
@@ -589,7 +589,7 @@ var L = (e, t) => {
 			}]
 		}
 	]
-}, ce = [{
+}, le = [{
 	narration: "Build column widths",
 	destinationPath: {
 		fileName: "base",
@@ -615,7 +615,7 @@ var L = (e, t) => {
 	},
 	templateKey: "buildHeader",
 	func: "fromCollection"
-}], le = [{
+}], ue = [{
 	narration: "Build table body",
 	destinationPath: {
 		fileName: "base",
@@ -627,18 +627,143 @@ var L = (e, t) => {
 		filePath: ["columns"]
 	},
 	func: "twoDimensional"
-}], Q = ({ data: e, columns: t, options: n }) => {
-	let r = structuredClone(se), i = {
+}], Z = ({ data: e, columns: t, options: n }) => {
+	let r = structuredClone(ce), i = {
 		data: {
 			columns: t,
 			data: e
 		},
 		base: r,
-		spec: Z,
+		spec: X,
 		...n
 	};
-	return D(ce, i), X(le, i), r;
-}, ue = {
+	return D(le, i), Y(ue, i), r;
+}, de = (e, t, n) => {
+	let r = !(!e || typeof e != "object" || Array.isArray(e)), i = `guards/base: ${r ? "passed" : "failed"}`;
+	return Array.isArray(n) && n.push(i), t && console.log(i), r;
+}, fe = (e, t, n) => {
+	let r = !(!e || typeof e != "object" || Array.isArray(e)), i = `guards/options: ${r ? "passed" : "failed"}`;
+	return Array.isArray(n) && n.push(i), t && console.log(i), r;
+}, pe = (e, t, n) => {
+	let r = typeof e == "boolean", i = `guards/showLog: ${r ? "passed" : "failed"}`;
+	return Array.isArray(n) && n.push(i), t && console.log(i), r;
+}, me = (e, t, n) => {
+	let r = Array.isArray(e), i = `guards/returnLog: ${r ? "passed" : "failed"}`;
+	return r ? e.push(i) : Array.isArray(n) && n.push(i), t && console.log(i), r;
+}, Q = ({ options: e, base: t, showLog: n, returnLog: r }) => ({
+	base: de(t, n, r),
+	options: fe(e, n, r),
+	showLog: pe(n, n, r),
+	returnLog: me(r, n, r)
+}), he = [
+	{
+		narration: "Prepend the serial column width to the table colgroup.",
+		destinationPath: {
+			fileName: "base",
+			dataRole: "table-colgroup",
+			filePath: ["children"],
+			action: "unshift"
+		},
+		sourcePath: null,
+		templateKey: "colGroupForSerial",
+		func: null
+	},
+	{
+		narration: "Prepend the serial header cell to the table header row.",
+		destinationPath: {
+			fileName: "base",
+			dataRole: "table-header-row",
+			filePath: ["children"],
+			action: "unshift"
+		},
+		sourcePath: null,
+		templateKey: "headerSerialCell",
+		func: null
+	},
+	{
+		narration: "Prepend the serial number cell into each table body row.",
+		destinationPath: {
+			fileName: "base",
+			dataRole: "table-body",
+			filePath: ["children"],
+			action: "unshiftSerialToRows"
+		},
+		sourcePath: null,
+		templateKey: "buildBodyCell",
+		func: null
+	},
+	{
+		narration: "Prepend the serial footer cell to the table footer row.",
+		destinationPath: {
+			fileName: "base",
+			dataRole: "table-footer-row",
+			filePath: ["children"],
+			action: "unshift"
+		},
+		sourcePath: null,
+		templateKey: "headerSerialCell",
+		func: null
+	}
+], ge = [
+	{
+		narration: "Append the options column width to the table colgroup.",
+		destinationPath: {
+			fileName: "base",
+			dataRole: "table-colgroup",
+			filePath: ["children"],
+			action: "push"
+		},
+		sourcePath: null,
+		templateKey: "colGroupForOption",
+		func: null
+	},
+	{
+		narration: "Append the options header cell to the table header row.",
+		destinationPath: {
+			fileName: "base",
+			dataRole: "table-header-row",
+			filePath: ["children"],
+			action: "push"
+		},
+		sourcePath: null,
+		templateKey: "headerForOption",
+		func: null
+	},
+	{
+		narration: "Append the options button cell into each table body row.",
+		destinationPath: {
+			fileName: "base",
+			dataRole: "table-body",
+			filePath: ["children"],
+			action: "pushToRows"
+		},
+		sourcePath: null,
+		templateKey: "optionsButtonCell",
+		func: null
+	},
+	{
+		narration: "Append the options footer cell to the table footer row.",
+		destinationPath: {
+			fileName: "base",
+			dataRole: "table-footer-row",
+			filePath: ["children"],
+			action: "push"
+		},
+		sourcePath: null,
+		templateKey: "tdWithButtonSaveWarning",
+		func: null
+	}
+], _e = ({ options: e = {}, base: t, showLog: n = !1, returnLog: r = [] } = {}) => {
+	let i = Q({
+		options: e,
+		base: t,
+		showLog: n,
+		returnLog: r
+	});
+	if (!Object.values(i).every(Boolean)) return t;
+	let a = e, o = t, s = n, c = r;
+	return (a.showSerial || a.serial) && D(he, { base: o }, s, c), (a.showOptions || a.options) && D(ge, { base: o }, s, c), a.showSearch, o;
+}, ve = {
 	tagName: "table",
 	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
 	children: [
@@ -674,7 +799,7 @@ var L = (e, t) => {
 			}]
 		}
 	]
-}, de = [
+}, ye = [
 	{
 		narration: "Build column widths",
 		destinationPath: {
@@ -717,7 +842,7 @@ var L = (e, t) => {
 		templateKey: "buildFooter",
 		func: "fromCollection"
 	}
-], fe = [{
+], be = [{
 	narration: "Build table body",
 	destinationPath: {
 		fileName: "base",
@@ -730,19 +855,24 @@ var L = (e, t) => {
 	},
 	func: "twoDimensional"
 }], $ = ({ data: e, columns: t, options: n }) => {
-	let r = structuredClone(ue), i = {
+	let r = structuredClone(ve), i = {
 		data: {
 			columns: t,
 			data: e
 		},
 		base: r,
-		spec: Z,
+		spec: X,
 		...n
 	};
-	return D(de, i), X(fe, i), r;
-}, pe = {
-	simple: Q,
+	return D(ye, i), Y(be, i), _e({
+		options: n,
+		base: r,
+		showLog: !1,
+		returnLog: []
+	}), r;
+}, xe = {
+	simple: Z,
 	withFooter: $
 };
 //#endregion
-export { pe as default, Q as simple, $ as withFooter };
+export { xe as default, Z as simple, $ as withFooter };
