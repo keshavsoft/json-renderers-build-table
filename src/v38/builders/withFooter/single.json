@@ -1,0 +1,56 @@
+[
+  {
+    "narration": "Build column widths",
+    "destinationPath": {
+      "fileName": "base",
+      "dataRole": "table-colgroup",
+      "filePath": [
+        "children"
+      ]
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "filePath": [
+        "columns"
+      ]
+    },
+    "templateKey": "buildColGroup",
+    "func": "fromCollection"
+  },
+  {
+    "narration": "Build table header",
+    "destinationPath": {
+      "fileName": "base",
+      "dataRole": "table-header-row",
+      "filePath": [
+        "children"
+      ]
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "filePath": [
+        "columns"
+      ]
+    },
+    "templateKey": "buildHeader",
+    "func": "fromCollection"
+  },
+  {
+    "narration": "Build footer input cells",
+    "destinationPath": {
+      "fileName": "base",
+      "dataRole": "table-footer-row",
+      "filePath": [
+        "children"
+      ]
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "filePath": [
+        "columns"
+      ]
+    },
+    "templateKey": "buildFooter",
+    "func": "fromCollection"
+  }
+]
