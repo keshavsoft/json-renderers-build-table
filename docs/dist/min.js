@@ -812,6 +812,11 @@ var l = (e, t) => {
 		base: r,
 		spec: V,
 		...n
+	}), console.log("options : ", n), B({
+		options: n,
+		base: r,
+		showLog: !1,
+		returnLog: []
 	}), r;
 }, re = {
 	simple: G,

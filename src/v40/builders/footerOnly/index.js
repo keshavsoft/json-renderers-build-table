@@ -21,8 +21,9 @@ const startFunc = ({ data, columns, options }) => {
     };
 
     runSingleInstructions(singleInstructions, registry);
+    console.log("options : ", options);
 
-    // optionsFunc({ options, base: localBase, showLog: false, returnLog: [] });
+    optionsFunc({ options, base: localBase, showLog: false, returnLog: [] });
 
     return localBase;
 };

@@ -1,4 +1,4 @@
-import { footerOnly } from "../../../docs/dist/v39/min.js";
+import { footerOnly } from "../../../docs/dist/v40/min.js";
 import "https://keshavsoft.github.io/json-to-dom/dist/v42/min.js";
 
 import data from "./data.json" with { type: "json" };
@@ -15,7 +15,7 @@ const start = () => {
             data,
             columns,
             showLog: false,
-            options: {
+            options1: {
                 showSerial: true,
                 showOptions: true
             }
