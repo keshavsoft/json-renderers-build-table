@@ -1,4 +1,4 @@
-import { withFooter } from "../../../docs/dist/v36/min.js";
+import { bodyOnly } from "../../../docs/dist/v38/min.js";
 import "https://keshavsoft.github.io/json-to-dom/dist/v42/min.js";
 
 import data from "./data.json" with { type: "json" };
@@ -11,7 +11,7 @@ const returnLog = [];
 
 const start = () => {
     try {
-        const spec = withFooter({
+        const spec = bodyOnly({
             data,
             columns,
             showLog: false,
@@ -23,8 +23,8 @@ const start = () => {
         console.log("--------spec ------: ", spec);
 
         window.ks.jsonToDom.appendToDom({
-            jsonSpec: spec,
-            targetHtmlId: "dom-render-container",
+            jsonSpec: spec.children,
+            targetHtmlId: "table-body-id",
             options: {},
             classToApply: "",
             appendPosition: "append",

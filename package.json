@@ -1,6 +1,6 @@
 {
   "name": "json-renderers-build-table",
-  "version": "1.38.1",
+  "version": "1.38.2",
   "description": "Focused table specification builder with configurable rows and cells",
   "type": "module",
   "main": "src/index.js",
@@ -18,14 +18,14 @@
   },
   "dependencies": {
     "@keshavsoft/json-to-tag": "^1.9.3",
+    "json-instruction-double": "^1.2.1",
+    "json-instruction-single": "^1.2.2",
     "json-instructions": "^1.11.1",
-    "json-renderers-build-table-options": "^1.4.1",
+    "json-renderers-build-table-options": "^1.6.1",
     "json-transformer-funcs": "^1.24.7",
     "json-transformer-funcs-one-dimension": "^1.6.1",
     "json-transformer-funcs-primitive": "^1.9.3",
-    "json-transformer-funcs-two-dimensions": "^1.5.2",
-    "json-instruction-single": "^1.2.2",
-    "json-instruction-double": "^1.2.1"
+    "json-transformer-funcs-two-dimensions": "^1.5.2"
   },
   "devDependencies": {
     "vite": "^8.3.4"

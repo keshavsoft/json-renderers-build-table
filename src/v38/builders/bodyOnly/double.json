@@ -1,1 +1,19 @@
-[{"narration":"Build only the body rows","destinationPath":{"fileName":"base","dataRole":"table-body","filePath":["children"]},"sourcePath":{"fileName":"data","filePath":["columns"]},"func":"twoDimensional"}]
+[
+    {
+        "narration": "Build table body",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-body",
+            "filePath": [
+                "children"
+            ]
+        },
+        "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+                "columns"
+            ]
+        },
+        "func": "twoDimensional"
+    }
+]
