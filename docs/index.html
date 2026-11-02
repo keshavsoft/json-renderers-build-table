@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>json-renderers-build-table • Declarative JSON Table Specification Builder</title>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <style>
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --accent: #0ea5e9;
+      --npm-red: #cb3837;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --code-bg: #0f172a;
+      --code-text: #e2e8f0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-top: 72px;
+    }
+
+    code, pre, .font-mono {
+      font-family: var(--font-mono) !important;
+    }
+
+    /* Navbar */
+    .navbar-glass {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Hero */
+    .hero-section {
+      background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 4.5rem 0 3.5rem;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background-color: #eff6ff;
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+    }
+
+    /* Cards */
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      height: 100%;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    }
+
+    /* Comparison Box */
+    .compare-box {
+      border-radius: 12px;
+      padding: 1.5rem;
+      height: 100%;
+    }
+
+    .compare-bad {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .compare-good {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+    }
+
+    /* Code Blocks */
+    .code-container {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      border: 1px solid #1e293b;
+    }
+
+    /* Interactive Demo Playground */
+    .playground-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      box-shadow: 0 12px 36px -8px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+    }
+
+    .playground-toolbar {
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.85rem 1.25rem;
+    }
+
+    .tab-content-pane {
+      height: 380px;
+      overflow-y: auto;
+      font-size: 0.82rem;
+    }
+
+    .spec-viewer {
+      background: #090d16;
+      color: #38bdf8;
+      border: none;
+      font-family: var(--font-mono);
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+      white-space: pre-wrap;
+      overflow-y: auto;
+    }
+
+    .nav-tabs .nav-link {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 0.6rem 1rem;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: transparent;
+    }
+
+    /* Pipeline Step */
+    .pipeline-step {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .pipeline-step-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Quick install copy pill */
+    .copy-pill {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      border: 1px solid #334155;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s ease;
+    }
+
+    .copy-pill:hover {
+      background: #334155;
+    }
+
+    /* Footer */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border-color);
+      padding: 3rem 0;
+      margin-top: 5rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-glass fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-dark" href="./">
+        <i class="bi bi-table text-primary fs-4"></i>
+        <span>json-renderers-build-table</span>
+      </a>
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-2">
+          <li class="nav-item">
+            <a class="nav-link fw-medium" href="#story">The Story</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium" href="#demo">Live Demo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium" href="#architecture">Architecture</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium" href="#builders">Builders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium" href="#quickstart">Quick Start</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1" href="./jsonToDom/" title="Monaco Spec Visualizer & Editor">
+              <i class="bi bi-code-square"></i>
+              <span>Monaco Visualizer</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1" href="./jsonUpload/" title="JSON Upload Hub">
+              <i class="bi bi-cloud-upload"></i>
+              <span>Upload Hub</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-sm btn-outline-danger fw-bold d-inline-flex align-items-center gap-1"
+              href="https://www.npmjs.com/package/json-renderers-build-table" target="_blank" rel="noopener" title="View on npm">
+              <i class="bi bi-box-seam"></i>
+              <span>npm</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-sm btn-dark d-inline-flex align-items-center gap-1"
+              href="https://github.com/keshavsoft/json-renderers-build-table" target="_blank" rel="noopener" title="View on GitHub">
+              <i class="bi bi-github"></i>
+              <span>GitHub</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section text-center">
+    <div class="container">
+      <div class="mb-3 d-flex flex-wrap justify-content-center align-items-center gap-2">
+        <span class="badge-pill">
+          <i class="bi bi-lightning-charge-fill"></i>
+          Declarative HTML Table Architecture
+        </span>
+        <a href="https://www.npmjs.com/package/json-renderers-build-table" target="_blank" rel="noopener" class="d-inline-flex">
+          <img src="https://img.shields.io/npm/v/json-renderers-build-table.svg?color=cb3837&logo=npm" alt="npm version" height="24">
+        </a>
+        <a href="https://www.npmjs.com/package/json-renderers-build-table" target="_blank" rel="noopener" class="d-inline-flex">
+          <img src="https://img.shields.io/npm/dm/json-renderers-build-table.svg?color=2563eb" alt="npm downloads" height="24">
+        </a>
+      </div>
+
+      <h1 class="display-5 fw-extrabold text-dark mb-3">
+        Build HTML Tables from Data<br />
+        <span class="text-primary">Declaratively in Pure JSON</span>
+      </h1>
+      <p class="lead text-muted col-lg-8 mx-auto mb-4">
+        Zero imperative DOM loops. Zero DOM dependencies in the builder.
+        You describe the table in columns + data; the builder stamps out a pure DOM specification tree ready for any renderer.
+      </p>
+
+      <!-- Quick Install Copy Pill -->
+      <div class="mb-4">
+        <span class="copy-pill d-inline-flex align-items-center gap-2" id="copyInstallPill" title="Click to copy npm install command">
+          <span class="text-secondary">$</span>
+          <span class="fw-semibold">npm install json-renderers-build-table</span>
+          <i class="bi bi-clipboard text-muted ms-1" id="copyIcon"></i>
+        </span>
+      </div>
+
+      <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+        <a href="#demo" class="btn btn-primary btn-lg px-4 d-inline-flex align-items-center gap-2 shadow-sm">
+          <i class="bi bi-play-circle-fill"></i>
+          <span>Try Live Demo</span>
+        </a>
+        <a href="./jsonToDom/" class="btn btn-outline-dark btn-lg px-4 d-inline-flex align-items-center gap-2">
+          <i class="bi bi-window-sidebar"></i>
+          <span>Monaco Playground</span>
+        </a>
+        <a href="https://www.npmjs.com/package/json-renderers-build-table" target="_blank" rel="noopener" class="btn btn-danger btn-lg px-4 d-inline-flex align-items-center gap-2">
+          <i class="bi bi-box-seam"></i>
+          <span>npm Registry</span>
+        </a>
+        <a href="./dist/min.js" class="btn btn-light border btn-lg px-3 d-inline-flex align-items-center gap-2" download>
+          <i class="bi bi-download"></i>
+          <span>CDN Bundle</span>
+        </a>
+      </div>
+
+      <div class="d-flex justify-content-center align-items-center gap-4 text-muted small flex-wrap">
+        <span class="d-flex align-items-center gap-1"><i class="bi bi-check-circle-fill text-success"></i> 100% Pure JSON Spec</span>
+        <span class="d-flex align-items-center gap-1"><i class="bi bi-check-circle-fill text-success"></i> Zero DOM Manipulation</span>
+        <span class="d-flex align-items-center gap-1"><i class="bi bi-check-circle-fill text-success"></i> Testable in Node.js</span>
+        <span class="d-flex align-items-center gap-1"><i class="bi bi-check-circle-fill text-success"></i> Available on npm</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- The Story Section -->
+  <section id="story" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h6 class="text-primary fw-bold text-uppercase tracking-wider">The Paradigm Shift</h6>
+        <h2 class="fw-bold">Why This Library Exists</h2>
+        <p class="text-muted col-md-7 mx-auto">
+          HTML tables are notoriously cumbersome when built dynamically in JavaScript. Here is how declarative stamping solves it.
+        </p>
+      </div>
+
+      <div class="row g-4 align-items-stretch">
+        <!-- The Old Way -->
+        <div class="col-lg-6">
+          <div class="compare-box compare-bad">
+            <div class="d-flex align-items-center gap-2 text-danger fw-bold mb-3 fs-5">
+              <i class="bi bi-x-circle-fill"></i>
+              <span>The Fragile Imperative Way</span>
+            </div>
+            <ul class="text-danger-emphasis list-unstyled d-flex flex-column gap-2 mb-3">
+              <li class="d-flex align-items-start gap-2">
+                <i class="bi bi-dash text-danger mt-1"></i>
+                <span><strong>Scattered DOM calls:</strong> Endless <code>document.createElement("td")</code>, innerHTML strings, and append loops.</span>
+              </li>
+              <li class="d-flex align-items-start gap-2">
+                <i class="bi bi-dash text-danger mt-1"></i>
+                <span><strong>Multi-region touch points:</strong> Adding or changing 1 column requires editing headers, body loops, footer totals, and colgroups.</span>
+              </li>
+              <li class="d-flex align-items-start gap-2">
+                <i class="bi bi-dash text-danger mt-1"></i>
+                <span><strong>Impossible to test cleanly:</strong> Requires JSDOM or full browser environments just to verify cell structure.</span>
+              </li>
+              <li class="d-flex align-items-start gap-2">
+                <i class="bi bi-dash text-danger mt-1"></i>
+                <span><strong>Tight coupling:</strong> Logic, templates, and DOM execution are entangled together.</span>
+              </li>
+            </ul>
+            <div class="code-container bg-danger-subtle text-danger-emphasis border-danger-subtle font-mono small">
+// Imperative DOM mess
+const tr = document.createElement("tr");
+data.forEach(row => {
+  const td = document.createElement("td");
+  td.textContent = row.itemName;
+  tr.appendChild(td);
+});
+table.querySelector("tbody").appendChild(tr);
+            </div>
+          </div>
+        </div>
+
+        <!-- The Declarative Way -->
+        <div class="col-lg-6">
+          <div class="compare-box compare-good">
+            <div class="d-flex align-items-center gap-2 text-success fw-bold mb-3 fs-5">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>The Declarative Specification Way</span>
+            </div>
+            <ul class="text-success-emphasis list-unstyled d-flex flex-column gap-2 mb-3">
+              <li class="d-flex align-items-start gap-2">
+                <i class="bi bi-check2 text-success mt-1"></i>
+                <span><strong>Single source of truth:</strong> 1 column config defines width, header, body cell template, and footer automatically.</span>
+              </li>
+              <li class="d-flex align-items-start gap-2">
+                <i class="bi bi-check2 text-success mt-1"></i>
+                <span><strong>Pure JSON in, Pure JSON out:</strong> The builder is a pure function that returns a DOM specification object.</span>
+              </li>
+              <li class="d-flex align-items-start gap-2">
+                <i class="bi bi-check2 text-success mt-1"></i>
+                <span><strong>Never touches the DOM:</strong> Testable anywhere (Node.js, Workers, CI) with plain object comparisons.</span>
+              </li>
+              <li class="d-flex align-items-start gap-2">
+                <i class="bi bi-check2 text-success mt-1"></i>
+                <span><strong>Separation of concerns:</strong> The builder stamps specs; <code>@keshavsoft/json-to-dom</code> renders them.</span>
+              </li>
+            </ul>
+            <div class="code-container bg-success-subtle text-success-emphasis border-success-subtle font-mono small">
+// Declarative pure JSON builder
+import { simple } from "json-renderers-build-table";
+const spec = simple({ columns, data, options: { showSerial: true } });
+// Pass plain JSON tree to renderer
+window.ks.jsonToDom.appendToDom({ jsonSpec: spec, targetHtmlId: "container" });
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Live Demo Section -->
+  <section id="demo" class="py-5 bg-white border-top border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-end mb-4 gap-3">
+        <div>
+          <h6 class="text-primary fw-bold text-uppercase tracking-wider">Live Playground</h6>
+          <h2 class="fw-bold mb-1">Experience the Transformation Live</h2>
+          <p class="text-muted mb-0">Select a builder, toggle options, and inspect the real-time JSON DOM specification & rendered output.</p>
+        </div>
+        <div class="d-flex gap-2">
+          <a href="./jsonToDom/" class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1">
+            <i class="bi bi-arrows-fullscreen"></i>
+            <span>Full Screen Monaco Editor</span>
+          </a>
+          <a href="./jsonUpload/" class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1">
+            <i class="bi bi-cloud-arrow-up"></i>
+            <span>Upload Hub</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Playground Card -->
+      <div class="playground-card">
+        <!-- Toolbar -->
+        <div class="playground-toolbar d-flex flex-wrap align-items-center justify-content-between gap-3">
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <div>
+              <label for="builderSelect" class="form-label small fw-bold text-muted mb-1">Builder Method</label>
+              <select id="builderSelect" class="form-select form-select-sm">
+                <option value="simple" selected>simple (Header + Rows)</option>
+                <option value="withFooter">withFooter (Header + Rows + Footer)</option>
+                <option value="bodyOnly">bodyOnly (Tbody Rows Only)</option>
+                <option value="footerOnly">footerOnly (Tfoot Only)</option>
+              </select>
+            </div>
+
+            <div class="form-check form-switch pt-4">
+              <input class="form-check-input" type="checkbox" id="serialToggle" checked>
+              <label class="form-check-label small fw-semibold" for="serialToggle">showSerial (#)</label>
+            </div>
+
+            <div class="form-check form-switch pt-4">
+              <input class="form-check-input" type="checkbox" id="optionsToggle" checked>
+              <label class="form-check-label small fw-semibold" for="optionsToggle">showOptions (⚙)</label>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button id="runBuildBtn" class="btn btn-primary btn-sm px-3 d-inline-flex align-items-center gap-1 shadow-sm">
+              <i class="bi bi-play-fill"></i>
+              <span>Rebuild & Render</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab Nav -->
+        <ul class="nav nav-tabs px-3 pt-2 bg-light border-bottom" role="tablist">
+          <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-rendered" type="button">
+              <i class="bi bi-display me-1 text-primary"></i> 1. Live Rendered Table
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-spec" type="button">
+              <i class="bi bi-filetype-json me-1 text-info"></i> 2. Generated JSON DOM Spec
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-input" type="button">
+              <i class="bi bi-sliders me-1 text-warning"></i> 3. Input (Columns & Data)
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <!-- Rendered DOM Preview -->
+          <div class="tab-pane fade show active p-4 tab-content-pane bg-white" id="tab-rendered">
+            <div id="live-table-container" class="table-responsive">
+              <div class="text-center text-muted py-5">
+                <div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
+                <div>Building and rendering table specification...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- JSON Spec View -->
+          <div class="tab-pane fade tab-content-pane p-0" id="tab-spec">
+            <textarea id="jsonSpecOutput" class="spec-viewer" readonly spellcheck="false"></textarea>
+          </div>
+
+          <!-- Input Data View -->
+          <div class="tab-pane fade tab-content-pane p-0" id="tab-input">
+            <textarea id="jsonInputOutput" class="spec-viewer" readonly spellcheck="false" style="color: #a7f3d0;"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture Section -->
+  <section id="architecture" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h6 class="text-primary fw-bold text-uppercase tracking-wider">Behind The Scenes</h6>
+        <h2 class="fw-bold">The 3-Layer Instruction Architecture</h2>
+        <p class="text-muted col-md-7 mx-auto">
+          Every table build runs through a declarative instruction engine over an immutable specification template.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="pipeline-step h-100">
+            <div class="pipeline-step-badge">1</div>
+            <h5 class="fw-bold mb-2">The Shared Registry</h5>
+            <p class="text-muted small mb-3">
+              Combines your raw <code>data</code> (columns & rows), the empty table skeleton <code>base</code> with <code>data-role</code> anchors, and pre-built templates in <code>spec.json</code>.
+            </p>
+            <div class="code-container font-mono small">
+registry = {
+  data: { columns, data },
+  base: skeletonTable,
+  spec: namedTemplates,
+  ...options
+};
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="pipeline-step h-100">
+            <div class="pipeline-step-badge">2</div>
+            <h5 class="fw-bold mb-2">Declarative Instructions</h5>
+            <p class="text-muted small mb-3">
+              JSON instructions map source data paths to target destination anchors without imperative loops:
+            </p>
+            <div class="code-container font-mono small">
+{
+  "narration": "Build colgroup widths",
+  "sourcePath": ["columns"],
+  "templateKey": "buildColGroup",
+  "destinationPath": "table-colgroup",
+  "func": "fromCollection"
+}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="pipeline-step h-100">
+            <div class="pipeline-step-badge">3</div>
+            <h5 class="fw-bold mb-2">writePath Anchoring</h5>
+            <p class="text-muted small mb-3">
+              Tree writers find target elements using semantic <code>data-role</code> anchors (e.g. <code>table-body</code>, <code>table-header-row</code>) and execute operations cleanly.
+            </p>
+            <div class="code-container font-mono small">
+// Target anchor resolution
+base.querySelector(
+  '[data-role="table-body"]'
+).children.push(...rows);
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modular Builders Section -->
+  <section id="builders" class="py-5 bg-white border-top">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h6 class="text-primary fw-bold text-uppercase tracking-wider">Modular API</h6>
+        <h2 class="fw-bold">Pick the Right Builder for Your Flow</h2>
+        <p class="text-muted col-md-7 mx-auto">
+          Whether you need a complete table or just need to refresh dynamic rows via AJAX, there is a dedicated builder.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <!-- simple -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card p-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <span class="badge bg-primary-subtle text-primary fw-bold px-2 py-1">Standard</span>
+              <i class="bi bi-table text-primary fs-4"></i>
+            </div>
+            <h5 class="fw-bold"><code>simple()</code></h5>
+            <p class="text-muted small mb-3">
+              Generates a full table containing <code>colgroup</code>, <code>thead</code>, and <code>tbody</code>.
+            </p>
+            <ul class="text-muted small ps-3 mb-0">
+              <li>General purpose data tables</li>
+              <li>Read-only or report views</li>
+              <li>Supports serial & options</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- withFooter -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card p-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <span class="badge bg-success-subtle text-success fw-bold px-2 py-1">Full-Featured</span>
+              <i class="bi bi-layout-text-sidebar-reverse text-success fs-4"></i>
+            </div>
+            <h5 class="fw-bold"><code>withFooter()</code></h5>
+            <p class="text-muted small mb-3">
+              Generates complete table with <code>colgroup</code>, <code>thead</code>, <code>tbody</code>, and <code>tfoot</code>.
+            </p>
+            <ul class="text-muted small ps-3 mb-0">
+              <li>Totals & calculations footer</li>
+              <li>Inline new-entry input cells</li>
+              <li>Editable grid interfaces</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- bodyOnly -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card p-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <span class="badge bg-info-subtle text-info fw-bold px-2 py-1">Dynamic</span>
+              <i class="bi bi-arrow-repeat text-info fs-4"></i>
+            </div>
+            <h5 class="fw-bold"><code>bodyOnly()</code></h5>
+            <p class="text-muted small mb-3">
+              Generates only the <code>tbody</code> rows specification.
+            </p>
+            <ul class="text-muted small ps-3 mb-0">
+              <li>AJAX / fetch data refreshes</li>
+              <li>Avoids re-rendering headers</li>
+              <li>High-frequency updates</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- footerOnly -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card p-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <span class="badge bg-warning-subtle text-warning fw-bold px-2 py-1">Summary</span>
+              <i class="bi bi-calculator text-warning fs-4"></i>
+            </div>
+            <h5 class="fw-bold"><code>footerOnly()</code></h5>
+            <p class="text-muted small mb-3">
+              Generates only the <code>tfoot</code> row specification.
+            </p>
+            <ul class="text-muted small ps-3 mb-0">
+              <li>Dynamic summary updates</li>
+              <li>Separate footer calculations</li>
+              <li>Isolated input bars</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Start & Installation Section -->
+  <section id="quickstart" class="py-5 bg-light border-top">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h6 class="text-primary fw-bold text-uppercase tracking-wider">Installation &amp; Integration</h6>
+        <h2 class="fw-bold">Ready in 60 Seconds</h2>
+        <p class="text-muted col-md-7 mx-auto">
+          Install from npm for modern bundling workflows, or drop in via CDN ES modules directly in the browser.
+        </p>
+      </div>
+
+      <div class="row g-4 align-items-stretch">
+        <!-- Option A: npm / Node.js -->
+        <div class="col-lg-6">
+          <div class="feature-card p-4 h-100 d-flex flex-column">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-danger text-white px-2 py-1 fw-bold">npm package</span>
+                <span class="text-muted small">Bundlers / Node.js</span>
+              </div>
+              <a href="https://www.npmjs.com/package/json-renderers-build-table" target="_blank" rel="noopener" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-box-seam me-1"></i> npmjs.com
+              </a>
+            </div>
+
+            <div class="code-container font-mono small mb-3">
+# Install via npm
+npm install json-renderers-build-table
+
+# Or using pnpm
+pnpm add json-renderers-build-table
+            </div>
+
+            <div class="code-container font-mono small flex-grow-1">
+// ES Module Import in React, Vue, Vite, etc.
+import { simple, withFooter } from "json-renderers-build-table";
+
+const spec = simple({
+  columns: [
+    { columnName: "name", width: "200px", template: { body: { cell: "buildBodyCell" } } }
+  ],
+  data: [ { name: "Widget A" } ],
+  options: { showSerial: true }
+});
+            </div>
+          </div>
+        </div>
+
+        <!-- Option B: Direct Browser CDN -->
+        <div class="col-lg-6">
+          <div class="feature-card p-4 h-100 d-flex flex-column">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-primary text-white px-2 py-1 fw-bold">CDN Module</span>
+                <span class="text-muted small">No Build Tools</span>
+              </div>
+              <a href="./dist/min.js" class="btn btn-sm btn-outline-primary" download>
+                <i class="bi bi-download me-1"></i> min.js
+              </a>
+            </div>
+
+            <div class="code-container font-mono small flex-grow-1">
+&lt;div id="table-container"&gt;&lt;/div&gt;
+
+&lt;script type="module"&gt;
+  import { simple } from "https://keshavsoft.github.io/json-renderers-build-table/dist/min.js";
+  import "https://keshavsoft.github.io/json-to-dom/dist/v42/min.js";
+
+  const spec = simple({
+    columns: [
+      { columnName: "item", width: "250px", template: { body: { cell: "buildBodyCell" } } }
+    ],
+    data: [ { item: "Steel Rods" } ],
+    options: { showSerial: true }
+  });
+
+  // Render to DOM
+  window.ks.jsonToDom.appendToDom({
+    jsonSpec: spec,
+    targetHtmlId: "table-container"
+  });
+&lt;/script&gt;
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explore Ecosystem Hub -->
+  <section class="py-5 bg-white border-top">
+    <div class="container text-center">
+      <h6 class="text-primary fw-bold text-uppercase tracking-wider">Explore The Ecosystem</h6>
+      <h3 class="fw-bold mb-4">Interconnected Tools &amp; Documentation</h3>
+
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-3">
+          <a href="./jsonToDom/" class="feature-card p-3 d-block text-decoration-none text-dark">
+            <i class="bi bi-code-square text-primary fs-3 mb-2 d-inline-block"></i>
+            <h6 class="fw-bold mb-1">Monaco Visualizer</h6>
+            <span class="text-muted small">Edit &amp; render JSON specs live</span>
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a href="./jsonUpload/" class="feature-card p-3 d-block text-decoration-none text-dark">
+            <i class="bi bi-cloud-arrow-up text-primary fs-3 mb-2 d-inline-block"></i>
+            <h6 class="fw-bold mb-1">JSON Upload Hub</h6>
+            <span class="text-muted small">Inspect &amp; audit templates</span>
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a href="https://www.npmjs.com/package/json-renderers-build-table" target="_blank" rel="noopener" class="feature-card p-3 d-block text-decoration-none text-dark">
+            <i class="bi bi-box-seam text-danger fs-3 mb-2 d-inline-block"></i>
+            <h6 class="fw-bold mb-1">npm Registry</h6>
+            <span class="text-muted small">v1.38.2 on npmjs.com</span>
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a href="https://github.com/keshavsoft/json-renderers-build-table" target="_blank" rel="noopener" class="feature-card p-3 d-block text-decoration-none text-dark">
+            <i class="bi bi-github text-dark fs-3 mb-2 d-inline-block"></i>
+            <h6 class="fw-bold mb-1">GitHub Repository</h6>
+            <span class="text-muted small">Source code &amp; issues</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <div class="d-flex justify-content-center align-items-center gap-2 fw-bold text-dark mb-2">
+        <i class="bi bi-table text-primary fs-5"></i>
+        <span>json-renderers-build-table</span>
+      </div>
+      <p class="text-muted small mb-3">
+        Part of the <a href="https://github.com/keshavsoft" class="text-decoration-none fw-semibold" target="_blank" rel="noopener">KeshavSoft</a> declarative rendering ecosystem.
+      </p>
+      <div class="d-flex justify-content-center gap-3 small text-muted flex-wrap">
+        <a href="https://www.npmjs.com/package/json-renderers-build-table" class="text-danger fw-bold text-decoration-none" target="_blank" rel="noopener">npm</a>
+        <span>•</span>
+        <a href="https://github.com/keshavsoft/json-renderers-build-table" class="text-muted text-decoration-none" target="_blank" rel="noopener">GitHub</a>
+        <span>•</span>
+        <a href="./jsonToDom/" class="text-muted text-decoration-none">Monaco Visualizer</a>
+        <span>•</span>
+        <a href="./jsonUpload/" class="text-muted text-decoration-none">JSON Upload Hub</a>
+        <span>•</span>
+        <a href="./dist/min.js" class="text-muted text-decoration-none">CDN Bundle</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Interactive Demo Execution Script -->
+  <script type="module">
+    // Copy pill handler
+    const copyPill = document.getElementById("copyInstallPill");
+    if (copyPill) {
+      copyPill.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText("npm install json-renderers-build-table");
+          const icon = document.getElementById("copyIcon");
+          if (icon) {
+            icon.className = "bi bi-check2 text-success ms-1";
+            setTimeout(() => {
+              icon.className = "bi bi-clipboard text-muted ms-1";
+            }, 2000);
+          }
+        } catch (e) {
+          console.warn("Could not copy:", e);
+        }
+      });
+    }
+
+    // Dynamically load builders and DOM renderer
+    let tableBuilders = null;
+
+    const sampleColumns = [
+      {
+        columnName: "productName",
+        width: "250px",
+        template: { body: { tr: "buildBodyTr", cell: "buildBodyCell" } }
+      },
+      {
+        columnName: "category",
+        width: "150px",
+        template: { body: { tr: "buildBodyTr", cell: "buildBodyCell" } }
+      },
+      {
+        columnName: "unitPrice",
+        width: "120px",
+        template: { body: { tr: "buildBodyTr", cell: "buildBodyCell" } }
+      },
+      {
+        columnName: "stockQty",
+        width: "100px",
+        template: { body: { tr: "buildBodyTr", cell: "buttonCell" } }
+      }
+    ];
+
+    const sampleData = [
+      { productName: "Industrial Valve A-12", category: "Piping", unitPrice: "$120.00", stockQty: 18 },
+      { productName: "Hydraulic Pump H-4", category: "Machinery", unitPrice: "$850.00", stockQty: 5 },
+      { productName: "Steel Flange 3-Inch", category: "Hardware", unitPrice: "$45.50", stockQty: 62 },
+      { productName: "Pressure Gauge 100PSI", category: "Sensors", unitPrice: "$75.00", stockQty: 24 }
+    ];
+
+    async function loadDependencies() {
+      try {
+        // Try local bundle first, fallback to CDN
+        try {
+          tableBuilders = await import("./dist/min.js");
+        } catch (e) {
+          tableBuilders = await import("https://keshavsoft.github.io/json-renderers-build-table/dist/min.js");
+        }
+
+        // Load json-to-dom renderer if not already loaded
+        if (!window.ks?.jsonToDom) {
+          await import("https://keshavsoft.github.io/json-to-dom/dist/v42/min.js");
+        }
+
+        executeBuild();
+      } catch (err) {
+        console.error("Dependency loading error:", err);
+        const container = document.getElementById("live-table-container");
+        if (container) {
+          container.innerHTML = `
+            <div class="alert alert-warning">
+              <strong>Notice:</strong> Unable to load ES modules via file:// protocol directly. Please run via a local web server (e.g. <code>npx serve</code>) or view on <a href="https://keshavsoft.github.io/json-renderers-build-table/">GitHub Pages</a>.
+            </div>
+          `;
+        }
+      }
+    }
+
+    function executeBuild() {
+      if (!tableBuilders) return;
+
+      const builderName = document.getElementById("builderSelect")?.value || "simple";
+      const showSerial = document.getElementById("serialToggle")?.checked || false;
+      const showOptions = document.getElementById("optionsToggle")?.checked || false;
+
+      const builderFn = tableBuilders[builderName] || tableBuilders.simple;
+
+      const options = {
+        showSerial,
+        showOptions,
+        showSearch: false
+      };
+
+      // 1. Update Input JSON Preview
+      const inputPreview = {
+        builder: builderName,
+        options,
+        columns: sampleColumns,
+        data: sampleData
+      };
+      const inputEl = document.getElementById("jsonInputOutput");
+      if (inputEl) {
+        inputEl.value = JSON.stringify(inputPreview, null, 2);
+      }
+
+      try {
+        // 2. Build Specification Tree
+        const spec = builderFn({
+          columns: sampleColumns,
+          data: sampleData,
+          options
+        });
+
+        // 3. Update JSON Spec Output Preview
+        const specEl = document.getElementById("jsonSpecOutput");
+        if (specEl) {
+          specEl.value = JSON.stringify(spec, null, 2);
+        }
+
+        // 4. Render Specification to DOM
+        const container = document.getElementById("live-table-container");
+        if (container) {
+          container.innerHTML = "";
+
+          if (builderName === "bodyOnly" || builderName === "footerOnly") {
+            // Partial builders output tbody or tfoot rows, wrap in table structure for preview
+            const tableWrapper = document.createElement("table");
+            tableWrapper.className = "table table-hover table-striped align-middle border mb-0";
+            tableWrapper.id = "partial-table-wrapper";
+
+            if (builderName === "bodyOnly") {
+              tableWrapper.innerHTML = `
+                <thead class="table-dark">
+                  <tr><th>Preview Wrapper</th><th>Category</th><th>Price</th><th>Stock</th></tr>
+                </thead>
+                <tbody id="partial-target"></tbody>
+              `;
+              container.appendChild(tableWrapper);
+
+              window.ks.jsonToDom.appendToDom({
+                jsonSpec: spec.children || spec,
+                targetHtmlId: "partial-target",
+                appendPosition: "append"
+              });
+            } else {
+              tableWrapper.innerHTML = `
+                <thead class="table-dark">
+                  <tr><th>Col 1</th><th>Col 2</th><th>Col 3</th><th>Col 4</th></tr>
+                </thead>
+                <tbody id="partial-target"><tr><td colspan="4" class="text-muted text-center py-3">Data Rows Here</td></tr></tbody>
+                <tfoot id="footer-target"></tfoot>
+              `;
+              container.appendChild(tableWrapper);
+
+              window.ks.jsonToDom.appendToDom({
+                jsonSpec: spec.children || spec,
+                targetHtmlId: "footer-target",
+                appendPosition: "append"
+              });
+            }
+          } else {
+            // Full table builder (simple, withFooter)
+            const targetDiv = document.createElement("div");
+            targetDiv.id = "target-table-mount";
+            container.appendChild(targetDiv);
+
+            window.ks.jsonToDom.appendToDom({
+              jsonSpec: spec,
+              targetHtmlId: "target-table-mount",
+              appendPosition: "append"
+            });
+          }
+        }
+      } catch (err) {
+        console.error("Build execution error:", err);
+        const container = document.getElementById("live-table-container");
+        if (container) {
+          container.innerHTML = `<div class="alert alert-danger font-monospace small">${err.message}</div>`;
+        }
+      }
+    }
+
+    // Attach Event Listeners
+    document.getElementById("builderSelect")?.addEventListener("change", executeBuild);
+    document.getElementById("serialToggle")?.addEventListener("change", executeBuild);
+    document.getElementById("optionsToggle")?.addEventListener("change", executeBuild);
+    document.getElementById("runBuildBtn")?.addEventListener("click", executeBuild);
+
+    // Initial Load
+    loadDependencies();
+  </script>
+</body>
+
+</html>
