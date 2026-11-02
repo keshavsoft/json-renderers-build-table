@@ -1,0 +1,20 @@
+[
+    {
+        "narration": "Build footer input cells",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-footer-row",
+            "filePath": [
+                "children"
+            ]
+        },
+        "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+                "columns"
+            ]
+        },
+        "templateKey": "buildFooter",
+        "func": "fromCollection"
+    }
+]

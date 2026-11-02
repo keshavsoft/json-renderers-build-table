@@ -1,0 +1,15 @@
+{
+    "tagName": "tfoot",
+    "attributes": {
+        "data-role": "table-footer"
+    },
+    "children": [
+        {
+            "tagName": "tr",
+            "attributes": {
+                "data-role": "table-footer-row"
+            },
+            "children": []
+        }
+    ]
+}
