@@ -1,0 +1,39 @@
+import { footerOnly } from "../../../docs/dist/v40/min.js";
+import "https://keshavsoft.github.io/json-to-dom/dist/v42/min.js";
+
+import data from "./data.json" with { type: "json" };
+import columns from "./columns.json" with { type: "json" };
+
+const container = document.getElementById("dom-render-container");
+
+const showLog = false;
+const returnLog = [];
+
+const start = () => {
+    try {
+        const spec = footerOnly({
+            data,
+            columns,
+            showLog: false,
+            options1: {
+                showSerial: true,
+                showOptions: true
+            }
+        });
+        console.log("--------spec ------: ", spec);
+
+        window.ks.jsonToDom.appendToDom({
+            jsonSpec: spec.children,
+            targetHtmlId: "table-footer-id",
+            options: {},
+            classToApply: "",
+            appendPosition: "append",
+        });
+
+    } catch (err) {
+        console.error("Render error:", err);
+        container.innerHTML = `<div class="alert alert-danger font-monospace small">${err.message}</div>`;
+    }
+};
+
+start();
