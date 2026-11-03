@@ -1,51 +1,59 @@
 {
-    "tagName": "table",
+    "tagName": "div",
     "attributes": {
-        "class": "table table-hover table-striped align-middle border mb-0"
+        "data-role": "table-parent"
     },
     "children": [
         {
-            "tagName": "colgroup",
+            "tagName": "table",
             "attributes": {
-                "data-role": "table-colgroup"
-            },
-            "children": []
-        },
-        {
-            "tagName": "thead",
-            "attributes": {
-                "class": "table-dark",
-                "data-role": "table-header"
+                "class": "table table-hover table-striped align-middle border mb-0"
             },
             "children": [
                 {
-                    "tagName": "tr",
+                    "tagName": "colgroup",
                     "attributes": {
-                        "data-role": "table-header-row"
+                        "data-role": "table-colgroup"
                     },
                     "children": []
-                }
-            ]
-        },
-        {
-            "tagName": "tbody",
-            "attributes": {
-                "data-role": "table-body"
-            },
-            "children": []
-        },
-        {
-            "tagName": "tfoot",
-            "attributes": {
-                "data-role": "table-footer"
-            },
-            "children": [
+                },
                 {
-                    "tagName": "tr",
+                    "tagName": "thead",
                     "attributes": {
-                        "data-role": "table-footer-row"
+                        "class": "table-dark",
+                        "data-role": "table-header"
+                    },
+                    "children": [
+                        {
+                            "tagName": "tr",
+                            "attributes": {
+                                "data-role": "table-header-row"
+                            },
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "tagName": "tbody",
+                    "attributes": {
+                        "data-role": "table-body"
                     },
                     "children": []
+                },
+                {
+                    "tagName": "tfoot",
+                    "attributes": {
+                        "data-role": "table-footer"
+                    },
+                    "children": [
+                        {
+                            "tagName": "tr",
+                            "attributes": {
+                                "data-role": "table-footer-row"
+                            },
+                            "children": []
+                        }
+                    ]
                 }
             ]
         }

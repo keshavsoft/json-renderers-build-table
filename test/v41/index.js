@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import table from "../../src/v41/index.js";
+import table from "../../src/v42/index.js";
 import runSingleInstructions from "json-instruction-single";
 
 // Reuse the table input shape already used by the repository's existing tests.
