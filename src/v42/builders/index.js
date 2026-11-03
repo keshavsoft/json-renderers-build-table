@@ -6,22 +6,19 @@ import runDoubleInstructions from "json-instruction-double";
 
 import tableOptions from "json-renderers-build-table-options";
 
-import spec from "../spec.json" with { type: "json" };
-import base from "./base.json" with { type: "json" };
+import base from "./simple/base.json" with { type: "json" };
 
-import singleInstructions from "./single.json" with { type: "json" };
-import doubleInstructions from "./double.json" with { type: "json" };
+import singleInstructions from "./simple/single.json" with { type: "json" };
+import doubleInstructions from "./simple/double.json" with { type: "json" };
 
-const startFunc = ({ data, columns, options, showLog }) => {
+const startFunc = ({ type, data, columns, options, showLog }) => {
     const localShowLog = showLog;
 
     const localBase = structuredClone(base);
-    // console.log("showLog---- : ", showLog);
 
     const registry = {
         data: { columns, data },
         base: localBase,
-        spec,
         ...options
     };
 

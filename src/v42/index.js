@@ -1,4 +1,4 @@
-import simple from "./builders/simple/index.js";
+import simple from "./builders/index.js";
 import withFooter from "./builders/withFooter/index.js";
 
 import headerOnly from "./builders/headerOnly/index.js";
