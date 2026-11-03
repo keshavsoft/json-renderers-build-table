@@ -1,142 +1,349 @@
-// node_modules/json-transformer-funcs-primitive/src/v9/forAttributes/index.js
-var e = (e) => typeof e == "object" && !!e && !Array.isArray(e), t = (t, n) => {
-	if (!e(t)) return;
+var e = {
+	simple: {
+		base: {
+			tagName: "div",
+			attributes: { "data-role": "table-parent" },
+			children: [{
+				tagName: "table",
+				attributes: { class: "table table-hover table-striped align-middle border mb-0" },
+				children: [
+					{
+						tagName: "colgroup",
+						attributes: { "data-role": "table-colgroup" },
+						children: []
+					},
+					{
+						tagName: "thead",
+						attributes: {
+							class: "table-dark",
+							"data-role": "table-header"
+						},
+						children: [{
+							tagName: "tr",
+							attributes: { "data-role": "table-header-row" },
+							children: []
+						}]
+					},
+					{
+						tagName: "tbody",
+						attributes: { "data-role": "table-body" },
+						children: []
+					},
+					{
+						tagName: "tfoot",
+						attributes: { "data-role": "table-footer" },
+						children: [{
+							tagName: "tr",
+							attributes: { "data-role": "table-footer-row" },
+							children: []
+						}]
+					}
+				]
+			}]
+		},
+		single: [{
+			narration: "Build column widths",
+			destinationPath: {
+				fileName: "base",
+				dataRole: "table-colgroup",
+				filePath: ["children"]
+			},
+			sourcePath: {
+				fileName: "data",
+				filePath: ["columns"]
+			},
+			templateKey: "buildColGroup",
+			func: "fromCollection"
+		}, {
+			narration: "Build table header",
+			destinationPath: {
+				fileName: "base",
+				dataRole: "table-header-row",
+				filePath: ["children"]
+			},
+			sourcePath: {
+				fileName: "data",
+				filePath: ["columns"]
+			},
+			templateKey: "buildHeader",
+			func: "fromCollection"
+		}],
+		double: [{
+			narration: "Build table body",
+			destinationPath: {
+				fileName: "base",
+				dataRole: "table-body",
+				filePath: ["children"]
+			},
+			sourcePath: {
+				fileName: "data",
+				filePath: ["columns"]
+			},
+			func: "twoDimensional"
+		}]
+	},
+	withFooter: {
+		base: {
+			tagName: "table",
+			attributes: { class: "table table-hover table-striped align-middle border mb-0" },
+			children: [
+				{
+					tagName: "colgroup",
+					attributes: { "data-role": "table-colgroup" },
+					children: []
+				},
+				{
+					tagName: "thead",
+					attributes: {
+						class: "table-dark",
+						"data-role": "table-header"
+					},
+					children: [{
+						tagName: "tr",
+						attributes: { "data-role": "table-header-row" },
+						children: []
+					}]
+				},
+				{
+					tagName: "tbody",
+					attributes: { "data-role": "table-body" },
+					children: []
+				},
+				{
+					tagName: "tfoot",
+					attributes: { "data-role": "table-footer" },
+					children: [{
+						tagName: "tr",
+						attributes: { "data-role": "table-footer-row" },
+						children: []
+					}]
+				}
+			]
+		},
+		single: [
+			{
+				narration: "Build column widths",
+				destinationPath: {
+					fileName: "base",
+					dataRole: "table-colgroup",
+					filePath: ["children"]
+				},
+				sourcePath: {
+					fileName: "data",
+					filePath: ["columns"]
+				},
+				templateKey: "buildColGroup",
+				func: "fromCollection"
+			},
+			{
+				narration: "Build table header",
+				destinationPath: {
+					fileName: "base",
+					dataRole: "table-header-row",
+					filePath: ["children"]
+				},
+				sourcePath: {
+					fileName: "data",
+					filePath: ["columns"]
+				},
+				templateKey: "buildHeader",
+				func: "fromCollection"
+			},
+			{
+				narration: "Build footer input cells",
+				destinationPath: {
+					fileName: "base",
+					dataRole: "table-footer-row",
+					filePath: ["children"]
+				},
+				sourcePath: {
+					fileName: "data",
+					filePath: ["columns"]
+				},
+				templateKey: "buildFooter",
+				func: "fromCollection"
+			}
+		],
+		double: [{
+			narration: "Build table body",
+			destinationPath: {
+				fileName: "base",
+				dataRole: "table-body",
+				filePath: ["children"]
+			},
+			sourcePath: {
+				fileName: "data",
+				filePath: ["columns"]
+			},
+			func: "twoDimensional"
+		}]
+	},
+	bodyOnly: {
+		base: {
+			tagName: "tbody",
+			attributes: { "data-role": "table-body" },
+			children: []
+		},
+		single: [],
+		double: [{
+			narration: "Build table body",
+			destinationPath: {
+				fileName: "base",
+				dataRole: "table-body",
+				filePath: ["children"]
+			},
+			sourcePath: {
+				fileName: "data",
+				filePath: ["columns"]
+			},
+			func: "twoDimensional"
+		}]
+	},
+	footerOnly: {
+		base: {
+			tagName: "tfoot",
+			attributes: { "data-role": "table-footer" },
+			children: [{
+				tagName: "tr",
+				attributes: { "data-role": "table-footer-row" },
+				children: []
+			}]
+		},
+		single: [{
+			narration: "Build footer input cells",
+			destinationPath: {
+				fileName: "base",
+				dataRole: "table-footer-row",
+				filePath: ["children"]
+			},
+			sourcePath: {
+				fileName: "data",
+				filePath: ["columns"]
+			},
+			templateKey: "buildFooter",
+			func: "fromCollection"
+		}],
+		double: []
+	},
+	headerOnly: {
+		base: {
+			tagName: "table",
+			attributes: { class: "table table-hover table-striped align-middle border mb-0" },
+			children: [
+				{
+					tagName: "colgroup",
+					attributes: { "data-role": "table-colgroup" },
+					children: []
+				},
+				{
+					tagName: "thead",
+					attributes: {
+						class: "table-dark",
+						"data-role": "table-header"
+					},
+					children: [{
+						tagName: "tr",
+						attributes: { "data-role": "table-header-row" },
+						children: []
+					}]
+				},
+				{
+					tagName: "tbody",
+					attributes: { "data-role": "table-body" },
+					children: []
+				}
+			]
+		},
+		single: [{
+			narration: "Build column widths",
+			destinationPath: {
+				fileName: "base",
+				dataRole: "table-colgroup",
+				filePath: ["children"]
+			},
+			sourcePath: {
+				fileName: "data",
+				filePath: ["columns"]
+			},
+			templateKey: "buildColGroup",
+			func: "fromCollection"
+		}, {
+			narration: "Build table header",
+			destinationPath: {
+				fileName: "base",
+				dataRole: "table-header-row",
+				filePath: ["children"]
+			},
+			sourcePath: {
+				fileName: "data",
+				filePath: ["columns"]
+			},
+			templateKey: "buildHeader",
+			func: "fromCollection"
+		}],
+		double: []
+	}
+}, t = (e) => typeof e == "object" && !!e && !Array.isArray(e), n = (e, n) => {
+	if (!t(e)) return;
 	let r = {};
-	for (let [e, i] of Object.entries(t)) r[e] = c(n, i);
+	for (let [t, i] of Object.entries(e)) r[t] = l(n, i);
 	return r;
-}, n = (e, t) => {
+}, r = (e, t) => {
 	let n = structuredClone(e);
-	if (Array.isArray(n)) return n.map((e) => c(t, e));
-}, r = (e, t, n) => {
+	if (Array.isArray(n)) return n.map((e) => l(t, e));
+}, i = (e, t, n) => {
 	if (e === "${agg:count}" && "rowData" in t) {
 		if (Array.isArray(t?.rowData)) return t?.rowData.length;
 	} else if (e === "${rowValue}" && "rowData" in t) return t?.rowData;
 	else return e.replace(/\$\{(\w+)\}/g, (e, n) => t[n] === void 0 ? e : t[n]);
-}, i = (e, t) => r(e, t), a = (e, t, n) => {
+}, a = (e, t) => i(e, t), o = (e, t, n) => {
 	if (n && console.log("inElement : ", e), n && console.log("inTemplate : ", t), t == null) throw TypeError("inTemplate is required");
 	if (typeof t != "object" && typeof t != "string") throw TypeError("inTemplate must be an object or string");
 	if (!e || typeof e != "object" || Array.isArray(e)) throw TypeError("inElement must be an object");
 	return !0;
-}, o = {
+}, s = {
 	name: "json-transformer-funcs-primitive",
 	version: "1.9.0"
-}, s = (e) => {
+}, c = (e) => {
 	typeof globalThis < "u" && e && (globalThis.ks ??= {}, globalThis.ks.applyTemplate ??= e, globalThis.ks.transformerFuncs ??= {}, globalThis.ks.transformerFuncs.primitive = {
-		meta: o,
+		meta: s,
 		applyTemplate: e
 	});
-}, c = (e, o, s) => {
-	let c = e, l = o;
-	a(c, l, s);
+}, l = (e, t, s) => {
+	let c = e, l = t;
+	o(c, l, s);
 	let u = structuredClone(l);
-	return typeof u == "string" ? r(u, c) : (typeof u != "object" || !u || ("textContent" in u && (u.textContent = i(u?.textContent, c)), "attributes" in u && (u.attributes = t(u?.attributes, c)), "children" in u && (u.children = n(u?.children, c))), u);
+	return typeof u == "string" ? i(u, c) : (typeof u != "object" || !u || ("textContent" in u && (u.textContent = a(u?.textContent, c)), "attributes" in u && (u.attributes = n(u?.attributes, c)), "children" in u && (u.children = r(u?.children, c))), u);
 };
-s(c);
-// node_modules/json-transformer-funcs-one-dimension/src/v6/guard/index.js
-var l = (e, t) => {
-	if (!Array.isArray(e)) throw TypeError("inSource must be an Array");
-	if (e.length === 0) throw Error("inSource cannot be empty");
-	for (let t = 0; t < e.length; t++) if (!e[t] || typeof e[t] != "object") throw TypeError(`inSource[${t}] must be an object`);
-	if (!t || typeof t != "object" && typeof t != "string") throw TypeError("inTemplate must be an object or string");
-	return !0;
-}, u = (e, t) => {
-	let n = e, r = t;
-	return l(n, r), n.map((e) => c(e, r));
-}, d = (e, t) => e.map((e) => ({
-	...e,
-	rowData: t[e.columnName]
-})), ee = (e, t, n) => {
-	if (!Array.isArray(e)) throw TypeError("inColumns must be an Array");
-	if (e.length === 0) throw Error("inColumns cannot be empty");
-	for (let t = 0; t < e.length; t++) {
-		let n = e[t];
-		if (!n || typeof n != "object") throw TypeError(`inColumns[${t}] must be an object`);
-		if (typeof n.columnName != "string" || !n.columnName.trim()) throw TypeError(`inColumns[${t}].columnName must be a non-empty string`);
-	}
-	if (!Array.isArray(t)) throw TypeError("inData must be an Array");
-	for (let e = 0; e < t.length; e++) {
-		let n = t[e];
-		if (!n || typeof n != "object") throw TypeError(`inData[${e}] must be an object`);
-	}
-	if (!n || typeof n != "object" || Array.isArray(n)) throw TypeError("inSpec must be an object");
-	let r = e[0]?.template?.body?.tr || "buildBodyTr";
-	if (!(r in n)) throw Error(`Row template "${r}" not found in inSpec`);
-	for (let t = 0; t < e.length; t++) {
-		let r = e[t], i = r.template?.body?.cell || r.template?.bodyCell || "buildBodyCell";
-		if (!(i in n)) throw Error(`Cell template "${i}" for column "${r.columnName}" not found in inSpec`);
-	}
-	return !0;
-}, te = (e, t) => e.map((e) => {
-	let n = t[e.template?.body?.cell || e.template?.bodyCell || "buildBodyCell"];
-	return c(e, n);
-}), ne = (e, t, n) => {
-	ee(e, t, n);
-	let r = e, i = t, a = n, o = a[r[0]?.template?.body?.tr || "buildBodyTr"];
-	return i.map((e) => {
-		let t = c(e, o);
-		return t.children = te(d(r, e), a), t;
-	});
-}, re = (e) => typeof e == "object" && !!e && !Array.isArray(e), f = (e, t) => {
-	if (!re(e)) return;
-	let n = {};
-	for (let [r, i] of Object.entries(e)) n[r] = v(t, i);
-	return n;
-}, p = (e, t) => {
-	let n = structuredClone(e);
-	if (Array.isArray(n)) return n.map((e) => v(t, e));
-}, m = (e, t, n) => {
-	if (e === "${agg:count}" && "rowData" in t) {
-		if (Array.isArray(t?.rowData)) return t?.rowData.length;
-	} else if (e === "${rowValue}" && "rowData" in t) return t?.rowData;
-	else return e.replace(/\$\{(\w+)\}/g, (e, n) => t[n] === void 0 ? e : t[n]);
-}, h = (e, t) => m(e, t), g = (e, t, n) => {
-	if (n && console.log("inElement : ", e), n && console.log("inTemplate : ", t), t == null) throw TypeError("inTemplate is required");
-	if (typeof t != "object" && typeof t != "string") throw TypeError("inTemplate must be an object or string");
-	if (!e || typeof e != "object" || Array.isArray(e)) throw TypeError("inElement must be an object");
-	return !0;
-}, _ = {
-	name: "json-transformer-funcs-primitive",
-	version: "1.9.0"
-}, ie = (e) => {
-	typeof globalThis < "u" && e && (globalThis.ks ??= {}, globalThis.ks.applyTemplate ??= e, globalThis.ks.transformerFuncs ??= {}, globalThis.ks.transformerFuncs.primitive = {
-		meta: _,
-		applyTemplate: e
-	});
-}, v = (e, t, n) => {
-	let r = e, i = t;
-	g(r, i, n);
-	let a = structuredClone(i);
-	return typeof a == "string" ? m(a, r) : (typeof a != "object" || !a || ("textContent" in a && (a.textContent = h(a?.textContent, r)), "attributes" in a && (a.attributes = f(a?.attributes, r)), "children" in a && (a.children = p(a?.children, r))), a);
-};
-ie(v);
+c(l);
 // ../json-instruction-single/node_modules/json-transformer-funcs-one-dimension/src/v6/guard/index.js
-var ae = (e, t) => {
+var u = (e, t) => {
 	if (!Array.isArray(e)) throw TypeError("inSource must be an Array");
 	if (e.length === 0) throw Error("inSource cannot be empty");
 	for (let t = 0; t < e.length; t++) if (!e[t] || typeof e[t] != "object") throw TypeError(`inSource[${t}] must be an object`);
 	if (!t || typeof t != "object" && typeof t != "string") throw TypeError("inTemplate must be an object or string");
 	return !0;
-}, oe = (e, t) => {
+}, ee = (e, t) => {
 	let n = e, r = t;
-	return ae(n, r), n.map((e) => v(e, r));
-}, y = (e) => Array.isArray(e) ? e : [e], b = (e, t, n) => {
+	return u(n, r), n.map((e) => l(e, r));
+}, d = (e) => Array.isArray(e) ? e : [e], f = (e, t, n) => {
 	e[t] = n;
-}, se = {
-	set: b,
+}, p = {
+	set: f,
 	push: (e, t, n) => {
-		e[t].push(...y(n));
+		e[t].push(...d(n));
 	},
 	unshift: (e, t, n) => {
-		e[t].unshift(...y(n));
+		e[t].unshift(...d(n));
 	},
 	pushToRows: (e, t, n) => {
 		e[t].forEach((e) => {
-			e.children.push(...structuredClone(y(n)));
+			e.children.push(...structuredClone(d(n)));
 		});
 	},
 	unshiftToRows: (e, t, n) => {
 		e[t].forEach((e) => {
-			e.children.unshift(...structuredClone(y(n)));
+			e.children.unshift(...structuredClone(d(n)));
 		});
 	},
 	unshiftSerialToRows: (e, t, n) => {
@@ -145,33 +352,33 @@ var ae = (e, t) => {
 			r.textContent = t + 1, e.children.unshift(r);
 		});
 	}
-}, x = (e, t) => {
+}, m = (e, t) => {
 	if (e?.attributes?.["data-role"] === t) return e;
 	for (let n of e?.children ?? []) {
-		let e = x(n, t);
+		let e = m(n, t);
 		if (e) return e;
 	}
 	return null;
-}, ce = (e, t) => {
-	let n = t.dataRole ? x(e[t.fileName], t.dataRole) : e[t.fileName], r = [...t.filePath ?? []], i = r.pop();
+}, te = (e, t) => {
+	let n = t.dataRole ? m(e[t.fileName], t.dataRole) : e[t.fileName], r = [...t.filePath ?? []], i = r.pop();
 	return {
 		parent: r.reduce((e, t) => e[t], n),
 		key: i
 	};
-}, le = (e, t, n, r) => {
-	let { parent: i, key: a } = ce(e, t);
-	(se[t.action] || b)(i, a, n);
-}, S = (e, t) => {
+}, h = (e, t, n, r) => {
+	let { parent: i, key: a } = te(e, t);
+	(p[t.action] || f)(i, a, n);
+}, g = (e, t) => {
 	if (e?.attributes?.["data-role"] === t) return e;
 	for (let n of e?.children ?? []) {
-		let e = S(n, t);
+		let e = g(n, t);
 		if (e) return e;
 	}
 	return null;
-}, C = (e, t) => {
-	let n = e[t.fileName], r = t.dataRole ? S(n, t.dataRole) : n;
+}, _ = (e, t) => {
+	let n = e[t.fileName], r = t.dataRole ? g(n, t.dataRole) : n;
 	return (t.filePath ?? []).reduce((e, t) => e[t], r);
-}, w = {
+}, v = {
 	buildBodyTr: {
 		tagName: "tr",
 		attributes: { class: "align-middle" },
@@ -303,34 +510,111 @@ var ae = (e, t) => {
 			}]
 		}]
 	}
-}, T = {
-	applyTemplate: v,
-	fromCollection: oe
-}, E = (e, t, n) => e?.sourcePath === null ? null : C(t, e.sourcePath), D = (e, t, n) => {
-	let r = t?.spec ?? w, i = e.templateKey, a = e?.func, o = r[i], s = E(e, t, n), c = a === null ? o : T[e.func](s, o), l = s === null ? o : c;
-	le(t, e.destinationPath, l);
-}, O = (e, t, n, r) => {
+}, ne = {
+	applyTemplate: l,
+	fromCollection: ee
+}, y = (e, t, n) => e?.sourcePath === null ? null : _(t, e.sourcePath), re = (e, t, n) => {
+	let r = t?.spec ?? v, i = e.templateKey, a = e?.func, o = r[i], s = y(e, t, n), c = a === null ? o : ne[e.func](s, o), l = s === null ? o : c;
+	h(t, e.destinationPath, l);
+}, b = (e, t, n, r) => {
 	e.forEach((e) => {
-		D(e, t, n, r);
+		re(e, t, n, r);
 	});
-}, k = (e) => Array.isArray(e) ? e : [e], A = (e, t, n) => {
+}, x = (e) => typeof e == "object" && !!e && !Array.isArray(e), S = (e, t) => {
+	if (!x(e)) return;
+	let n = {};
+	for (let [r, i] of Object.entries(e)) n[r] = k(t, i);
+	return n;
+}, C = (e, t) => {
+	let n = structuredClone(e);
+	if (Array.isArray(n)) return n.map((e) => k(t, e));
+}, w = (e, t, n) => {
+	if (e === "${agg:count}" && "rowData" in t) {
+		if (Array.isArray(t?.rowData)) return t?.rowData.length;
+	} else if (e === "${rowValue}" && "rowData" in t) return t?.rowData;
+	else return e.replace(/\$\{(\w+)\}/g, (e, n) => t[n] === void 0 ? e : t[n]);
+}, T = (e, t) => w(e, t), E = (e, t, n) => {
+	if (n && console.log("inElement : ", e), n && console.log("inTemplate : ", t), t == null) throw TypeError("inTemplate is required");
+	if (typeof t != "object" && typeof t != "string") throw TypeError("inTemplate must be an object or string");
+	if (!e || typeof e != "object" || Array.isArray(e)) throw TypeError("inElement must be an object");
+	return !0;
+}, D = {
+	name: "json-transformer-funcs-primitive",
+	version: "1.9.0"
+}, O = (e) => {
+	typeof globalThis < "u" && e && (globalThis.ks ??= {}, globalThis.ks.applyTemplate ??= e, globalThis.ks.transformerFuncs ??= {}, globalThis.ks.transformerFuncs.primitive = {
+		meta: D,
+		applyTemplate: e
+	});
+}, k = (e, t, n) => {
+	let r = e, i = t;
+	E(r, i, n);
+	let a = structuredClone(i);
+	return typeof a == "string" ? w(a, r) : (typeof a != "object" || !a || ("textContent" in a && (a.textContent = T(a?.textContent, r)), "attributes" in a && (a.attributes = S(a?.attributes, r)), "children" in a && (a.children = C(a?.children, r))), a);
+};
+O(k);
+// node_modules/json-transformer-funcs-one-dimension/src/v6/guard/index.js
+var A = (e, t) => {
+	if (!Array.isArray(e)) throw TypeError("inSource must be an Array");
+	if (e.length === 0) throw Error("inSource cannot be empty");
+	for (let t = 0; t < e.length; t++) if (!e[t] || typeof e[t] != "object") throw TypeError(`inSource[${t}] must be an object`);
+	if (!t || typeof t != "object" && typeof t != "string") throw TypeError("inTemplate must be an object or string");
+	return !0;
+}, j = (e, t) => {
+	let n = e, r = t;
+	return A(n, r), n.map((e) => k(e, r));
+}, M = (e, t) => e.map((e) => ({
+	...e,
+	rowData: t[e.columnName]
+})), N = (e, t, n) => {
+	if (!Array.isArray(e)) throw TypeError("inColumns must be an Array");
+	if (e.length === 0) throw Error("inColumns cannot be empty");
+	for (let t = 0; t < e.length; t++) {
+		let n = e[t];
+		if (!n || typeof n != "object") throw TypeError(`inColumns[${t}] must be an object`);
+		if (typeof n.columnName != "string" || !n.columnName.trim()) throw TypeError(`inColumns[${t}].columnName must be a non-empty string`);
+	}
+	if (!Array.isArray(t)) throw TypeError("inData must be an Array");
+	for (let e = 0; e < t.length; e++) {
+		let n = t[e];
+		if (!n || typeof n != "object") throw TypeError(`inData[${e}] must be an object`);
+	}
+	if (!n || typeof n != "object" || Array.isArray(n)) throw TypeError("inSpec must be an object");
+	let r = e[0]?.template?.body?.tr || "buildBodyTr";
+	if (!(r in n)) throw Error(`Row template "${r}" not found in inSpec`);
+	for (let t = 0; t < e.length; t++) {
+		let r = e[t], i = r.template?.body?.cell || r.template?.bodyCell || "buildBodyCell";
+		if (!(i in n)) throw Error(`Cell template "${i}" for column "${r.columnName}" not found in inSpec`);
+	}
+	return !0;
+}, P = (e, t) => e.map((e) => {
+	let n = t[e.template?.body?.cell || e.template?.bodyCell || "buildBodyCell"];
+	return k(e, n);
+}), F = (e, t, n) => {
+	N(e, t, n);
+	let r = e, i = t, a = n, o = a[r[0]?.template?.body?.tr || "buildBodyTr"];
+	return i.map((e) => {
+		let t = k(e, o);
+		return t.children = P(M(r, e), a), t;
+	});
+}, I = (e) => Array.isArray(e) ? e : [e], L = (e, t, n) => {
 	e[t] = n;
-}, j = {
-	set: A,
+}, R = {
+	set: L,
 	push: (e, t, n) => {
-		e[t].push(...k(n));
+		e[t].push(...I(n));
 	},
 	unshift: (e, t, n) => {
-		e[t].unshift(...k(n));
+		e[t].unshift(...I(n));
 	},
 	pushToRows: (e, t, n) => {
 		e[t].forEach((e) => {
-			e.children.push(...structuredClone(k(n)));
+			e.children.push(...structuredClone(I(n)));
 		});
 	},
 	unshiftToRows: (e, t, n) => {
 		e[t].forEach((e) => {
-			e.children.unshift(...structuredClone(k(n)));
+			e.children.unshift(...structuredClone(I(n)));
 		});
 	},
 	unshiftSerialToRows: (e, t, n) => {
@@ -339,23 +623,23 @@ var ae = (e, t) => {
 			r.textContent = t + 1, e.children.unshift(r);
 		});
 	}
-}, M = (e, t) => {
+}, z = (e, t) => {
 	if (e?.attributes?.["data-role"] === t) return e;
 	for (let n of e?.children ?? []) {
-		let e = M(n, t);
+		let e = z(n, t);
 		if (e) return e;
 	}
 	return null;
-}, N = (e, t) => {
-	let n = t.dataRole ? M(e[t.fileName], t.dataRole) : e[t.fileName], r = [...t.filePath ?? []], i = r.pop();
+}, B = (e, t) => {
+	let n = t.dataRole ? z(e[t.fileName], t.dataRole) : e[t.fileName], r = [...t.filePath ?? []], i = r.pop();
 	return {
 		parent: r.reduce((e, t) => e[t], n),
 		key: i
 	};
-}, P = (e, t, n) => {
-	let { parent: r, key: i } = N(e, t);
-	(j[t.action] || A)(r, i, n);
-}, F = {
+}, V = (e, t, n) => {
+	let { parent: r, key: i } = B(e, t);
+	(R[t.action] || L)(r, i, n);
+}, H = {
 	buildBodyTr: {
 		tagName: "tr",
 		attributes: { class: "align-middle" },
@@ -458,35 +742,35 @@ var ae = (e, t) => {
 			attributes: { class: "btn btn-warning btn-sm ks-btn-save" }
 		}]
 	}
-}, I = {
-	applyTemplate: c,
-	fromCollection: u,
-	twoDimensional: ne
-}, L = (e, t, n, r) => {
-	let i = I[e.func](t.data.columns, t.data.data, F);
-	P(t, e.destinationPath, i);
-}, R = (e, t, n, r) => {
+}, U = {
+	applyTemplate: k,
+	fromCollection: j,
+	twoDimensional: F
+}, W = (e, t, n, r) => {
+	let i = U[e.func](t.data.columns, t.data.data, H);
+	V(t, e.destinationPath, i);
+}, G = (e, t, n, r) => {
 	e.forEach((e) => {
-		L(e, t, n, r);
+		W(e, t, n, r);
 	});
-}, z = (e, t, n) => {
+}, K = (e, t, n) => {
 	let r = !(!e || typeof e != "object" || Array.isArray(e)), i = `guards/base: ${r ? "passed" : "failed"}`;
 	return Array.isArray(n) && n.push(i), t && console.log(i), r;
-}, B = (e, t, n) => {
+}, q = (e, t, n) => {
 	let r = !(!e || typeof e != "object" || Array.isArray(e)), i = `guards/options: ${r ? "passed" : "failed"}`;
 	return Array.isArray(n) && n.push(i), t && console.log(i), r;
-}, V = (e, t, n) => {
+}, J = (e, t, n) => {
 	let r = typeof e == "boolean", i = `guards/showLog: ${r ? "passed" : "failed"}`;
 	return Array.isArray(n) && n.push(i), t && console.log(i), r;
-}, ue = (e, t, n) => {
+}, Y = (e, t, n) => {
 	let r = Array.isArray(e), i = `guards/returnLog: ${r ? "passed" : "failed"}`;
 	return r ? e.push(i) : Array.isArray(n) && n.push(i), t && console.log(i), r;
-}, H = ({ options: e, base: t, showLog: n, returnLog: r }) => ({
-	base: z(t, n, r),
-	options: B(e, n, r),
-	showLog: V(n, n, r),
-	returnLog: ue(r, n, r)
-}), U = [
+}, X = ({ options: e, base: t, showLog: n, returnLog: r }) => ({
+	base: K(t, n, r),
+	options: q(e, n, r),
+	showLog: J(n, n, r),
+	returnLog: Y(r, n, r)
+}), ie = [
 	{
 		narration: "Prepend the serial column width to the table colgroup.",
 		destinationPath: {
@@ -535,7 +819,7 @@ var ae = (e, t) => {
 		templateKey: "headerSerialCell",
 		func: null
 	}
-], de = [
+], ae = [
 	{
 		narration: "Append the options column width to the table colgroup.",
 		destinationPath: {
@@ -584,7 +868,7 @@ var ae = (e, t) => {
 		templateKey: "tdWithButtonSaveWarning",
 		func: null
 	}
-], fe = [{
+], oe = [{
 	narration: "Prepend the search row to top of the table.",
 	destinationPath: {
 		fileName: "base",
@@ -595,8 +879,8 @@ var ae = (e, t) => {
 	sourcePath: null,
 	templateKey: "tableSearch",
 	func: null
-}], W = (e, t) => !e || typeof e != "object" ? !1 : e.attributes?.["data-role"] === t || Array.isArray(e.children) && e.children.some((e) => W(e, t)), G = (e, t) => e.filter(({ destinationPath: e }) => W(t, e?.dataRole)), K = ({ options: e = {}, base: t, showLog: n = !1, returnLog: r = [] } = {}) => {
-	let i = H({
+}], Z = (e, t) => !e || typeof e != "object" ? !1 : e.attributes?.["data-role"] === t || Array.isArray(e.children) && e.children.some((e) => Z(e, t)), Q = (e, t) => e.filter(({ destinationPath: e }) => Z(t, e?.dataRole)), se = ({ options: e = {}, base: t, showLog: n = !1, returnLog: r = [] } = {}) => {
+	let i = X({
 		options: e,
 		base: t,
 		showLog: n,
@@ -604,421 +888,21 @@ var ae = (e, t) => {
 	});
 	if (!Object.values(i).every(Boolean)) return t;
 	let a = e, o = t, s = n, c = r;
-	return (a.showSerial || a.serial) && O(G(U, o), { base: o }, s, c), (a.showOptions || a.options) && O(G(de, o), { base: o }, s, c), a.showSearch && O(G(fe, o), { base: o }, s, c), o;
-}, q = {
-	buildBodyTr: {
-		tagName: "tr",
-		attributes: { class: "align-middle" },
-		children: []
-	},
-	buildColGroup: {
-		tagName: "col",
-		attributes: { width: "${width}" }
-	},
-	buildHeader: {
-		tagName: "th",
-		textContent: "${columnName}",
-		attributes: { class: "py-3 px-3 fw-semibold text-uppercase small" }
-	},
-	buildFooter: {
-		tagName: "td",
-		children: [{
-			tagName: "input",
-			attributes: {
-				type: "text",
-				placeholder: "enter ${columnName}",
-				name: "${columnName}",
-				id: "${columnName}",
-				list: "${columnName}",
-				class: "form-control"
-			}
-		}]
-	},
-	buildBodyCell: {
-		tagName: "td",
-		textContent: "${rowValue}",
-		attributes: { class: "py-3 px-3 text-secondary" }
-	},
-	button: {
-		tagName: "button",
-		textContent: "${columnName}",
-		attributes: { class: "btn btn-primary btn-sm" }
-	},
-	buttonCell: {
-		tagName: "td",
-		attributes: { class: "py-2 px-3 text-center" },
-		children: [{
-			tagName: "button",
-			textContent: "${agg:count}",
-			attributes: { class: "btn btn-primary btn-sm" }
-		}]
-	},
-	optionsButtonCell: {
-		tagName: "td",
-		attributes: { class: "py-2 px-3 text-center" },
-		children: [{
-			tagName: "button",
-			textContent: "${columnName}",
-			attributes: { class: "btn btn-primary btn-sm" }
-		}]
-	},
-	buildOption: {
-		tagName: "option",
-		textContent: "${rowValue}",
-		attributes: { value: "${rowValue}" }
-	},
-	buildSelect: {
-		tagName: "select",
-		attributes: { id: "LedgerName" },
-		children: []
-	},
-	buildDataList: {
-		tagName: "datalist",
-		attributes: { "data-name": "${columnName}" },
-		children: []
-	},
-	emptyCell: {
-		tagName: "td",
-		children: []
-	}
-}, pe = {
-	tagName: "div",
-	attributes: { "data-role": "table-parent" },
-	children: [{
-		tagName: "table",
-		attributes: { class: "table table-hover table-striped align-middle border mb-0" },
-		children: [
-			{
-				tagName: "colgroup",
-				attributes: { "data-role": "table-colgroup" },
-				children: []
-			},
-			{
-				tagName: "thead",
-				attributes: {
-					class: "table-dark",
-					"data-role": "table-header"
-				},
-				children: [{
-					tagName: "tr",
-					attributes: { "data-role": "table-header-row" },
-					children: []
-				}]
-			},
-			{
-				tagName: "tbody",
-				attributes: { "data-role": "table-body" },
-				children: []
-			},
-			{
-				tagName: "tfoot",
-				attributes: { "data-role": "table-footer" },
-				children: [{
-					tagName: "tr",
-					attributes: { "data-role": "table-footer-row" },
-					children: []
-				}]
-			}
-		]
-	}]
-}, me = [{
-	narration: "Build column widths",
-	destinationPath: {
-		fileName: "base",
-		dataRole: "table-colgroup",
-		filePath: ["children"]
-	},
-	sourcePath: {
-		fileName: "data",
-		filePath: ["columns"]
-	},
-	templateKey: "buildColGroup",
-	func: "fromCollection"
-}, {
-	narration: "Build table header",
-	destinationPath: {
-		fileName: "base",
-		dataRole: "table-header-row",
-		filePath: ["children"]
-	},
-	sourcePath: {
-		fileName: "data",
-		filePath: ["columns"]
-	},
-	templateKey: "buildHeader",
-	func: "fromCollection"
-}], he = [{
-	narration: "Build table body",
-	destinationPath: {
-		fileName: "base",
-		dataRole: "table-body",
-		filePath: ["children"]
-	},
-	sourcePath: {
-		fileName: "data",
-		filePath: ["columns"]
-	},
-	func: "twoDimensional"
-}], J = ({ data: e, columns: t, options: n, showLog: r }) => {
-	let i = r, a = structuredClone(pe), o = {
+	return (a.showSerial || a.serial) && b(Q(ie, o), { base: o }, s, c), (a.showOptions || a.options) && b(Q(ae, o), { base: o }, s, c), a.showSearch && b(Q(oe, o), { base: o }, s, c), o;
+}, $ = ({ type: t = "simple", data: n = [], columns: r = [], options: i = {}, showLog: a = !1 } = {}) => {
+	let o = e[t];
+	if (!o) throw Error(`Unknown table type: "${t}". Available types: ${Object.keys(e).join(", ")}`);
+	let s = structuredClone(o.base), c = {
 		data: {
-			columns: t,
-			data: e
+			columns: r,
+			data: n
 		},
-		base: a,
-		spec: q,
-		...n
+		base: s,
+		...i
 	};
-	return O(me, o, i), R(he, o), K({
-		options: n,
-		base: a
-	}), a;
-}, ge = {
-	tagName: "table",
-	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
-	children: [
-		{
-			tagName: "colgroup",
-			attributes: { "data-role": "table-colgroup" },
-			children: []
-		},
-		{
-			tagName: "thead",
-			attributes: {
-				class: "table-dark",
-				"data-role": "table-header"
-			},
-			children: [{
-				tagName: "tr",
-				attributes: { "data-role": "table-header-row" },
-				children: []
-			}]
-		},
-		{
-			tagName: "tbody",
-			attributes: { "data-role": "table-body" },
-			children: []
-		},
-		{
-			tagName: "tfoot",
-			attributes: { "data-role": "table-footer" },
-			children: [{
-				tagName: "tr",
-				attributes: { "data-role": "table-footer-row" },
-				children: []
-			}]
-		}
-	]
-}, _e = [
-	{
-		narration: "Build column widths",
-		destinationPath: {
-			fileName: "base",
-			dataRole: "table-colgroup",
-			filePath: ["children"]
-		},
-		sourcePath: {
-			fileName: "data",
-			filePath: ["columns"]
-		},
-		templateKey: "buildColGroup",
-		func: "fromCollection"
-	},
-	{
-		narration: "Build table header",
-		destinationPath: {
-			fileName: "base",
-			dataRole: "table-header-row",
-			filePath: ["children"]
-		},
-		sourcePath: {
-			fileName: "data",
-			filePath: ["columns"]
-		},
-		templateKey: "buildHeader",
-		func: "fromCollection"
-	},
-	{
-		narration: "Build footer input cells",
-		destinationPath: {
-			fileName: "base",
-			dataRole: "table-footer-row",
-			filePath: ["children"]
-		},
-		sourcePath: {
-			fileName: "data",
-			filePath: ["columns"]
-		},
-		templateKey: "buildFooter",
-		func: "fromCollection"
-	}
-], Y = [{
-	narration: "Build table body",
-	destinationPath: {
-		fileName: "base",
-		dataRole: "table-body",
-		filePath: ["children"]
-	},
-	sourcePath: {
-		fileName: "data",
-		filePath: ["columns"]
-	},
-	func: "twoDimensional"
-}], X = ({ data: e, columns: t, options: n }) => {
-	let r = structuredClone(ge), i = {
-		data: {
-			columns: t,
-			data: e
-		},
-		base: r,
-		spec: q,
-		...n
-	};
-	return O(_e, i), R(Y, i), K({
-		options: n,
-		base: r,
-		showLog: !1,
-		returnLog: []
-	}), r;
-}, ve = {
-	tagName: "table",
-	attributes: { class: "table table-hover table-striped align-middle border mb-0" },
-	children: [
-		{
-			tagName: "colgroup",
-			attributes: { "data-role": "table-colgroup" },
-			children: []
-		},
-		{
-			tagName: "thead",
-			attributes: {
-				class: "table-dark",
-				"data-role": "table-header"
-			},
-			children: [{
-				tagName: "tr",
-				attributes: { "data-role": "table-header-row" },
-				children: []
-			}]
-		},
-		{
-			tagName: "tbody",
-			attributes: { "data-role": "table-body" },
-			children: []
-		}
-	]
-}, ye = [{
-	narration: "Build column widths",
-	destinationPath: {
-		fileName: "base",
-		dataRole: "table-colgroup",
-		filePath: ["children"]
-	},
-	sourcePath: {
-		fileName: "data",
-		filePath: ["columns"]
-	},
-	templateKey: "buildColGroup",
-	func: "fromCollection"
-}, {
-	narration: "Build table header",
-	destinationPath: {
-		fileName: "base",
-		dataRole: "table-header-row",
-		filePath: ["children"]
-	},
-	sourcePath: {
-		fileName: "data",
-		filePath: ["columns"]
-	},
-	templateKey: "buildHeader",
-	func: "fromCollection"
-}], Z = ({ data: e, columns: t, options: n, showLog: r }) => {
-	let i = r, a = structuredClone(ve);
-	return O(ye, {
-		data: {
-			columns: t,
-			data: e
-		},
-		base: a,
-		spec: q,
-		...n
-	}, i), K({
-		options: n,
-		base: a
-	}), a;
-}, be = {
-	tagName: "tbody",
-	attributes: { "data-role": "table-body" },
-	children: []
-}, xe = [{
-	narration: "Build table body",
-	destinationPath: {
-		fileName: "base",
-		dataRole: "table-body",
-		filePath: ["children"]
-	},
-	sourcePath: {
-		fileName: "data",
-		filePath: ["columns"]
-	},
-	func: "twoDimensional"
-}], Q = ({ data: e, columns: t, options: n }) => {
-	let r = structuredClone(be);
-	return R(xe, {
-		data: {
-			columns: t,
-			data: e
-		},
-		base: r,
-		spec: q,
-		...n
-	}), K({
-		options: n,
-		base: r
-	}), r;
-}, Se = {
-	tagName: "tfoot",
-	attributes: { "data-role": "table-footer" },
-	children: [{
-		tagName: "tr",
-		attributes: { "data-role": "table-footer-row" },
-		children: []
-	}]
-}, Ce = [{
-	narration: "Build footer input cells",
-	destinationPath: {
-		fileName: "base",
-		dataRole: "table-footer-row",
-		filePath: ["children"]
-	},
-	sourcePath: {
-		fileName: "data",
-		filePath: ["columns"]
-	},
-	templateKey: "buildFooter",
-	func: "fromCollection"
-}], $ = ({ data: e, columns: t, options: n }) => {
-	let r = structuredClone(Se);
-	return O(Ce, {
-		data: {
-			columns: t,
-			data: e
-		},
-		base: r,
-		spec: q,
-		...n
-	}), console.log("options : ", n), K({
-		options: n,
-		base: r,
-		showLog: !1,
-		returnLog: []
-	}), r;
-}, we = {
-	simple: J,
-	withFooter: X,
-	bodyOnly: Q,
-	footerOnly: $,
-	headerOnly: Z
+	return o.single && o.single.length > 0 && b(o.single, c, a), o.double && o.double.length > 0 && G(o.double, c), se({
+		options: i,
+		base: s
+	}), s;
 };
-export { Q as bodyOnly, we as default, $ as footerOnly, Z as headerOnly, J as simple, X as withFooter };
+export { $ as buildTable, $ as default, e as definitions };

@@ -1,11 +1,35 @@
-import simple from "./builders/index.js";
-import withFooter from "./builders/withFooter/index.js";
+import definitions from "./definitions.json" with { type: "json" };
 
-import headerOnly from "./builders/headerOnly/index.js";
-import bodyOnly from "./builders/bodyOnly/index.js";
+import runSingleInstructions from "json-instruction-single";
+import runDoubleInstructions from "json-instruction-double";
+import tableOptions from "json-renderers-build-table-options";
 
-import footerOnly from "./builders/footerOnly/index.js";
+const buildTable = ({ type = "simple", data = [], columns = [], options = {}, showLog = false } = {}) => {
+    const config = definitions[type];
+    if (!config) {
+        throw new Error(`Unknown table type: "${type}". Available types: ${Object.keys(definitions).join(", ")}`);
+    }
 
-export { simple, withFooter, bodyOnly, footerOnly, headerOnly };
+    const base = structuredClone(config.base);
+    const registry = {
+        data: { columns, data },
+        base,
+        ...options
+    };
 
-export default { simple, withFooter, bodyOnly, footerOnly, headerOnly };
+    if (config.single && config.single.length > 0) {
+        runSingleInstructions(config.single, registry, showLog);
+    }
+
+    if (config.double && config.double.length > 0) {
+        runDoubleInstructions(config.double, registry);
+    }
+
+    tableOptions({ options, base });
+
+    return base;
+};
+
+export { definitions, buildTable };
+
+export default buildTable;

@@ -1,0 +1,398 @@
+{
+  "simple": {
+    "base": {
+      "tagName": "div",
+      "attributes": {
+        "data-role": "table-parent"
+      },
+      "children": [
+        {
+          "tagName": "table",
+          "attributes": {
+            "class": "table table-hover table-striped align-middle border mb-0"
+          },
+          "children": [
+            {
+              "tagName": "colgroup",
+              "attributes": {
+                "data-role": "table-colgroup"
+              },
+              "children": []
+            },
+            {
+              "tagName": "thead",
+              "attributes": {
+                "class": "table-dark",
+                "data-role": "table-header"
+              },
+              "children": [
+                {
+                  "tagName": "tr",
+                  "attributes": {
+                    "data-role": "table-header-row"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "tagName": "tbody",
+              "attributes": {
+                "data-role": "table-body"
+              },
+              "children": []
+            },
+            {
+              "tagName": "tfoot",
+              "attributes": {
+                "data-role": "table-footer"
+              },
+              "children": [
+                {
+                  "tagName": "tr",
+                  "attributes": {
+                    "data-role": "table-footer-row"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "single": [
+      {
+        "narration": "Build column widths",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "table-colgroup",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "templateKey": "buildColGroup",
+        "func": "fromCollection"
+      },
+      {
+        "narration": "Build table header",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "table-header-row",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "templateKey": "buildHeader",
+        "func": "fromCollection"
+      }
+    ],
+    "double": [
+      {
+        "narration": "Build table body",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "table-body",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "func": "twoDimensional"
+      }
+    ]
+  },
+  "withFooter": {
+    "base": {
+      "tagName": "table",
+      "attributes": {
+        "class": "table table-hover table-striped align-middle border mb-0"
+      },
+      "children": [
+        {
+          "tagName": "colgroup",
+          "attributes": {
+            "data-role": "table-colgroup"
+          },
+          "children": []
+        },
+        {
+          "tagName": "thead",
+          "attributes": {
+            "class": "table-dark",
+            "data-role": "table-header"
+          },
+          "children": [
+            {
+              "tagName": "tr",
+              "attributes": {
+                "data-role": "table-header-row"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "tagName": "tbody",
+          "attributes": {
+            "data-role": "table-body"
+          },
+          "children": []
+        },
+        {
+          "tagName": "tfoot",
+          "attributes": {
+            "data-role": "table-footer"
+          },
+          "children": [
+            {
+              "tagName": "tr",
+              "attributes": {
+                "data-role": "table-footer-row"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "single": [
+      {
+        "narration": "Build column widths",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "table-colgroup",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "templateKey": "buildColGroup",
+        "func": "fromCollection"
+      },
+      {
+        "narration": "Build table header",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "table-header-row",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "templateKey": "buildHeader",
+        "func": "fromCollection"
+      },
+      {
+        "narration": "Build footer input cells",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "table-footer-row",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "templateKey": "buildFooter",
+        "func": "fromCollection"
+      }
+    ],
+    "double": [
+      {
+        "narration": "Build table body",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "table-body",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "func": "twoDimensional"
+      }
+    ]
+  },
+  "bodyOnly": {
+    "base": {
+      "tagName": "tbody",
+      "attributes": {
+        "data-role": "table-body"
+      },
+      "children": []
+    },
+    "single": [],
+    "double": [
+      {
+        "narration": "Build table body",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "table-body",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "func": "twoDimensional"
+      }
+    ]
+  },
+  "footerOnly": {
+    "base": {
+      "tagName": "tfoot",
+      "attributes": {
+        "data-role": "table-footer"
+      },
+      "children": [
+        {
+          "tagName": "tr",
+          "attributes": {
+            "data-role": "table-footer-row"
+          },
+          "children": []
+        }
+      ]
+    },
+    "single": [
+      {
+        "narration": "Build footer input cells",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "table-footer-row",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "templateKey": "buildFooter",
+        "func": "fromCollection"
+      }
+    ],
+    "double": []
+  },
+  "headerOnly": {
+    "base": {
+      "tagName": "table",
+      "attributes": {
+        "class": "table table-hover table-striped align-middle border mb-0"
+      },
+      "children": [
+        {
+          "tagName": "colgroup",
+          "attributes": {
+            "data-role": "table-colgroup"
+          },
+          "children": []
+        },
+        {
+          "tagName": "thead",
+          "attributes": {
+            "class": "table-dark",
+            "data-role": "table-header"
+          },
+          "children": [
+            {
+              "tagName": "tr",
+              "attributes": {
+                "data-role": "table-header-row"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "tagName": "tbody",
+          "attributes": {
+            "data-role": "table-body"
+          },
+          "children": []
+        }
+      ]
+    },
+    "single": [
+      {
+        "narration": "Build column widths",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "table-colgroup",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "templateKey": "buildColGroup",
+        "func": "fromCollection"
+      },
+      {
+        "narration": "Build table header",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "table-header-row",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "templateKey": "buildHeader",
+        "func": "fromCollection"
+      }
+    ],
+    "double": []
+  }
+}

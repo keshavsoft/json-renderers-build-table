@@ -1,4 +1,4 @@
-import { simple } from "../../../docs/dist/v41/min.js";
+import buildTable from "../../../docs/dist/v42/min.js";
 import "https://keshavsoft.github.io/json-to-dom/dist/v42/min.js";
 
 import data from "./data.json" with { type: "json" };
@@ -6,12 +6,9 @@ import columns from "./columns.json" with { type: "json" };
 
 const container = document.getElementById("dom-render-container");
 
-const showLog = false;
-const returnLog = [];
-
 const start = () => {
     try {
-        const spec = simple({
+        const spec = buildTable({
             type: "simple",
             data,
             columns,
