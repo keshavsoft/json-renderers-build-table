@@ -1,4 +1,4 @@
-// src/v45/meta.js
+// src/v46/registerGlobal/meta.js
 var e = {
 	version: "1.45.1",
 	description: "Browser DOM component renderer built on top of json-renderers-specs and @keshavsoft/json-to-dom"
@@ -1721,7 +1721,7 @@ var Le = (e, t) => {
 	return t && console.log("json-renderers-build output:", c), c;
 };
 Oe(Q);
-// src/v45/index.js
+// src/v46/index.js
 var ct = (e = {}) => {
 	let t = [];
 	return t.push({
