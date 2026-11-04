@@ -2,9 +2,7 @@ import registerGlobal from "./registerGlobal/index.js";
 
 import guardFunc from "json-renderers-guard";
 import jsonToDom from "@keshavsoft/json-to-dom";
-import bindEvents from "dom-primitive-bindings";
 import jsonRenderBuild from "json-renderers-specs";
-import applyActions from "json-renderers-actions";
 
 const render = (config = {}) => {
     guardFunc(config);
@@ -31,15 +29,6 @@ const render = (config = {}) => {
     });
 
     if (showLog) console.log("dom : ", dom);
-
-    if (Array.isArray(config?.bindings) && config.bindings.length > 0) {
-        bindEvents(config.targetHtmlId, config.bindings);
-    } else if (config?.actions || config?.options?.bindEvents) {
-        applyActions(config.targetHtmlId, {
-            actions: config.actions,
-            options: localOptions
-        });
-    }
 
     return dom;
 };

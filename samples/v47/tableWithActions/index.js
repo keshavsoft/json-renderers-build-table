@@ -1,4 +1,5 @@
-import render from "../../../docs/dist/v46/min.js";
+import render from "../../../docs/dist/v47/min.js";
+import applyActions from "../common/json-renderers-actions.min.js";
 import data from "../common/data.json" with { type: "json" };
 import columns from "../common/columns.json" with { type: "json" };
 
@@ -26,33 +27,24 @@ const start = () => {
                 showSearch: true,
                 showOptions: true
             },
-            actions: {
-                rowClick: (target, event) => {
-                    logAction("rowClick (Button/Row target)", {
-                        tagName: target?.tagName,
-                        className: target?.className,
-                        textContent: target?.textContent?.trim(),
-                        dataset: target?.dataset ?? {}
-                    });
-                },
-                searchKeydown: (query, event, target) => {
-                    logAction("searchKeydown (Enter key pressed)", {
-                        query,
-                        targetTag: target?.tagName,
-                        key: event?.key
-                    });
-                },
-                footerClick: (target, event) => {
-                    logAction("footerClick (Footer target)", {
-                        tagName: target?.tagName,
-                        className: target?.className,
-                        textContent: target?.textContent?.trim()
-                    });
-                }
-            },
             targetHtmlId: "dom-render-container",
             classToApply: "",
             appendPosition: "replace"
+        });
+
+        applyActions("dom-render-container", {
+            columns,
+            actions: {
+                rowClick: (rowData, event, target) => {
+                    logAction("rowClick (Extracted Row Data via dom-primitive-engine)", rowData);
+                },
+                searchKeydown: (query, event, target) => {
+                    logAction("searchKeydown (Enter query)", { query });
+                },
+                footerClick: (footerData, event, target) => {
+                    logAction("footerClick (Extracted Footer Data via dom-primitive-engine)", footerData);
+                }
+            }
         });
     } catch (err) {
         console.error("Render error:", err);
