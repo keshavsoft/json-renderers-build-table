@@ -12,7 +12,7 @@ const latestSrcVersion = readdirSync(resolve(__dirname, "src"), { withFileTypes:
 
 if (!latestSrcVersion) {
     throw new Error("No src/vN folders found");
-}
+};
 
 const entryFile = resolve(__dirname, "src", latestSrcVersion, "index.js");
 

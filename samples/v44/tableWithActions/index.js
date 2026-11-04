@@ -1,4 +1,4 @@
-import render from "../../../docs/dist/v23/min.js";
+import render from "../../../docs/dist/v44/min.js";
 import data from "../common/data.json" with { type: "json" };
 import columns from "../common/columns.json" with { type: "json" };
 
@@ -12,6 +12,7 @@ const logAction = (label, payload) => {
     if (outputEl) {
         outputEl.textContent = `${label}:\n${JSON.stringify(payload, null, 2)}`;
     }
+    console.log(label, payload);
 };
 
 const start = () => {
@@ -26,14 +27,27 @@ const start = () => {
                 showOptions: true
             },
             actions: {
-                rowClick: (rowData, event) => {
-                    logAction("rowClick received extracted rowData", rowData);
+                rowClick: (target, event) => {
+                    logAction("rowClick (Button/Row target)", {
+                        tagName: target?.tagName,
+                        className: target?.className,
+                        textContent: target?.textContent?.trim(),
+                        dataset: target?.dataset ?? {}
+                    });
                 },
-                searchKeydown: (query, event) => {
-                    logAction("searchKeydown received query", { query });
+                searchKeydown: (query, event, target) => {
+                    logAction("searchKeydown (Enter key pressed)", {
+                        query,
+                        targetTag: target?.tagName,
+                        key: event?.key
+                    });
                 },
-                footerClick: (footerData, event) => {
-                    logAction("footerClick received footerData", footerData);
+                footerClick: (target, event) => {
+                    logAction("footerClick (Footer target)", {
+                        tagName: target?.tagName,
+                        className: target?.className,
+                        textContent: target?.textContent?.trim()
+                    });
                 }
             },
             targetHtmlId: "dom-render-container",
@@ -50,4 +64,3 @@ const start = () => {
 };
 
 start();
-
