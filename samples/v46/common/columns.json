@@ -12,7 +12,12 @@
     "label": "Category",
     "type": "select",
     "width": "180px",
-    "options": ["Fasteners", "Raw Materials", "Extrusions", "Electrical"],
+    "options": [
+      "Fasteners",
+      "Raw Materials",
+      "Extrusions",
+      "Electrical"
+    ],
     "required": true
   },
   {
@@ -21,24 +26,5 @@
     "type": "text",
     "width": "120px",
     "placeholder": "e.g. kgs, pcs, boxes"
-  },
-  {
-    "columnName": "openingRate",
-    "label": "Opening Rate",
-    "type": "text",
-    "width": "150px",
-    "placeholder": "e.g. 1200.00/kgs"
-  },
-  {
-    "columnName": "inStock",
-    "label": "In Stock",
-    "type": "checkbox"
-  },
-  {
-    "columnName": "notes",
-    "label": "Specifications / Notes",
-    "type": "textarea",
-    "placeholder": "Enter technical specifications or notes..."
   }
 ]
-
