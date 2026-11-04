@@ -1,4 +1,4 @@
-import registerGlobal from "./registerGlobal.js";
+import registerGlobal from "./registerGlobal/index.js";
 
 import guardFunc from "json-renderers-guard";
 import jsonToDom from "@keshavsoft/json-to-dom";

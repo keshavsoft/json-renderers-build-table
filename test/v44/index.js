@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import meta from "../../src/v45/meta.js";
+import meta from "../../src/v45/registerGlobal/meta.js";
 import buildSpec from "../../src/v45/buildSpec/index.js";
 import render from "../../src/v45/index.js";
 
