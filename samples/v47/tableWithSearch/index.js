@@ -1,4 +1,4 @@
-import render from "../../../docs/dist/v23/min.js";
+import render from "../../../docs/dist/v47/min.js";
 import data from "../common/data.json" with { type: "json" };
 import columns from "../common/columns.json" with { type: "json" };
 
