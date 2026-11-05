@@ -1,6 +1,6 @@
 {
   "name": "json-renderers-build-table",
-  "version": "1.47.4",
+  "version": "1.47.5",
   "description": "Focused table specification builder with configurable rows and cells",
   "type": "module",
   "main": "src/index.js",
@@ -11,17 +11,11 @@
     "src",
     "README.md"
   ],
-  "scripts": {
-    "test": "node --test test/v47/index.js",
-    "dev": "vite",
-    "build": "vite build"
-  },
+  "scripts": {},
   "dependencies": {
     "@keshavsoft/json-to-dom": "^42.1.5",
     "json-renderers-guard": "^1.5.3",
     "json-renderers-specs": "^1.4.1"
   },
-  "devDependencies": {
-    "vite": "^8.3.4"
-  }
+  "devDependencies": {}
 }
