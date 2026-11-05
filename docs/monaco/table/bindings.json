@@ -1,0 +1,32 @@
+[
+  {
+    "event": "click",
+    "selector": "#columnsBtn",
+    "action": "loadColumns",
+    "narration": "Load sample columns JSON into editor"
+  },
+  {
+    "event": "click",
+    "selector": "#dataBtn",
+    "action": "loadData",
+    "narration": "Load sample data JSON into editor"
+  },
+  {
+    "event": "click",
+    "selector": "#renderBtn",
+    "action": "renderTable",
+    "narration": "Render live HTML table into preview container"
+  },
+  {
+    "event": "click",
+    "selector": "#tabColumns",
+    "action": "showTabColumns",
+    "narration": "Switch editor model to columns.json"
+  },
+  {
+    "event": "click",
+    "selector": "#tabData",
+    "action": "showTabData",
+    "narration": "Switch editor model to data.json"
+  }
+]

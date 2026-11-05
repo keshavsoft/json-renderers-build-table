@@ -1,0 +1,32 @@
+[
+  {
+    "columnName": "itemName",
+    "label": "Item Name",
+    "type": "text",
+    "width": "260px"
+  },
+  {
+    "columnName": "category",
+    "label": "Category",
+    "type": "select",
+    "width": "180px",
+    "options": [
+      "Fasteners",
+      "Raw Materials",
+      "Extrusions",
+      "Electrical"
+    ]
+  },
+  {
+    "columnName": "baseUnit",
+    "label": "Base Unit",
+    "type": "text",
+    "width": "120px"
+  },
+  {
+    "columnName": "openingRate",
+    "label": "Rate",
+    "type": "text",
+    "width": "140px"
+  }
+]

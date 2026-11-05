@@ -1,0 +1,33 @@
+[
+  {
+    "itemName": "High Tensile Bolt",
+    "category": "Fasteners",
+    "baseUnit": "kgs",
+    "openingRate": "1200.00"
+  },
+  {
+    "itemName": "Galvanized Wire Coil",
+    "category": "Raw Materials",
+    "baseUnit": "kgs",
+    "openingRate": "1450.00"
+  },
+  {
+    "itemName": "Stainless Steel Rod",
+    "category": "Raw Materials",
+    "baseUnit": "pcs",
+    "openingRate": "890.00"
+  },
+  {
+    "itemName": "Brass Hex Nut",
+    "category": "Fasteners",
+    "baseUnit": "boxes",
+    "openingRate": "350.00"
+  },
+  {
+    "itemName": "Aluminum Profile",
+    "category": "Extrusions",
+    "baseUnit": "meters",
+    "openingRate": "620.00"
+  }
+]
+
