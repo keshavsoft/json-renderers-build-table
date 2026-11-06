@@ -1,0 +1,39 @@
+[
+  {
+    "narration": "Find the table row containing the clicked button.",
+    "sourcePath": {
+      "fileName": "root"
+    },
+    "func": "closest",
+    "arguments": {
+      "selector": "tr"
+    }
+  },
+  {
+    "narration": "Collect the data cells from the row (excluding the action button column).",
+    "sourcePath": {
+      "fileName": "previous"
+    },
+    "func": "querySelectorAll",
+    "arguments": {
+      "selector": "td:not(:last-child)"
+    }
+  },
+  {
+    "narration": "Map cell text values to structured JSON using column names.",
+    "sourcePath": {
+      "fileName": "previous"
+    },
+    "func": "mapValues",
+    "arguments": {
+      "columns": [
+        "serialNumber",
+        "itemName",
+        "category",
+        "baseUnit",
+        "openingRate"
+      ]
+    }
+  }
+]
+

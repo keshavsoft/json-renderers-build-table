@@ -17,6 +17,10 @@ Explore the interactive ecosystem hosted on GitHub Pages and npm:
 
 - 🌐 **[Interactive Story & Documentation Portal](https://keshavsoft.github.io/json-renderers-build-table/)**  
   The main visual documentation hub featuring live builder comparisons, architecture breakdown, and an embedded table playground.
+- 🚀 **[v3 All-Declarative Table Workspace (Live Monaco)](https://keshavsoft.github.io/json-renderers-build-table/monaco/v3/)**  
+  Full 50/50 dual-pane Monaco workspace with 5 synchronized tabs (columns.json, data.json, indings.json, instructions.json, output.json), live table rendering, and bidirectional extraction via dom-primitive-engine.
+- 🕹️ **[Monaco Playgrounds Hub](https://keshavsoft.github.io/json-renderers-build-table/monaco/)**  
+  Directory of all Monaco editor workspaces (1, 2, 	able, and 3).
 - 🎮 **[Interactive Monaco Spec Editor & DOM Preview](https://keshavsoft.github.io/json-renderers-build-table/jsonToDom/)**  
   Load, edit, or upload any table JSON specification in a full Monaco editor and render it live into the DOM with one click.
 - 📁 **[JSON Upload & Rendering Hub](https://keshavsoft.github.io/json-renderers-build-table/jsonUpload/)**  

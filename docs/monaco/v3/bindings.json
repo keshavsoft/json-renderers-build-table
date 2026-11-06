@@ -1,0 +1,63 @@
+[
+  {
+    "event": "click",
+    "selector": "#columnsBtn",
+    "action": "loadColumns",
+    "narration": "Load sample columns JSON into editor"
+  },
+  {
+    "event": "click",
+    "selector": "#dataBtn",
+    "action": "loadData",
+    "narration": "Load sample row data JSON into editor"
+  },
+  {
+    "event": "click",
+    "selector": "#renderBtn",
+    "action": "renderTable",
+    "narration": "Compile and render live table into preview canvas"
+  },
+  {
+    "event": "click",
+    "selector": "#tabColumns",
+    "action": "showTabColumns",
+    "narration": "Switch editor tab to columns.json"
+  },
+  {
+    "event": "click",
+    "selector": "#tabData",
+    "action": "showTabData",
+    "narration": "Switch editor tab to data.json"
+  },
+  {
+    "event": "click",
+    "selector": "#tabBindings",
+    "action": "showTabBindings",
+    "narration": "Switch editor tab to bindings.json"
+  },
+  {
+    "event": "click",
+    "selector": "#tabInstructions",
+    "action": "showTabInstructions",
+    "narration": "Switch editor tab to instructions.json"
+  },
+  {
+    "event": "click",
+    "selector": "#tabOutput",
+    "action": "showTabOutput",
+    "narration": "Switch editor tab to output.json"
+  },
+  {
+    "event": "click",
+    "selector": "#tableRenderContainer tbody tr button",
+    "action": "showRow",
+    "narration": "Extract clicked table row data via dom-primitive-engine and show in output.json"
+  },
+  {
+    "event": "click",
+    "selector": "#tableRenderContainer tfoot button",
+    "action": "saveTable",
+    "narration": "Extract entire table dataset via dom-primitive-engine and show in output.json"
+  }
+]
+

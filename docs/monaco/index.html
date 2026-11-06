@@ -118,19 +118,47 @@
       </div>
     </div>
 
+    <!-- Master Feature Card: v3 All-Declarative Workspace -->
+    <div class="card border-0 shadow-lg p-4 mb-4 text-white" style="background: linear-gradient(135deg, #090d16 0%, #1e1b4b 50%, #064e3b 100%); border-radius: 16px;">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div>
+          <div class="d-inline-flex align-items-center gap-2 mb-2 px-3 py-1 rounded-pill bg-success bg-opacity-25 text-success-emphasis border border-success border-opacity-30 small fw-bold">
+            <i class="bi bi-stars text-warning"></i>
+            <span class="text-white">Flagship Workspace • Version 3</span>
+          </div>
+          <h2 class="h3 fw-bold text-white mb-2">v3: All-Declarative Table &amp; Extraction Workspace</h2>
+          <p class="text-white text-opacity-80 small mb-3" style="max-width: 680px;">
+            The complete declarative synthesis: 5 synchronized Monaco tabs (<code>columns.json</code>, <code>data.json</code>, <code>bindings.json</code>, <code>instructions.json</code>, <code>output.json</code>) paired side-by-side with a live table preview. Zero imperative code &mdash; renders with <code>json-renderers-build-table</code>, wires events via <code>dom-primitive-bindings</code>, and extracts live row &amp; table data with <code>dom-primitive-engine</code> into <code>output.json</code>.
+          </p>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-20"><i class="bi bi-columns text-info me-1"></i> columns.json</span>
+            <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-20"><i class="bi bi-database text-warning me-1"></i> data.json</span>
+            <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-20"><i class="bi bi-diagram-2 text-success me-1"></i> bindings.json</span>
+            <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-20"><i class="bi bi-gear-wide-connected text-primary me-1"></i> instructions.json</span>
+            <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-20"><i class="bi bi-check2-circle text-light me-1"></i> output.json</span>
+          </div>
+        </div>
+        <div>
+          <a href="./v3/index.html" class="btn btn-success fw-bold px-4 py-3 shadow-lg fs-6">
+            <i class="bi bi-play-circle-fill me-2 fs-5"></i> Launch v3 All-Declarative
+          </a>
+        </div>
+      </div>
+    </div>
+
     <!-- Feature Card: Table Live 50/50 Playground -->
     <div class="card border-primary shadow-sm p-4 mb-4" style="background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);">
       <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
         <div>
-          <span class="badge bg-primary mb-2">Featured Playground</span>
-          <h2 class="h4 fw-bold text-dark mb-1">Live 50/50 Table Playground</h2>
+          <span class="badge bg-primary mb-2">Classic 50/50 Playground</span>
+          <h2 class="h4 fw-bold text-dark mb-1">Live Table Playground (table)</h2>
           <p class="text-secondary small mb-0" style="max-width: 600px;">
-            Dual-pane workspace with Monaco Editor on the left (<code>columns.json</code> &amp; <code>data.json</code>) and a live interactive HTML table preview on the right, wired via <code>dom-primitive-bindings</code>.
+            Dual-pane workspace focusing on column schema and row dataset with Monaco Editor on the left (<code>columns.json</code> &amp; <code>data.json</code>) and a live interactive HTML table preview on the right.
           </p>
         </div>
         <div>
-          <a href="./table/index.html" class="btn btn-primary fw-bold px-4 py-2 shadow-sm">
-            <i class="bi bi-play-circle-fill me-2"></i> Launch Table Playground
+          <a href="./table/index.html" class="btn btn-outline-primary fw-bold px-4 py-2 shadow-sm">
+            <i class="bi bi-play-circle me-2"></i> Launch table
           </a>
         </div>
       </div>
@@ -211,6 +239,7 @@
         <strong>json-renderers-build-table</strong> • Built by <a href="https://github.com/keshavsoft" target="_blank" class="text-decoration-none text-dark fw-semibold">KeshavSoft</a>
       </div>
       <div class="d-flex gap-3">
+        <a href="./v3/index.html" class="text-decoration-none text-success fw-bold">v3 Master</a>
         <a href="./table/index.html" class="text-decoration-none text-muted">Table Playground</a>
         <a href="./v1/index.html" class="text-decoration-none text-muted">Monaco v1</a>
         <a href="./v2/index.html" class="text-decoration-none text-muted">Monaco v2</a>
