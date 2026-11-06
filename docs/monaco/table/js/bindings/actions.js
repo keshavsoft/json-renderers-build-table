@@ -1,6 +1,6 @@
 import { models, activateTab } from "../monacoEditor/index.js";
 // import render from "../../../../dist/v47/min.js";
-import render from "https://keshavsoft.github.io/json-renderers-build-table/dist/v47/min.js";
+import render from "https://keshavsoft.github.io/json-renderers-build-table/dist/v48/min.js";
 
 export const actions = {
     loadColumns: async () => {
