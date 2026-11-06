@@ -6,7 +6,7 @@
 [![npm version](https://img.shields.io/npm/v/json-renderers-build-table.svg?color=cb3837&logo=npm)](https://www.npmjs.com/package/json-renderers-build-table)
 [![npm downloads](https://img.shields.io/npm/dm/json-renderers-build-table.svg?color=2563eb)](https://www.npmjs.com/package/json-renderers-build-table)
 [![GitHub Pages](https://img.shields.io/badge/Docs-GitHub%20Pages-blue.svg)](https://keshavsoft.github.io/json-renderers-build-table/)
-[![Live Playground](https://img.shields.io/badge/Live%20Demo-Monaco%20Visualizer-brightgreen.svg)](https://keshavsoft.github.io/json-renderers-build-table/jsonToDom/)
+[![Live Playground](https://img.shields.io/badge/Live%20Demo-Monaco%20Visualizer-brightgreen.svg)](https://keshavsoft.github.io/json-renderers-build-table/monaco/)
 [![CDN Bundle](https://img.shields.io/badge/CDN-dist%2Fmin.js-orange.svg)](https://keshavsoft.github.io/json-renderers-build-table/dist/min.js)
 
 ---
