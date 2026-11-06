@@ -46,7 +46,8 @@ export const actions = {
                     showOptions: true
                 },
                 targetHtmlId: "tableRenderContainer",
-                appendPosition: "replace"
+                appendPosition: "replace",
+                classToApply: ""
             });
         } catch (err) {
             console.error("Render table error:", err);
@@ -137,4 +138,3 @@ export const actions = {
 };
 
 export default actions;
-
