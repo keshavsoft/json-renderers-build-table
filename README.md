@@ -247,15 +247,13 @@ Explore working samples inside [`samples/`](./samples/):
 
 ## Development & Building
 
-```bash
-# Install dependencies
-npm install
-
-# Build latest distribution bundle
+`ash
+# Build latest distribution bundle into docs/dist/
 npm run build
-```
+# (Runs: npx @keshavsoft/build-cli)
+`
 
-The Vite build script automatically scans `src/`, discovers the latest version folder (`v39`, `v40`, etc.), bundles it into `docs/dist/vN/min.js`, and copies it to `docs/dist/min.js` for immediate deployment to GitHub Pages.
+The build CLI automatically scans src/, discovers the latest version folder, compiles the standalone production bundle into docs/dist/vN/min.js, and copies it to docs/dist/min.js for immediate deployment to GitHub Pages.
 
 ---
 
