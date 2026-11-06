@@ -31,6 +31,16 @@ function activateTab(tabId, model) {
         const element = document.getElementById(id);
         if (element) element.classList.toggle("active", id === tabId);
     }
+    const fileNames = {
+        tabBase: "base.json",
+        tabColumns: "columns.json",
+        tabData: "data.json",
+        tabColumnSpec: "columnSpec.json",
+        tabRowSpec: "rowSpec.json",
+        tabOutput: "output.json"
+    };
+    const badge = document.getElementById("activeFileName");
+    if (badge && fileNames[tabId]) badge.textContent = fileNames[tabId];
 }
 
 async function readJsonFile(filename) {

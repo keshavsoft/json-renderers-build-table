@@ -218,6 +218,17 @@ export const actions = {
         }
     },
 
+    clearDom: () => {
+        const stage = document.getElementById("renderOutput");
+        if (stage) {
+            stage.innerHTML = `<div class="text-center text-muted py-5">
+                <i class="bi bi-arrow-left-circle fs-2 text-primary d-block mb-2"></i>
+                <p class="mb-0 fw-medium">Click <strong>render base</strong>, then <strong>build 2D</strong>.</p>
+            </div>`;
+        }
+        updateTargetDropdown();
+    },
+
     showTabBase: () => activateTab("tabBase", models.base),
     showTabColumns: () => activateTab("tabColumns", models.columns),
     showTabData: () => activateTab("tabData", models.data),

@@ -25,6 +25,12 @@
   },
   {
     "event": "click",
+    "selector": "#clearDomBtn",
+    "action": "clearDom",
+    "narration": "Wipe render stage and reset target dropdown"
+  },
+  {
+    "event": "click",
     "selector": "#tabBase",
     "action": "showTabBase",
     "narration": "Switch editor to tabBase"

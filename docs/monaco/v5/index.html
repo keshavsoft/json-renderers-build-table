@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Monaco Editor — 2D Table Builder (V9)</title>
+    <title>Monaco Editor — 2D Table Builder (V5 Studio)</title>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/editor/editor.main.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,63 +13,118 @@
 </head>
 
 <body>
-    <div class="tab-bar">
-        <div class="tab-controls">
-            <div class="select-group">
-                <label for="mainTypeSelect">Main:</label>
-                <select id="mainTypeSelect" class="form-select form-select-sm"></select>
+    <!-- App Shell: Activity Bar + 50/50 Dual Studio Workspace -->
+    <div class="app-layout">
+        <!-- Far Left VS Code Style Activity Bar (52px) -->
+        <aside class="activity-bar" id="activityBar">
+            <div class="activity-top">
+                <button class="activity-btn active" id="tabBase" type="button" title="base.json (Skeleton AST)">
+                    <i class="bi bi-layout-text-window text-primary"></i>
+                    <span class="activity-label">base</span>
+                </button>
+                <button class="activity-btn" id="tabColumns" type="button" title="columns.json (Column Metadata)">
+                    <i class="bi bi-layout-three-columns text-info"></i>
+                    <span class="activity-label">cols</span>
+                </button>
+                <button class="activity-btn" id="tabData" type="button" title="data.json (Data Records)">
+                    <i class="bi bi-database text-warning"></i>
+                    <span class="activity-label">data</span>
+                </button>
+                <button class="activity-btn" id="tabColumnSpec" type="button" title="columnSpec.json (Cell Template)">
+                    <i class="bi bi-code-square text-secondary"></i>
+                    <span class="activity-label">colSpec</span>
+                </button>
+                <button class="activity-btn" id="tabRowSpec" type="button" title="rowSpec.json (Row Template)">
+                    <i class="bi bi-list-nested text-secondary"></i>
+                    <span class="activity-label">rowSpec</span>
+                </button>
+                <button class="activity-btn" id="tabOutput" type="button" title="output.json (Compiled 2D AST)">
+                    <i class="bi bi-check2-circle text-success"></i>
+                    <span class="activity-label">output</span>
+                </button>
             </div>
-            <div class="select-group">
-                <label for="subTypeSelect">Sub:</label>
-                <select id="subTypeSelect" class="form-select form-select-sm"></select>
+            <div class="activity-bottom">
+                <div class="activity-logo" title="2D Table Builder Studio">
+                    <i class="bi bi-grid-3x3-gap text-secondary"></i>
+                </div>
             </div>
-            <button class="action-btn" id="fillBtn" type="button" title="Fill editor models from selected spec definition">
-                <i class="bi bi-box-arrow-in-down"></i><span>fill</span>
-            </button>
-            <button class="action-btn" id="renderBtn" type="button" title="Render the base table skeleton">
-                <i class="bi bi-layout-text-window"></i><span>render base</span>
-            </button>
-            <button class="action-btn" id="buildBtn" type="button" title="Run the two-dimensional transformer">
-                <i class="bi bi-play-fill"></i><span>build 2D</span>
-            </button>
-        </div>
-        <div class="editor-tabs" id="editorTabs">
-            <button class="tab-item active" id="tabBase" type="button">base.json</button>
-            <button class="tab-item" id="tabColumns" type="button">columns.json</button>
-            <button class="tab-item" id="tabData" type="button">data.json</button>
-            <button class="tab-item" id="tabColumnSpec" type="button">columnSpec.json</button>
-            <button class="tab-item" id="tabRowSpec" type="button">rowSpec.json</button>
-            <button class="tab-item" id="tabOutput" type="button">output.json</button>
-        </div>
-    </div>
+        </aside>
 
-    <main class="workspace-container">
-        <div id="jsonEditor" class="editor-pane"></div>
-        <div class="preview-pane">
-            <div class="preview-header">
-                <div class="d-flex align-items-center gap-2 text-nowrap">
-                    <i class="bi bi-display text-primary"></i>
-                    <span class="fw-semibold text-dark small">Live Render Stage</span>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                    <label for="targetSelect" class="text-secondary small fw-semibold mb-0">Target:</label>
-                    <select id="targetSelect" class="form-select form-select-sm text-light border-secondary"
-                        style="background-color:#2d2d2d;font-size:12px;height:28px;min-width:170px;">
-                        <option value="tableBody" selected>#tableBody (tbody)</option>
-                    </select>
-                </div>
-            </div>
-            <div class="preview-body">
-                <div id="renderOutput" class="stage-card">
-                    <div class="text-center text-muted py-5">
-                        <i class="bi bi-arrow-left-circle fs-2 text-primary d-block mb-2"></i>
-                        <p class="mb-0 fw-medium">Click <strong>render base</strong>, then <strong>build 2D</strong>.
-                        </p>
+        <!-- 50 / 50 Dual Studio Workspace -->
+        <main class="workspace-container">
+            <!-- Left Pane: Monaco Editor Studio (50%) -->
+            <section class="editor-pane">
+                <!-- Left Header: Spec Loader & Active File Badge (42px) -->
+                <header class="editor-header">
+                    <div class="spec-selector-group">
+                        <div class="pill-select">
+                            <span class="pill-label">Main</span>
+                            <select id="mainTypeSelect" class="form-select form-select-sm"></select>
+                        </div>
+                        <div class="pill-select">
+                            <span class="pill-label">Sub</span>
+                            <select id="subTypeSelect" class="form-select form-select-sm"></select>
+                        </div>
+                        <button class="pill-btn fill-btn" id="fillBtn" type="button" title="Fill editor models from selected spec definition">
+                            <i class="bi bi-box-arrow-in-down"></i>
+                            <span>fill</span>
+                        </button>
+                    </div>
+
+                    <!-- Active File Indicator -->
+                    <div class="active-file-badge" id="activeFileBadge">
+                        <i class="bi bi-file-earmark-code text-primary"></i>
+                        <span id="activeFileName">base.json</span>
+                    </div>
+                </header>
+
+                <!-- Monaco Editor Mount Container -->
+                <div id="jsonEditor" class="editor-mount"></div>
+            </section>
+
+            <!-- Right Pane: Live DOM Render Stage (50%) -->
+            <section class="preview-pane">
+                <!-- Right Header: Controls & Actions (42px) -->
+                <header class="preview-header">
+                    <div class="stage-title">
+                        <i class="bi bi-display text-primary"></i>
+                        <span class="title-text">Live Render Stage</span>
+                    </div>
+
+                    <div class="preview-actions">
+                        <div class="target-select-group">
+                            <label for="targetSelect" class="target-label">
+                                <i class="bi bi-bullseye text-warning"></i>Target:
+                            </label>
+                            <select id="targetSelect" class="form-select form-select-sm target-select">
+                                <option value="tableBody" selected>#tableBody (tbody)</option>
+                            </select>
+                        </div>
+
+                        <button class="action-btn render-btn" id="renderBtn" type="button" title="Render the base table skeleton">
+                            <i class="bi bi-layout-text-window"></i><span>render base</span>
+                        </button>
+                        <button class="action-btn build-btn" id="buildBtn" type="button" title="Run the two-dimensional transformer">
+                            <i class="bi bi-play-fill"></i><span>build 2D</span>
+                        </button>
+                        <button class="action-btn clear-btn" id="clearDomBtn" type="button" title="Clear rendered DOM stage">
+                            <i class="bi bi-trash3"></i><span>Clear DOM</span>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Preview Body Canvas -->
+                <div class="preview-body">
+                    <div id="renderOutput" class="stage-card">
+                        <div class="text-center text-muted py-5">
+                            <i class="bi bi-arrow-left-circle fs-2 text-primary d-block mb-2"></i>
+                            <p class="mb-0 fw-medium">Click <strong>render base</strong>, then <strong>build 2D</strong>.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </main>
+            </section>
+        </main>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js"></script>
