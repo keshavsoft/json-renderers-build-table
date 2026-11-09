@@ -1,0 +1,20 @@
+[
+  {
+    "event": "click",
+    "selector": "#renderBtn",
+    "action": "renderBase",
+    "narration": "Render the base table skeleton into the preview"
+  },
+  {
+    "event": "click",
+    "selector": "#buildBtn",
+    "action": "build",
+    "narration": "Run the two-dimensional transformer with columns, data, columnSpec, and rowSpec"
+  },
+  {
+    "event": "click",
+    "selector": "#clearDomBtn",
+    "action": "clearDom",
+    "narration": "Wipe render stage and reset target dropdown"
+  }
+]

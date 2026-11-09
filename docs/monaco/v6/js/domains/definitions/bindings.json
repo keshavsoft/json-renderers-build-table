@@ -1,0 +1,14 @@
+[
+  {
+    "event": "change",
+    "selector": "#mainTypeSelect",
+    "action": "onMainTypeChange",
+    "narration": "Update subType dropdown options when main type changes"
+  },
+  {
+    "event": "click",
+    "selector": "#fillBtn",
+    "action": "fillFromDefinition",
+    "narration": "Fill editor models from selected spec definition"
+  }
+]
