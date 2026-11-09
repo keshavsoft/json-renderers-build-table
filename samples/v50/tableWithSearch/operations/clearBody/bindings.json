@@ -1,0 +1,8 @@
+[
+  {
+    "event": "click",
+    "selector": "#clear-body",
+    "instructionKey": "findLiveBody",
+    "action": "clear"
+  }
+]

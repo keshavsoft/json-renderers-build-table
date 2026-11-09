@@ -1,0 +1,10 @@
+{
+  "type": "table.simple",
+  "options": {
+    "showSerial": true,
+    "showSearch": true,
+    "showOptions": false
+  },
+  "classToApply": "",
+  "appendPosition": "replace"
+}

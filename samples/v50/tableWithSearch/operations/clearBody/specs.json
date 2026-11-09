@@ -1,0 +1,22 @@
+{
+  "findLiveBody": [
+    {
+      "sourcePath": {
+        "fileName": "root"
+      },
+      "func": "closest",
+      "arguments": {
+        "selector": ".v50-root"
+      }
+    },
+    {
+      "sourcePath": {
+        "fileName": "previous"
+      },
+      "func": "querySelector",
+      "arguments": {
+        "selector": "#dom-render-container tbody"
+      }
+    }
+  ]
+}

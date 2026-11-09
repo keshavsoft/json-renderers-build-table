@@ -1,0 +1,9 @@
+[
+  {
+    "event": "keydown",
+    "selector": "#dom-render-container input",
+    "root": "event",
+    "instructionKey": "searchEnter",
+    "action": "captureQuery"
+  }
+]

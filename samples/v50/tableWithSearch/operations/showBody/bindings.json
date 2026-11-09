@@ -1,0 +1,8 @@
+[
+  {
+    "event": "click",
+    "selector": "#show-body",
+    "instructionKey": "findLiveBody",
+    "action": "restore"
+  }
+]

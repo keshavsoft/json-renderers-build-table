@@ -1,0 +1,19 @@
+{
+  "searchEnter": [
+    {
+      "sourcePath": {
+        "fileName": "root"
+      },
+      "func": "isKey",
+      "arguments": {
+        "key": "Enter"
+      }
+    },
+    {
+      "sourcePath": {
+        "fileName": "previous"
+      },
+      "func": "readValue"
+    }
+  ]
+}
