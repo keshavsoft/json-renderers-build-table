@@ -1,0 +1,7 @@
+[
+  {
+    "event": "click",
+    "selector": "#show-body",
+    "instructionKey": "restore"
+  }
+]

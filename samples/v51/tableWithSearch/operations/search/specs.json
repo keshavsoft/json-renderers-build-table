@@ -1,0 +1,49 @@
+{
+  "searchEnter": [
+    {
+      "sourcePath": {
+        "fileName": "root"
+      },
+      "func": "isKey",
+      "arguments": {
+        "key": "Enter"
+      }
+    },
+    {
+      "sourcePath": {
+        "fileName": "previous"
+      },
+      "func": "readValue"
+    },
+    {
+      "sourcePath": {
+        "fileName": "previous"
+      },
+      "func": "storeValue",
+      "arguments": {
+        "key": "searchQuery"
+      }
+    },
+    {
+      "sourcePath": {
+        "fileName": "previous"
+      },
+      "func": "setText",
+      "arguments": {
+        "selector": "#v51-query",
+        "format": "json",
+        "key": "query"
+      }
+    },
+    {
+      "sourcePath": {
+        "fileName": "previous"
+      },
+      "func": "setText",
+      "arguments": {
+        "selector": "#v51-status",
+        "message": "Search Enter captured. No filtering is applied in V51."
+      }
+    }
+  ]
+}

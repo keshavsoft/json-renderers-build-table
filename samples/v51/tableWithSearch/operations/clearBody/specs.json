@@ -1,0 +1,38 @@
+{
+  "clear": [
+    {
+      "sourcePath": {
+        "fileName": "root"
+      },
+      "func": "closest",
+      "arguments": {
+        "selector": ".v51-root"
+      }
+    },
+    {
+      "sourcePath": {
+        "fileName": "previous"
+      },
+      "func": "querySelector",
+      "arguments": {
+        "selector": "#dom-render-container tbody"
+      }
+    },
+    {
+      "sourcePath": {
+        "fileName": "previous"
+      },
+      "func": "clearChildren"
+    },
+    {
+      "sourcePath": {
+        "fileName": "previous"
+      },
+      "func": "setText",
+      "arguments": {
+        "selector": "#v51-status",
+        "message": "Cleared tbody only. Table header and search remain."
+      }
+    }
+  ]
+}

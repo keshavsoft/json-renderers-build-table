@@ -1,0 +1,21 @@
+[
+  {
+    "event": "keydown",
+    "selector": "#dom-render-container input",
+    "root": "event",
+    "instructionKey": "search.captureQuery",
+    "action": "captureQuery"
+  },
+  {
+    "event": "click",
+    "selector": "#clear-body",
+    "instructionKey": "clearBody.findLiveBody",
+    "action": "clearBody"
+  },
+  {
+    "event": "click",
+    "selector": "#show-body",
+    "instructionKey": "showBody.findLiveBody",
+    "action": "showBody"
+  }
+]

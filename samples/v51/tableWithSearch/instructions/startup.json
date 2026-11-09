@@ -1,0 +1,25 @@
+[
+  {
+    "sourcePath": {
+      "fileName": "root"
+    },
+    "func": "renderTable",
+    "arguments": {
+      "targetHtmlId": "dom-render-container",
+      "options": {
+        "showSerial": true,
+        "showSearch": true,
+        "showOptions": false
+      }
+    }
+  },
+  {
+    "sourcePath": {
+      "fileName": "previous"
+    },
+    "func": "writeStatus",
+    "arguments": {
+      "message": "V51 ready. Press Enter in Search, or Clear/Show Body."
+    }
+  }
+]

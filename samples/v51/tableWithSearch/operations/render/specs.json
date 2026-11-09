@@ -1,0 +1,29 @@
+{
+  "initialize": [
+    {
+      "sourcePath": {
+        "fileName": "root"
+      },
+      "func": "renderComponent",
+      "arguments": {
+        "type": "table.simple",
+        "targetHtmlId": "dom-render-container",
+        "options": {
+          "showSerial": true,
+          "showSearch": true,
+          "showOptions": false
+        }
+      }
+    },
+    {
+      "sourcePath": {
+        "fileName": "previous"
+      },
+      "func": "setText",
+      "arguments": {
+        "selector": "#v51-status",
+        "message": "V51 ready. Press Enter in Search, or Clear/Show Body."
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "startup": {
+    "specs": "./operations/render/specs.json",
+    "instructionKey": "initialize"
+  },
+  "operations": [
+    {
+      "name": "search",
+      "specs": "./operations/search/specs.json",
+      "bindings": "./operations/search/bindings.json"
+    },
+    {
+      "name": "clearBody",
+      "specs": "./operations/clearBody/specs.json",
+      "bindings": "./operations/clearBody/bindings.json"
+    },
+    {
+      "name": "showBody",
+      "specs": "./operations/showBody/specs.json",
+      "bindings": "./operations/showBody/bindings.json"
+    }
+  ]
+}
