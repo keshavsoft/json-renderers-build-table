@@ -316,19 +316,25 @@ html, body {
 }
 
 .preview-header {
-    min-height: 42px;
-    height: 48px;
+    min-height: 48px;
+    height: auto;
     background-color: #ffffff;
     border-bottom: 1px solid #e2e8f0;
-    padding: 6px 12px;
+    padding: 8px 12px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
     gap: 8px;
     flex-shrink: 0;
     user-select: none;
     min-width: 0;
-    overflow: hidden;
+}
+
+.stage-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .stage-title {
@@ -348,12 +354,11 @@ html, body {
 .preview-actions {
     display: flex;
     align-items: center;
-    gap: 6px;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     max-width: 100%;
     min-width: 0;
-    overflow: hidden;
 }
 
 .target-select-group {
@@ -443,6 +448,19 @@ html, body {
     border: 1px solid #fecaca;
 }
 
+.action-btn.icon-only {
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+.action-btn.icon-only i {
+    font-size: 13px;
+    line-height: 1;
+}
+
 .action-btn.clear-btn:hover {
     background-color: #fee2e2;
     border-color: #fca5a5;
@@ -471,12 +489,12 @@ html, body {
 
 @media (max-width: 1200px) {
     .preview-header {
-        padding: 6px 10px;
+        padding: 8px 10px;
     }
 
     .preview-actions {
         justify-content: flex-start;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
     }
 
     .stage-title {

@@ -91,9 +91,14 @@
 
             <section class="preview-pane">
                 <header class="preview-header">
-                    <div class="stage-title">
-                        <i class="bi bi-display text-primary"></i>
-                        <span class="title-text">Render Live Render Page</span>
+                    <div class="stage-title-row">
+                        <div class="stage-title">
+                            <i class="bi bi-display text-primary"></i>
+                            <span class="title-text">Render Live Render Page</span>
+                        </div>
+                        <button class="action-btn clear-btn icon-only" id="clearDomBtn" type="button" title="Clear rendered DOM stage">
+                            <i class="bi bi-trash3"></i>
+                        </button>
                     </div>
 
                     <div class="preview-actions">
@@ -111,9 +116,6 @@
                         </button>
                         <button class="action-btn build-btn" id="buildBtn" type="button" title="Run the two-dimensional transformer">
                             <i class="bi bi-play-fill"></i><span>build 2D</span>
-                        </button>
-                        <button class="action-btn clear-btn" id="clearDomBtn" type="button" title="Clear rendered DOM stage">
-                            <i class="bi bi-trash3"></i><span>Clear DOM</span>
                         </button>
                     </div>
                 </header>
