@@ -9,10 +9,15 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/editor/editor.main.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="/docs/monaco/v7/styles.css">
 </head>
 
 <body>
+    <script>
+        if (!window.location.pathname.endsWith("/")) {
+            window.location.replace(window.location.pathname + "/");
+        }
+    </script>
     <div class="app-layout">
         <aside class="activity-bar" id="activityBar">
             <div class="activity-top">
@@ -51,35 +56,44 @@
         <main class="workspace-container">
             <section class="editor-pane">
                 <header class="editor-header">
-                    <div class="spec-selector-group">
-                        <div class="pill-select">
-                            <span class="pill-label">Main</span>
-                            <select id="mainTypeSelect" class="form-select form-select-sm"></select>
-                        </div>
-                        <div class="pill-select">
-                            <span class="pill-label">Sub</span>
-                            <select id="subTypeSelect" class="form-select form-select-sm"></select>
-                        </div>
-                        <button class="pill-btn fill-btn" id="fillBtn" type="button" title="Fill editor models from selected spec definition">
-                            <i class="bi bi-box-arrow-in-down"></i>
-                            <span>fill</span>
-                        </button>
-                    </div>
-
-                    <div class="active-file-badge" id="activeFileBadge">
-                        <i class="bi bi-file-earmark-code text-primary"></i>
-                        <span id="activeFileName">base.json</span>
-                    </div>
+                    <a href="/docs/monaco/index.html" class="editor-back-link">
+                        <i class="bi bi-arrow-left"></i> All versions
+                    </a>
+                    <span class="editor-version-label">v7</span>
                 </header>
 
-                <div id="jsonEditor" class="editor-mount"></div>
+                <div class="editor-panel-body">
+                    <div class="editor-toolbar">
+                        <div class="spec-selector-group">
+                            <div class="pill-select">
+                                <span class="pill-label">Main</span>
+                                <select id="mainTypeSelect" class="form-select form-select-sm"></select>
+                            </div>
+                            <div class="pill-select">
+                                <span class="pill-label">Sub</span>
+                                <select id="subTypeSelect" class="form-select form-select-sm"></select>
+                            </div>
+                            <button class="pill-btn fill-btn" id="fillBtn" type="button" title="Fill editor models from selected spec definition">
+                                <i class="bi bi-box-arrow-in-down"></i>
+                                <span>fill</span>
+                            </button>
+                        </div>
+
+                        <div class="active-file-badge" id="activeFileBadge">
+                            <i class="bi bi-file-earmark-code text-primary"></i>
+                            <span id="activeFileName">base.json</span>
+                        </div>
+                    </div>
+
+                    <div id="jsonEditor" class="editor-mount"></div>
+                </div>
             </section>
 
             <section class="preview-pane">
                 <header class="preview-header">
                     <div class="stage-title">
                         <i class="bi bi-display text-primary"></i>
-                        <span class="title-text">Live Render Stage</span>
+                        <span class="title-text">Render Live Render Page</span>
                     </div>
 
                     <div class="preview-actions">
@@ -122,7 +136,7 @@
     <script src="https://keshavsoft.github.io/json-to-dom/dist/v42/min.js" type="module"></script>
     <script src="https://keshavsoft.github.io/spec-repo/dist/v6/min.js" type="module"></script>
 
-    <script type="module" src="./js/index.js"></script>
+    <script type="module" src="/docs/monaco/v7/js/index.js"></script>
 </body>
 
 </html>
