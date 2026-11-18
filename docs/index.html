@@ -25,7 +25,6 @@
       --primary: #2563eb;
       --primary-dark: #1d4ed8;
       --bg-page: #f8fafc;
-      --bg-card: #ffffff;
       --border-color: #e2e8f0;
       --text-main: #0f172a;
       --text-muted: #64748b;
@@ -70,13 +69,32 @@
       background: #ffffff;
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 1.5rem;
+      padding: 1.75rem;
       transition: all 0.2s ease;
+      height: 100%;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
+
     .card-feature:hover {
       border-color: var(--primary);
       box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.08);
       transform: translateY(-2px);
+    }
+
+    .comparison-card {
+      border-radius: 12px;
+      padding: 1.75rem;
+      height: 100%;
+    }
+
+    .comparison-bad {
+      background: #fff5f5;
+      border: 1px solid #fed7d7;
+    }
+
+    .comparison-good {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
     }
   </style>
 </head>
@@ -99,10 +117,13 @@
             <a class="nav-link active fw-semibold text-primary" href="./index.html">The Story</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./npm.html">Dependencies</a>
+            <a class="nav-link" href="./pages/methods.html">Table Methods</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./v55/index.html">V55 Architecture</a>
+            <a class="nav-link" href="./pages/examples.html">Examples</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./pages/dependencies.html">Dependencies</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./cdn.html">CDN Links</a>
@@ -125,21 +146,44 @@
   <header class="hero-section text-center">
     <div class="container">
       <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-light border mb-3">
-        <span class="badge bg-primary">V55</span>
-        <span class="small text-muted">Pure Declarative HTML Table Rendering</span>
+        <span class="badge bg-primary">Table Specification Builder</span>
+        <span class="small text-muted">Zero Imperative Loops &bull; Pure JSON Driven</span>
       </div>
 
       <h1 class="display-5 fw-extrabold mb-3 text-dark">
-        Build HTML Tables from Data<br />
-        <span class="text-primary">Declaratively in Pure JSON</span>
+        Declarative HTML Table Architecture
       </h1>
 
-      <p class="lead text-muted mx-auto mb-4" style="max-width: 680px;">
-        Zero imperative DOM loops. Zero hardcoded markup. Supply your dataset and column definitions, and let the builder stamp out a clean, semantic HTML table.
+      <p class="lead text-muted mx-auto mb-4" style="max-width: 760px;">
+        A pure, single-responsibility library that stamps out semantic HTML tables into the DOM from declarative configuration. Zero DOM inside the transformation pipeline. Zero focus-destroying re-renders.
       </p>
 
-      <div class="code-box mx-auto text-start" style="max-width: 520px;">
-        <code>$ npm install json-renderers-build-table</code>
+      <!-- Badges & Direct Links -->
+      <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap mb-4">
+        <a href="https://keshavsoft.github.io/json-renderers-build-table/" target="_blank">
+          <img src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-success.svg?logo=github" alt="Live Demo" />
+        </a>
+        <a href="https://www.npmjs.com/package/json-renderers-build-table" target="_blank">
+          <img src="https://img.shields.io/npm/v/json-renderers-build-table.svg?color=cb3837&logo=npm" alt="npm version" />
+        </a>
+        <a href="https://www.npmjs.com/package/json-renderers-build-table" target="_blank">
+          <img src="https://img.shields.io/npm/dm/json-renderers-build-table.svg?color=2563eb" alt="downloads" />
+        </a>
+        <a href="https://opensource.org/licenses/MIT" target="_blank">
+          <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License MIT" />
+        </a>
+      </div>
+
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="./pages/methods.html" class="btn btn-primary px-4">
+          <i class="bi bi-gear-wide-connected me-1"></i> How to Build (Methods)
+        </a>
+        <a href="./pages/examples.html" class="btn btn-outline-primary px-4">
+          <i class="bi bi-collection-play me-1"></i> Table Examples
+        </a>
+        <a href="./pages/dependencies.html" class="btn btn-outline-secondary px-4">
+          <i class="bi bi-box-seam me-1"></i> Dependencies & Stories
+        </a>
       </div>
     </div>
   </header>
@@ -147,153 +191,236 @@
   <!-- Main Content -->
   <main class="container py-5">
 
-    <!-- 1. What We Supply & What We Get -->
-    <section class="mb-5">
+    <!-- Section 1: The Short Story -->
+    <section class="mb-5 pb-4 border-bottom">
       <div class="text-center mb-4">
-        <h2 class="h3 fw-bold">The Pure Table Contract</h2>
-        <p class="text-muted small">A single, clean responsibility: turn structured data into DOM elements.</p>
+        <span class="badge bg-light text-primary border mb-1">Architecture Evolution</span>
+        <h2 class="fw-bold">The Short Story: Why This Repo Exists</h2>
+        <p class="text-muted mx-auto" style="max-width: 680px;">
+          How table components outgrew monolithic chaos and evolved into pure declarative blueprints.
+        </p>
       </div>
 
-      <div class="row g-4">
-        <!-- What You Supply -->
-        <div class="col-md-6">
-          <div class="card-feature h-100">
-            <span class="badge bg-secondary mb-2">1. WHAT YOU SUPPLY</span>
-            <h5 class="fw-bold">Data + Columns + Target</h5>
-            <p class="text-muted small">No HTML strings or manual loops. Describe your schema and data:</p>
-            <pre class="code-box mb-0"><code>const columns = [
-  { columnName: "itemName", label: "Item Name" },
-  { columnName: "category", label: "Category" },
-  { columnName: "baseUnit", label: "Unit" }
-];
-
-const data = [
-  { itemName: "High Tensile Bolt", category: "Fasteners", baseUnit: "kgs" },
-  { itemName: "Wire Coil", category: "Raw Materials", baseUnit: "kgs" }
-];</code></pre>
-          </div>
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <p class="lead fw-semibold text-dark">
+            Front-end web tables are deceptively simple on the surface, but notoriously fragile in production.
+          </p>
+          <p class="text-muted">
+            In early architectures, every table implementation was a tangled monolith: column iterating loops, header HTML templates, cell calculators, and event click handlers were fused together in one huge JavaScript file.
+          </p>
+          <p class="text-muted">
+            Whenever a search filter was triggered or new columns were toggled, the entire table element was blown away and rewritten with <code>innerHTML</code>. This introduced severe bugs:
+          </p>
+          <ul class="text-muted">
+            <li>Typing in the search input destroyed the input element, instantly stealing user typing focus.</li>
+            <li>Unit testing was impossible without mocking the full browser DOM.</li>
+            <li>Reusing the transformation logic for non-table structures (cards, lists, grids) required duplicating code.</li>
+          </ul>
+          <p class="text-muted mb-0">
+            <strong>json-renderers-build-table</strong> solves this by breaking the monolith into a pure specification pipeline. It takes JSON columns and JSON data, runs declarative instruction recipes without touching the browser DOM, and delegates all events to a persistent container listener.
+          </p>
         </div>
 
-        <!-- What You Get -->
-        <div class="col-md-6">
-          <div class="card-feature h-100">
-            <span class="badge bg-success mb-2">2. WHAT YOU GET</span>
-            <h5 class="fw-bold">Rendered Table in the DOM</h5>
-            <p class="text-muted small">One single render function call mounts the entire table structure:</p>
-            <pre class="code-box mb-0"><code>import { render } from "json-renderers-build-table";
+        <div class="col-lg-6">
+          <div class="code-box">
+            <div class="text-muted small mb-2">// The Clean 2-Step Execution:</div>
+<pre><code class="language-javascript">import { render, hookEvents } from "json-renderers-build-table";
 
+// 1. Pure layout rendering (zero event coupling)
 render({
-  data,
-  columns,
+  data: records,
+  columns: columnDefs,
   targetHtmlId: "table-container",
-  type: "withSearchAndFooter",
-  options: {
-    showSerial: true,
-    showOptions: true
-  }
-});</code></pre>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. The Ecosystem Story & Specialized Repositories -->
-    <section class="mb-5 py-4 border-top">
-      <div class="text-center mb-4">
-        <span class="badge bg-primary-subtle text-primary mb-1">Decoupled Ecosystem</span>
-        <h2 class="h3 fw-bold">Specialized Repositories</h2>
-        <p class="text-muted small mx-auto" style="max-width: 600px;">
-          Rather than building a monolithic library, each concern is isolated into its own dedicated, focused repository.
-        </p>
-      </div>
-
-      <div class="row g-4">
-        <!-- 1. Table Rendering -->
-        <div class="col-md-4">
-          <div class="card-feature h-100">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-primary">Rendering</span>
-              <a href="https://github.com/keshavsoft/json-renderers-build-table" class="small text-decoration-none" target="_blank">Repo &rarr;</a>
-            </div>
-            <h5 class="fw-bold">json-renderers-build-table</h5>
-            <p class="text-muted small mb-0">
-              Owns pure table structure and JSON-to-DOM specification. Zero event coupling, pristine single responsibility.
-            </p>
-          </div>
-        </div>
-
-        <!-- 2. Table Events -->
-        <div class="col-md-4">
-          <div class="card-feature h-100">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-warning text-dark">Interactivity</span>
-              <a href="https://github.com/keshavsoft/json-renderers-build-table-events" class="small text-decoration-none" target="_blank">Repo &rarr;</a>
-            </div>
-            <h5 class="fw-bold">json-renderers-build-table-events</h5>
-            <p class="text-muted small mb-0">
-              Owns container-level event delegation (search, row click, options, footer save) driven by <code>bindings.json</code> and feature-folders.
-            </p>
-          </div>
-        </div>
-
-        <!-- 3. DOM Traversal -->
-        <div class="col-md-4">
-          <div class="card-feature h-100">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-success">Traversal</span>
-              <a href="https://github.com/keshavsoft/dom-traversal-functions" class="small text-decoration-none" target="_blank">Repo &rarr;</a>
-            </div>
-            <h5 class="fw-bold">dom-traversal-functions</h5>
-            <p class="text-muted small mb-0">
-              Standardized table navigation (Header, Body, Footer) powered by declarative <code>instructions.json</code> via <code>dom-primitive-engine</code>.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. The Interactive Story (Two-Step Contract) -->
-    <section class="card shadow-sm border-0 mb-5">
-      <div class="card-header bg-white py-3">
-        <h5 class="fw-bold mb-0">How They Connect: Pure Rendering + Separate Events</h5>
-      </div>
-      <div class="card-body p-4">
-        <p class="text-muted small mb-3">
-          To achieve interactivity without polluting the rendering pipeline or destroying search input focus:
-        </p>
-        <pre class="code-box mb-0"><code>import { render, hookEvents } from "json-renderers-build-table";
-
-// STEP 1: Pure Rendering (stamps out the structure)
-render({
-  data: dataset,
-  columns,
-  targetHtmlId: "dom-render-container",
-  type: "withSearchAndFooter",
-  options: { showSerial: true, showOptions: true }
+  type: "withSearchAndFooter"
 });
 
-// STEP 2: Hook Domain Events (wires interactivity powered by json-renderers-build-table-events)
+// 2. Container-level event delegation (never drops search focus)
 hookEvents({
-  container: "dom-render-container",
-  dataset,
-  columns,
-  onSearch: (query, filtered) => console.log("Filtering:", query),
-  onRowClick: (record) => console.log("Selected row:", record),
-  onRowAction: (action, record) => console.log(action, record),
-  onSave: (newRecord) => console.log("Saved footer row:", newRecord)
+  container: "table-container",
+  dataset: records,
+  columns: columnDefs,
+  onSearch: (q, filtered) => console.log("Filtering:", q),
+  onSave: (record) => console.log("Save footer:", record)
 });</code></pre>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- 4. Sample Showcase Explorer -->
-    <section class="text-center py-4">
-      <h4 class="fw-bold mb-2">Explore Real Working Samples</h4>
-      <p class="text-muted small mb-4">Test live rendering, search filtering, and footer creation in your browser:</p>
-      <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a href="./v55/withFooter/" class="btn btn-primary">With Footer Sample (V55) &rarr;</a>
-        <a href="./v55/simple/" class="btn btn-outline-primary">Simple Table Sample (V55) &rarr;</a>
-        <a href="./cdn.html" class="btn btn-outline-dark">CDN Quick Start</a>
-        <a href="./npm.html" class="btn btn-outline-secondary">Dependencies</a>
+    <!-- Section 2: Normal Table Build vs This Repo Table Build -->
+    <section class="mb-5 pb-4 border-bottom">
+      <div class="text-center mb-5">
+        <span class="badge bg-light text-primary border mb-1">Deep Architectural Comparison</span>
+        <h2 class="fw-bold">Normal Table Build vs. This Repo Table Build</h2>
+        <p class="text-muted mx-auto" style="max-width: 720px;">
+          Comparing the common imperative front-end pattern against our declarative, decoupled AST pipeline.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Normal Table Build -->
+        <div class="col-lg-6">
+          <div class="comparison-card comparison-bad">
+            <div class="d-flex align-items-center gap-2 mb-3 text-danger">
+              <i class="bi bi-x-circle-fill fs-4"></i>
+              <h4 class="fw-bold mb-0">Normal Table Build (Imperative Monolith)</h4>
+            </div>
+
+            <p class="text-secondary small">
+              What most developers write in vanilla JS, jQuery, or ad-hoc custom components:
+            </p>
+
+            <ul class="list-unstyled text-secondary">
+              <li class="mb-3 d-flex align-items-start gap-2">
+                <i class="bi bi-dash-circle text-danger mt-1"></i>
+                <div>
+                  <strong>String Interpolation & <code>innerHTML</code>:</strong>
+                  Stitches HTML strings via template literals (<code>&lt;tr&gt;&lt;td&gt;${item.name}&lt;/td&gt;&lt;/tr&gt;</code>). Prone to XSS and broken tags.
+                </div>
+              </li>
+              <li class="mb-3 d-flex align-items-start gap-2">
+                <i class="bi bi-dash-circle text-danger mt-1"></i>
+                <div>
+                  <strong>Search Focus Destruction:</strong>
+                  Filtering re-renders the whole container. The search <code>&lt;input&gt;</code> is destroyed and re-created on each keystroke, losing cursor position and focus.
+                </div>
+              </li>
+              <li class="mb-3 d-flex align-items-start gap-2">
+                <i class="bi bi-dash-circle text-danger mt-1"></i>
+                <div>
+                  <strong>Interleaved Event Binding:</strong>
+                  Attaches <code>onclick</code> listeners to individual buttons or row elements. Causes memory leaks when rows are repeatedly added or removed.
+                </div>
+              </li>
+              <li class="mb-3 d-flex align-items-start gap-2">
+                <i class="bi bi-dash-circle text-danger mt-1"></i>
+                <div>
+                  <strong>Heavy DOM Thrashing:</strong>
+                  500 rows with 8 columns creates 4,000 DOM mutation calls directly in the browser thread, causing noticeable UI stutter and layout reflows.
+                </div>
+              </li>
+            </ul>
+
+            <div class="code-box bg-dark text-white p-2 rounded small mt-auto">
+              <span class="text-danger">// Fragile imperative pattern:</span><br/>
+              <code>table.innerHTML = records.map(r => `&lt;tr&gt;...&lt;/tr&gt;`).join('');</code><br/>
+              <span class="text-muted">// Kills input focus and leaks event listeners!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- This Repo Table Build -->
+        <div class="col-lg-6">
+          <div class="comparison-card comparison-good">
+            <div class="d-flex align-items-center gap-2 mb-3 text-success">
+              <i class="bi bi-check-circle-fill fs-4"></i>
+              <h4 class="fw-bold mb-0">This Repo Table Build (Declarative AST)</h4>
+            </div>
+
+            <p class="text-secondary small">
+              The decoupled, instruction-driven architecture of <code>json-renderers-build-table</code>:
+            </p>
+
+            <ul class="list-unstyled text-secondary">
+              <li class="mb-3 d-flex align-items-start gap-2">
+                <i class="bi bi-check-circle text-success mt-1"></i>
+                <div>
+                  <strong>Pure JSON Contract:</strong>
+                  Only pure data arrays and columns are supplied. Transformations produce a clean AST specification before touching the DOM.
+                </div>
+              </li>
+              <li class="mb-3 d-flex align-items-start gap-2">
+                <i class="bi bi-check-circle text-success mt-1"></i>
+                <div>
+                  <strong>Persistent Search Focus:</strong>
+                  Container-level event delegation intercepts search keystrokes and only repaints the internal <code>&lt;tbody&gt;</code> rows. Search input never loses focus!
+                </div>
+              </li>
+              <li class="mb-3 d-flex align-items-start gap-2">
+                <i class="bi bi-check-circle text-success mt-1"></i>
+                <div>
+                  <strong>Zero-DOM Transformation Engine:</strong>
+                  <code>json-renderers-run-instructions</code> executes 1D and 2D blueprints in memory with zero DOM dependencies. 100% unit-testable in Node.js.
+                </div>
+              </li>
+              <li class="mb-3 d-flex align-items-start gap-2">
+                <i class="bi bi-check-circle text-success mt-1"></i>
+                <div>
+                  <strong>Single Batch Hydration:</strong>
+                  <code>@keshavsoft/json-to-dom</code> mounts the AST into the target element in a single optimized browser pass, eliminating layout thrashing.
+                </div>
+              </li>
+            </ul>
+
+            <div class="code-box bg-dark text-white p-2 rounded small mt-auto">
+              <span class="text-success">// Resilient decoupled pattern:</span><br/>
+              <code>render({ data, columns, targetHtmlId, type: "withFooter" });</code><br/>
+              <code>hookEvents({ container, dataset, columns, onSearch });</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Documentation Hub / Pages Navigation -->
+    <section class="mb-5">
+      <div class="text-center mb-4">
+        <span class="badge bg-light text-primary border mb-1">Documentation Portal</span>
+        <h2 class="fw-bold">Explore the Documentation Pages</h2>
+        <p class="text-muted mx-auto" style="max-width: 680px;">
+          Everything you need to master, integrate, and customize this repository.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Card 1: Methods -->
+        <div class="col-md-4">
+          <div class="card-feature d-flex flex-column">
+            <div class="d-flex align-items-center gap-2 mb-2 text-primary">
+              <i class="bi bi-diagram-3 fs-3"></i>
+              <h5 class="fw-bold mb-0">Table Methods</h5>
+            </div>
+            <p class="text-muted small flex-grow-1">
+              Detailed breakdown of how to build tables using different methods: High-Level <code>render()</code>, Two-Step Contract, Browser CDN, <code>buildTableSpec()</code> AST, and granular pipeline composition.
+            </p>
+            <a href="./pages/methods.html" class="btn btn-sm btn-outline-primary mt-2">
+              Explore Methods &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Examples -->
+        <div class="col-md-4">
+          <div class="card-feature d-flex flex-column">
+            <div class="d-flex align-items-center gap-2 mb-2 text-success">
+              <i class="bi bi-table fs-3"></i>
+              <h5 class="fw-bold mb-0">Table Examples</h5>
+            </div>
+            <p class="text-muted small flex-grow-1">
+              Interactive examples and live runnable demonstrations for each table variant: <strong>simple</strong>, <strong>headerOnly</strong>, <strong>bodyOnly</strong>, <strong>footerOnly</strong>, and <strong>withFooter</strong>.
+            </p>
+            <a href="./pages/examples.html" class="btn btn-sm btn-outline-success mt-2">
+              View Table Examples &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3: Dependencies -->
+        <div class="col-md-4">
+          <div class="card-feature d-flex flex-column">
+            <div class="d-flex align-items-center gap-2 mb-2 text-warning">
+              <i class="bi bi-box-seam-fill fs-3 text-warning"></i>
+              <h5 class="fw-bold mb-0 text-dark">Dependencies Ecosystem</h5>
+            </div>
+            <p class="text-muted small flex-grow-1">
+              Check all packages from <code>package.json</code> (<code>@keshavsoft/json-to-dom</code>, <code>json-renderers-build-table-events</code>, <code>json-renderers-guard</code>, <code>json-renderers-run-instructions</code>, <code>spec-repo</code>) with their stories, live docs, and GitHub links.
+            </p>
+            <a href="./pages/dependencies.html" class="btn btn-sm btn-outline-dark mt-2">
+              Explore Dependencies &rarr;
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -302,10 +429,12 @@ hookEvents({
   <!-- Footer -->
   <footer class="text-center py-4 text-muted small border-top bg-white">
     <div class="container">
-      &copy; 2026 <a href="https://github.com/keshavsoft" class="text-decoration-none text-muted fw-semibold">KeshavSoft</a>. Released under the MIT License.
+      &copy; KeshavSoft &bull; <a href="https://github.com/keshavsoft/json-renderers-build-table" class="text-decoration-none" target="_blank">json-renderers-build-table</a>
+      &bull; <a href="https://keshavsoft.github.io/json-renderers-build-table/" target="_blank">Live GitHub Pages</a>
+      &bull; <a href="https://www.npmjs.com/package/json-renderers-build-table" target="_blank">npm Package</a>
     </div>
   </footer>
-  <!-- Bootstrap Bundle JS -->
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

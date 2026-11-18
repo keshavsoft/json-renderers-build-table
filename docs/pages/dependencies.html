@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dependencies Ecosystem • json-renderers-build-table</title>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <style>
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --bg-page: #f8fafc;
+      --border-color: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --code-bg: #0f172a;
+      --code-text: #e2e8f0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-top: 72px;
+    }
+
+    code, pre, .font-mono {
+      font-family: var(--font-mono) !important;
+    }
+
+    .navbar-glass {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .hero-section {
+      padding: 3rem 0 2rem;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-page) 100%);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .code-box {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: 8px;
+      padding: 1.25rem;
+      font-size: 0.875rem;
+      overflow-x: auto;
+    }
+
+    .card-dep-story {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-dep-story:hover {
+      border-color: var(--primary);
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.08);
+    }
+
+    .badge-story {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Fixed Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-glass">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../index.html">
+        <i class="bi bi-table text-primary fs-4"></i>
+        <span>json-renderers-build-table</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">The Story</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./methods.html">Table Methods</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./examples.html">Examples</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active fw-semibold text-primary" href="./dependencies.html">Dependencies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../cdn.html">CDN Links</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../v55/withFooter/">Live Demo</a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a href="https://github.com/keshavsoft/json-renderers-build-table" class="btn btn-dark btn-sm d-flex align-items-center gap-1" target="_blank">
+              <i class="bi bi-github"></i>
+              <span>GitHub</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section text-center">
+    <div class="container">
+      <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-light border mb-3">
+        <span class="badge bg-primary">package.json Ecosystem</span>
+        <span class="small text-muted">Modular Decoupled Dependencies</span>
+      </div>
+
+      <h1 class="display-5 fw-extrabold mb-3 text-dark">
+        Dependencies & Stories
+      </h1>
+
+      <p class="lead text-muted mx-auto mb-4" style="max-width: 760px;">
+        Each package in <code>package.json</code> solves a distinct responsibility. Discover the story behind each dependency, why it exists, and access live documentation and GitHub source links.
+      </p>
+
+      <div class="d-flex justify-content-center gap-2 flex-wrap">
+        <a href="#dep-json-to-dom" class="btn btn-sm btn-outline-secondary">@keshavsoft/json-to-dom</a>
+        <a href="#dep-events" class="btn btn-sm btn-outline-secondary">json-renderers-build-table-events</a>
+        <a href="#dep-guard" class="btn btn-sm btn-outline-secondary">json-renderers-guard</a>
+        <a href="#dep-run-instructions" class="btn btn-sm btn-outline-secondary">json-renderers-run-instructions</a>
+        <a href="#dep-spec-repo" class="btn btn-sm btn-outline-secondary">spec-repo</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container py-5" style="max-width: 960px;">
+
+    <!-- 1. @keshavsoft/json-to-dom -->
+    <div class="card-dep-story" id="dep-json-to-dom">
+      <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
+        <div>
+          <span class="badge-story bg-primary-subtle text-primary mb-2 d-inline-block">DOM Hydration & Mount</span>
+          <h3 class="fw-bold mb-1">@keshavsoft/json-to-dom</h3>
+          <span class="text-muted small">package.json: <code>^42.1.5</code></span>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+          <a href="https://keshavsoft.github.io/keshavsoft-json-to-dom/" target="_blank" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-globe me-1"></i>Live Page / Docs
+          </a>
+          <a href="https://github.com/keshavsoft/json-to-dom" target="_blank" class="btn btn-sm btn-outline-dark">
+            <i class="bi bi-github me-1"></i>GitHub Repo
+          </a>
+          <a href="https://www.npmjs.com/package/@keshavsoft/json-to-dom" target="_blank" class="btn btn-sm btn-outline-danger">
+            <i class="bi bi-box-seam me-1"></i>npm Package
+          </a>
+        </div>
+      </div>
+
+      <h5 class="fw-semibold text-secondary">The Story: Why It Exists</h5>
+      <p>
+        Building DOM elements using <code>innerHTML += `...`</code> creates severe security vulnerabilities (XSS), destroys event listeners, and causes frequent layout thrashing. Alternatively, writing 50 lines of imperative <code>document.createElement</code>, <code>setAttribute</code>, and <code>appendChild</code> leads to unmaintainable spaghetti code.
+      </p>
+      <p>
+        <strong>@keshavsoft/json-to-dom</strong> was extracted to be the sole consumer of AST specifications. It takes an immutable JSON description (e.g. <code>{ tagName: "table", attributes: {...}, children: [...] }</code>) and cleanly materializes real browser DOM elements using high-performance native APIs in a single batch pass.
+      </p>
+
+      <div class="code-box">
+<pre><code class="language-javascript">import jsonToDom from "@keshavsoft/json-to-dom";
+
+// Materializes JSON AST into live DOM nodes without innerHTML risks
+const dom = jsonToDom({
+  jsonSpec: tableAST,
+  targetHtmlId: "dom-render-container",
+  appendPosition: "replace"
+});</code></pre>
+      </div>
+    </div>
+
+    <!-- 2. json-renderers-build-table-events -->
+    <div class="card-dep-story" id="dep-events">
+      <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
+        <div>
+          <span class="badge-story bg-warning-subtle text-warning-emphasis mb-2 d-inline-block">Container Event Delegation</span>
+          <h3 class="fw-bold mb-1">json-renderers-build-table-events</h3>
+          <span class="text-muted small">package.json: <code>^1.2.2</code></span>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+          <a href="https://keshavsoft.github.io/json-renderers-build-table-events/" target="_blank" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-globe me-1"></i>Live Page / Docs
+          </a>
+          <a href="https://github.com/keshavsoft/json-renderers-build-table-events" target="_blank" class="btn btn-sm btn-outline-dark">
+            <i class="bi bi-github me-1"></i>GitHub Repo
+          </a>
+          <a href="https://www.npmjs.com/package/json-renderers-build-table-events" target="_blank" class="btn btn-sm btn-outline-danger">
+            <i class="bi bi-box-seam me-1"></i>npm Package
+          </a>
+        </div>
+      </div>
+
+      <h5 class="fw-semibold text-secondary">The Story: Why It Exists</h5>
+      <p>
+        In traditional component libraries, event handlers like <code>onSearch</code> or <code>onRowClick</code> are directly bound to table elements during render time. When a user filters a search input, re-rendering the table destroys the input element, instantly blurring the focus and resetting the cursor!
+      </p>
+      <p>
+        <strong>json-renderers-build-table-events</strong> solves this by pulling all event delegation into a decoupled, top-level listener on the container. Driven by declarative <code>bindings.json</code> and DOM traversal rules, it intercepts events as they bubble up. When filtering, it repaints <em>only</em> the inner <code>tbody</code> rows, leaving the search input, headers, and keyboard focus 100% undisturbed.
+      </p>
+
+      <div class="code-box">
+<pre><code class="language-javascript">import { hookTableEvents } from "json-renderers-build-table-events";
+
+hookTableEvents({
+  container: "table-container",
+  dataset: records,
+  columns: columns,
+  onSearch: (query, filtered) => console.log("Filtering:", query),
+  onRowClick: (record) => console.log("Selected row:", record),
+  onSave: (newRecord) => console.log("Footer save:", newRecord)
+});</code></pre>
+      </div>
+    </div>
+
+    <!-- 3. json-renderers-guard -->
+    <div class="card-dep-story" id="dep-guard">
+      <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
+        <div>
+          <span class="badge-story bg-danger-subtle text-danger mb-2 d-inline-block">Defensive Schema Validation</span>
+          <h3 class="fw-bold mb-1">json-renderers-guard</h3>
+          <span class="text-muted small">package.json: <code>^1.5.3</code></span>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+          <a href="https://keshavsoft.github.io/json-renderers-guard/" target="_blank" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-globe me-1"></i>Live Page / Docs
+          </a>
+          <a href="https://github.com/keshavsoft/json-renderers-guard" target="_blank" class="btn btn-sm btn-outline-dark">
+            <i class="bi bi-github me-1"></i>GitHub Repo
+          </a>
+          <a href="https://www.npmjs.com/package/json-renderers-guard" target="_blank" class="btn btn-sm btn-outline-danger">
+            <i class="bi bi-box-seam me-1"></i>npm Package
+          </a>
+        </div>
+      </div>
+
+      <h5 class="fw-semibold text-secondary">The Story: Why It Exists</h5>
+      <p>
+        Silent runtime failures are the enemy of resilient front-end apps. Passing an <code>undefined</code> data object, missing column definitions, or an empty container ID deep inside an AST pipeline causes cryptic errors like <code>Cannot read properties of undefined (reading 'map')</code>.
+      </p>
+      <p>
+        <strong>json-renderers-guard</strong> provides a fast, zero-dependency contract validation checkpoint. It validates incoming parameters at the gate and throws human-readable, actionable errors before any instruction dispatch begins.
+      </p>
+
+      <div class="code-box">
+<pre><code class="language-javascript">import guardFunc from "json-renderers-guard";
+
+// Validates container ID, columns array, and dataset structure
+guardFunc({
+  targetHtmlId: "dom-render-container",
+  columns: columns,
+  data: dataset
+});</code></pre>
+      </div>
+    </div>
+
+    <!-- 4. json-renderers-run-instructions -->
+    <div class="card-dep-story" id="dep-run-instructions">
+      <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
+        <div>
+          <span class="badge-story bg-success-subtle text-success mb-2 d-inline-block">Universal Instruction Runner</span>
+          <h3 class="fw-bold mb-1">json-renderers-run-instructions</h3>
+          <span class="text-muted small">package.json: <code>^1.9.4</code></span>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+          <a href="https://keshavsoft.github.io/json-renderers-run-instructions/" target="_blank" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-globe me-1"></i>Live Page / Docs
+          </a>
+          <a href="https://github.com/keshavsoft/json-renderers-run-instructions" target="_blank" class="btn btn-sm btn-outline-dark">
+            <i class="bi bi-github me-1"></i>GitHub Repo
+          </a>
+          <a href="https://www.npmjs.com/package/json-renderers-run-instructions" target="_blank" class="btn btn-sm btn-outline-danger">
+            <i class="bi bi-box-seam me-1"></i>npm Package
+          </a>
+        </div>
+      </div>
+
+      <h5 class="fw-semibold text-secondary">The Story: Why It Exists</h5>
+      <p>
+        Transforming raw datasets into component structures requires multidimensional traversals: 1D (mapping columns into table header cells) and 2D (iterating rows over columns to populate table body cells). Originally, this iteration logic was hardcoded inside the table builder.
+      </p>
+      <p>
+        <strong>json-renderers-run-instructions</strong> extracted this transformation mechanism into a pure, deterministic engine. It knows nothing about HTML, DOM, or CSS. It reads declarative instruction sets (<code>single</code>, <code>rowOnColumn</code>, <code>columnOnRow</code>) and executes JSONPath injections into template blueprints with extreme speed.
+      </p>
+
+      <div class="code-box">
+<pre><code class="language-javascript">import runInstructions from "json-renderers-run-instructions";
+
+// Pure AST transformation: Zero DOM, 100% data transformation
+const spec = runInstructions({
+  instructionMainKey: "table",
+  instructionSubKey: "withFooter",
+  data: { data: dataset, columns: columns },
+  options: { showSerial: true }
+});</code></pre>
+      </div>
+    </div>
+
+    <!-- 5. spec-repo -->
+    <div class="card-dep-story" id="dep-spec-repo">
+      <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
+        <div>
+          <span class="badge-story bg-info-subtle text-info-emphasis mb-2 d-inline-block">Declarative Schema Repository</span>
+          <h3 class="fw-bold mb-1">spec-repo</h3>
+          <span class="text-muted small">package.json: <code>^1.17.2</code></span>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+          <a href="https://keshavsoft.github.io/spec-repo/" target="_blank" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-globe me-1"></i>Live Page / Docs
+          </a>
+          <a href="https://github.com/keshavsoft/spec-repo" target="_blank" class="btn btn-sm btn-outline-dark">
+            <i class="bi bi-github me-1"></i>GitHub Repo
+          </a>
+          <a href="https://www.npmjs.com/package/spec-repo" target="_blank" class="btn btn-sm btn-outline-danger">
+            <i class="bi bi-box-seam me-1"></i>npm Package
+          </a>
+        </div>
+      </div>
+
+      <h5 class="fw-semibold text-secondary">The Story: Why It Exists</h5>
+      <p>
+        Hardcoding HTML templates or JSON schema blueprints inside JavaScript libraries prevents reusable UI design systems and creates version fragmentation.
+      </p>
+      <p>
+        <strong>spec-repo</strong> serves as the centralized, immutable repository of component definitions, base templates, tags, and instruction recipes. It contains recipes for tables (<code>simple</code>, <code>withFooter</code>, <code>headerOnly</code>, <code>bodyOnly</code>, <code>footerOnly</code>), forms, and lists, allowing components to evolve their markup independently from their runtime engines.
+      </p>
+
+      <div class="code-box">
+<pre><code class="language-javascript">import { definitions, spec, instructions } from "spec-repo";
+
+// Access centralized table definitions and base AST templates
+console.log(definitions.table); 
+// { simple: {...}, withFooter: {...}, headerOnly: {...}, bodyOnly: {...}, footerOnly: {...} }</code></pre>
+      </div>
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
+      <a href="./methods.html" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i> Table Methods
+      </a>
+      <a href="./examples.html" class="btn btn-primary">
+        Table Examples <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="text-center py-4 text-muted small border-top bg-white">
+    <div class="container">
+      &copy; KeshavSoft &bull; <a href="https://github.com/keshavsoft/json-renderers-build-table" class="text-decoration-none" target="_blank">json-renderers-build-table</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
