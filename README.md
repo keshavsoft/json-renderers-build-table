@@ -2,6 +2,11 @@
 
 > **Declarative HTML Table Specification Builder Driven by Structured JSON Data & Columns.**
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-success.svg?logo=github)](https://keshavsoft.github.io/json-renderers-build-table/)
+[![npm version](https://img.shields.io/npm/v/json-renderers-build-table.svg?color=cb3837&logo=npm)](https://www.npmjs.com/package/json-renderers-build-table)
+[![npm downloads](https://img.shields.io/npm/dm/json-renderers-build-table.svg?color=2563eb)](https://www.npmjs.com/package/json-renderers-build-table)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
 `json-renderers-build-table` is a pure, single-responsibility library that stamps out semantic HTML tables into the DOM from declarative configuration. Zero imperative loops. Zero hardcoded markup.
 
 ---
