@@ -1,7 +1,7 @@
 import columns from "./columns.json" with { type: "json" };
 import data from "./data.json" with { type: "json" };
 import "../../../../../../docs/dist/v57/min.js";
-import { bindTableEvents } from "../../../../../../../dom-table-events-search/src/v2/index.js";
+// import { bindTableEvents } from "../../../../../../../dom-table-events-search/src/v2/index.js";
 
 const start = () => {
     try {
@@ -24,9 +24,9 @@ const start = () => {
         });
 
         // 2. Bind search events (self-contained: table discovery, drill down & surgical tbody repainting)
-        bindTableEvents({
+        window.ks.domEvents.table.bindTableEvents({
             container: "dom-render-container",
-            dataset: [...data],
+            data,
             columns,
             options: { serial: true }
         });
