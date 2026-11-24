@@ -1,0 +1,14 @@
+[
+  {
+    "columnName": "ItemName"
+  },
+  {
+    "columnName": "Category"
+  },
+  {
+    "columnName": "BaseUnit"
+  },
+  {
+    "columnName": "Price"
+  }
+]
