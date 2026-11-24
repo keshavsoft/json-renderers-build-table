@@ -47,6 +47,7 @@ const normalizeOptions = (options) => {
 };
 
 const render = (config = {}) => {
+    console.log("config : ", config);
     guardFunc(config);
     const showLog = config?.showLog;
     const parts = (config.type || "").split(".");
@@ -61,6 +62,7 @@ const render = (config = {}) => {
         options,
         showLog
     });
+    console.log("spec : ", spec);
 
     const dom = jsonToDom({
         jsonSpec: spec,

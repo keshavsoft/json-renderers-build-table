@@ -11,5 +11,7 @@ render({
         search: { showLabel: true, showHelper: true, showInput: true },
         serial: true,
         options: { showButton: true, showEditButton: true, showDeleteButton: true }
-    }
+    },
+    appendPosition: "replace",
+    classToApply: ""
 });

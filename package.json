@@ -18,7 +18,7 @@
     "@keshavsoft/json-to-dom": "^42.1.5",
     "json-renderers-build-table-events": "^1.2.2",
     "json-renderers-guard": "^1.5.3",
-    "json-renderers-run-instructions": "^1.14.1",
+    "json-renderers-run-instructions": "^1.15.2",
     "spec-repo": "^1.19.2"
   }
 }
