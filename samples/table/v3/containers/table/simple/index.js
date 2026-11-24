@@ -1,7 +1,5 @@
 import columns from "./columns.json" with { type: "json" };
 import data from "./data.json" with { type: "json" };
-import "../../../../../../docs/dist/v57/min.js";
-// import { bindTableEvents } from "../../../../../../../dom-table-events-search/src/v2/index.js";
 
 const start = () => {
     try {

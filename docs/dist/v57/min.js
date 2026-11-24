@@ -266,7 +266,14 @@ var m = {
 		bodyOnly: {
 			baseFromSpec: "tableBodyOnly",
 			instructions: ["buildBody"],
-			options: { serial: { showSerial: "serialChild" } }
+			options: {
+				serial: { showSerial: "serialChild" },
+				options: {
+					showButton: "optionsShowButton",
+					showEditButton: "optionsEditButton",
+					showDeleteButton: "optionsDeleteButton"
+				}
+			}
 		}
 	},
 	select: { simple: {
@@ -3068,7 +3075,14 @@ var xt = {
 		bodyOnly: {
 			baseFromSpec: "tableBodyOnly",
 			instructions: ["buildBody"],
-			options: { serial: { showSerial: "serialChild" } }
+			options: {
+				serial: { showSerial: "serialChild" },
+				options: {
+					showButton: "optionsShowButton",
+					showEditButton: "optionsEditButton",
+					showDeleteButton: "optionsDeleteButton"
+				}
+			}
 		}
 	},
 	select: { simple: {
@@ -4572,7 +4586,14 @@ var S = {
 		bodyOnly: {
 			baseFromSpec: "tableBodyOnly",
 			instructions: ["buildBody"],
-			options: { serial: { showSerial: "serialChild" } }
+			options: {
+				serial: { showSerial: "serialChild" },
+				options: {
+					showButton: "optionsShowButton",
+					showEditButton: "optionsEditButton",
+					showDeleteButton: "optionsDeleteButton"
+				}
+			}
 		}
 	},
 	select: { simple: {
@@ -10209,7 +10230,14 @@ var ri = {
 		bodyOnly: {
 			baseFromSpec: "tableBodyOnly",
 			instructions: ["buildBody"],
-			options: { serial: { showSerial: "serialChild" } }
+			options: {
+				serial: { showSerial: "serialChild" },
+				options: {
+					showButton: "optionsShowButton",
+					showEditButton: "optionsEditButton",
+					showDeleteButton: "optionsDeleteButton"
+				}
+			}
 		}
 	},
 	select: { simple: {
