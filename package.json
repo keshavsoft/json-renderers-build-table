@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@keshavsoft/json-to-dom": "^42.1.5",
-    "json-renderers-guard": "file:../json-renderers-guard",
-    "json-renderers-run-instructions": "^1.15.2"
+    "json-renderers-guard": "^1.6.3",
+    "json-renderers-run-instructions": "^1.20.1"
   }
 }
