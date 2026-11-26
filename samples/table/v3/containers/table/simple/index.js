@@ -5,7 +5,7 @@ const start = () => {
     try {
         // 1. Initial Render of the complete Table Simple
         window.ks.jsonRenderers.build.table.render({
-            type: "table.simple",
+            type: "table.simpleSortable",
             data,
             columns,
             options: {

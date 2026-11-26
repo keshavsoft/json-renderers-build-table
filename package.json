@@ -1,6 +1,6 @@
 {
   "name": "json-renderers-build-table",
-  "version": "1.58.1",
+  "version": "1.58.2",
   "description": "Focused table specification builder driven by declarative instructions and options",
   "type": "module",
   "main": "src/index.js",
@@ -17,6 +17,6 @@
   "dependencies": {
     "@keshavsoft/json-to-dom": "^42.1.5",
     "json-renderers-guard": "^1.6.3",
-    "json-renderers-run-instructions": "^1.20.1"
+    "json-renderers-run-instructions": "^1.20.3"
   }
 }
