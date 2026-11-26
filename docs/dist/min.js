@@ -2746,7 +2746,7 @@ var De = ({ jsonSpec: e, targetHtmlId: t, appendPosition: n, showLog: r }) => Ee
 	showLog: r
 });
 g(De);
-// src/v58/registerGlobal/meta.js
+// src/v59/registerGlobal/meta.js
 var Oe = {
 	name: "json-renderers-build-table",
 	version: "1.58.1"
@@ -7523,7 +7523,7 @@ var Dt = /* @__PURE__ */ new Set([
 	});
 };
 hr(gr);
-// src/v58/index.js
+// src/v59/index.js
 var _r = (e) => {
 	if (!e || typeof e != "object") return e;
 	let t = { ...e };
