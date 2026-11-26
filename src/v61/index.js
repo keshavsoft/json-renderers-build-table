@@ -5,7 +5,6 @@ import runInstructionsSteps from "json-renderers-run-instructions-steps";
 import declarativeSpec from "declarative-spec";
 
 import resolveOptionSteps from "./runOptions/index.js";
-import executeOptionSteps from "./runOptions/executeOptionSteps.js";
 
 const normalizeOptions = (options) => {
     if (!options || typeof options !== "object") return options;
@@ -74,17 +73,9 @@ const render = ({
     const stateData = { data, columns };
 
     const spec = runInstructionsSteps({
-        instructions: baseSteps,
+        instructions: [...baseSteps, ...optionsArray],
         base,
         data: stateData,
-        showLog
-    });
-
-    executeOptionSteps({
-        optionSteps: optionsArray,
-        instructions,
-        state: { base: spec, data: stateData },
-        spec: declarativeSpec,
         showLog
     });
 
