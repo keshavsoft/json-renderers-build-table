@@ -14,12 +14,12 @@ const start = () => {
                 showButton: true,
                 showEditButton: true,
                 showDeleteButton: true
-            }
+            },
+            showFooter: false
         };
 
         // 1. Initial Render of the complete Table With Footer
         window.ks.jsonRenderers.build.table.render({
-            type: "table.withFooter",
             data,
             columns,
             options,

@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "@keshavsoft/json-to-dom": "^42.1.5",
+    "declarative-spec": "^1.4.1",
     "json-renderers-guard": "^1.6.3",
-    "json-renderers-run-instructions": "^1.20.3"
+    "json-renderers-run-instructions-steps": "^1.8.5"
   }
 }
