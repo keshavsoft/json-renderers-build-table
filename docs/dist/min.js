@@ -7241,20 +7241,30 @@ var P = /* @__PURE__ */ new Set([
 }), t);
 Gn(Kn);
 // src/v59/index.js
-var qn = ({ data: e, columns: t, options: n, targetHtmlId: r, classToApply: i = "", appendPosition: a = "replace", showLog: o }) => (console.log("spec : ", b), me({
-	jsonSpec: Kn({
-		instructions: ["buildColgroup", "buildHeader"],
-		base: structuredClone(b?.tableWithFooter),
-		data: {
-			data: e,
-			columns: t
-		},
+var qn = ({ inShowFooter: e, inShowBody: t }) => {
+	let n = ["buildColgroup", "buildHeader"];
+	return t && n.push("buildBody"), e && n.push("buildFooter"), n;
+}, Jn = ({ data: e, columns: t, options: n, targetHtmlId: r, classToApply: i = "", appendPosition: a = "replace", showLog: o }) => {
+	console.log("spec : ", b);
+	let s = structuredClone(b?.tableWithFooter);
+	return me({
+		jsonSpec: Kn({
+			instructions: qn({
+				inShowFooter: n?.showFooter,
+				inShowBody: n?.showBody
+			}),
+			base: s,
+			data: {
+				data: e,
+				columns: t
+			},
+			showLog: o
+		}),
+		targetHtmlId: r,
+		appendPosition: a,
+		classToApply: i,
 		showLog: o
-	}),
-	targetHtmlId: r,
-	appendPosition: a,
-	classToApply: i,
-	showLog: o
-}));
-ge(qn);
-export { qn as default, qn as render };
+	});
+};
+ge(Jn);
+export { Jn as default, Jn as render };

@@ -15,7 +15,8 @@ const start = () => {
                 showEditButton: true,
                 showDeleteButton: true
             },
-            showFooter: false
+            showFooter: true,
+            showBody: true
         };
 
         // 1. Initial Render of the complete Table With Footer

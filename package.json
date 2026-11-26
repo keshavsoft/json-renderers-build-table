@@ -1,6 +1,6 @@
 {
   "name": "json-renderers-build-table",
-  "version": "1.58.2",
+  "version": "1.60.1",
   "description": "Focused table specification builder driven by declarative instructions and options",
   "type": "module",
   "main": "src/index.js",

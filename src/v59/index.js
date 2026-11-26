@@ -3,6 +3,20 @@ import registerGlobal from "./registerGlobal/index.js";
 import runInstructionsSteps from "json-renderers-run-instructions-steps";
 import declarativeSpec from "declarative-spec";
 
+const localBuildInstructions = ({ inShowFooter, inShowBody }) => {
+    let instructions = ["buildColgroup", "buildHeader"];
+
+    if (inShowBody) {
+        instructions.push("buildBody");
+    };
+
+    if (inShowFooter) {
+        instructions.push("buildFooter");
+    };
+
+    return instructions;
+};
+
 const render = ({
     data,
     columns,
@@ -12,12 +26,13 @@ const render = ({
     appendPosition = "replace",
     showLog
 }) => {
-    console.log("spec : ", declarativeSpec);
-
     const base = structuredClone(declarativeSpec?.tableWithFooter);
-
+    const instructions = localBuildInstructions({
+        inShowFooter: options?.showFooter,
+        inShowBody: options?.showBody
+    });
     const spec = runInstructionsSteps({
-        instructions: ["buildColgroup", "buildHeader"],
+        instructions,
         base,
         data: { data, columns },
         showLog
@@ -37,4 +52,5 @@ const render = ({
 registerGlobal(render);
 
 export { render };
+
 export default render;

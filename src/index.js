@@ -1,3 +1,3 @@
-export * from "./v59/index.js";
+export * from "./v60/index.js";
 
-export { default } from "./v59/index.js";
+export { default } from "./v60/index.js";
