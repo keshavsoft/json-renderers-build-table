@@ -1,6 +1,6 @@
 import columns from "./columns.json" with { type: "json" };
 import data from "./data.json" with { type: "json" };
-import { render } from "../../../docs/dist/v58/min.js";
+import { render } from "../../../docs/dist/v63/min.js";
 
 render({
     data,

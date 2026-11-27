@@ -20,15 +20,6 @@ const start = () => {
             classToApply: "",
             appendPosition: "replace"
         });
-
-        // 2. Bind search events (self-contained: table discovery, drill down & surgical tbody repainting)
-        window.ks.domEvents.table.bindTableEvents({
-            container: "dom-render-container",
-            data,
-            columns,
-            options: { serial: true }
-        });
-
     } catch (err) {
         console.error("Error in table.simple:", err);
     }
